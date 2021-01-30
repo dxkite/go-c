@@ -7,7 +7,6 @@ type Type int
 const (
 	ILLEGAL Type = iota
 	EOF
-	NUMBER // pp-number
 	INT    // int number
 	FLOAT  //  float number
 	IDENT
