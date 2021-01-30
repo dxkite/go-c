@@ -44,6 +44,17 @@ func Test_scanner_next(t *testing.T) {
 	}
 }
 
+func exists(name string) bool {
+	_, err := os.Stat(name)
+	if err == nil {
+		return true
+	}
+	if os.IsNotExist(err) {
+		return false
+	}
+	return false
+}
+
 func saveJson(filename string, tks []token.Token) error {
 	buf := &bytes.Buffer{}
 	je := json.NewEncoder(buf)
@@ -78,10 +89,12 @@ func TestScanFile(t *testing.T) {
 					t.Errorf("ScanFile() error = %v", err)
 					return
 				}
-				//if err := saveJson(p + ".json", got); err != nil {
-				//	t.Errorf("saveJson error = %v", err)
-				//	return
-				//}
+				if !exists(p + ".json") {
+					if err := saveJson(p + ".json", got); err != nil {
+						t.Errorf("saveJson error = %v", err)
+						return
+					}
+				}
 				want, err := loadJson(p + ".json")
 				if err != nil {
 					t.Errorf("loadJson() error = %v", err)

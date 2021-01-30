@@ -492,6 +492,10 @@ func Scan(filename string, r io.Reader) ([]token.Token, error) {
 		if tok.Type == token.EOF {
 			break
 		}
+		if i := len(tks) -1 ;
+			tok.Type == token.WHITESPACE && i >= 0 && tks[i].Type == token.WHITESPACE {
+			continue
+		}
 		tks = append(tks, tok)
 	}
 	var err error
