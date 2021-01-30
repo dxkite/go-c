@@ -12,7 +12,7 @@ import (
 )
 
 type Scanner interface {
-	Scan() (t token.Token)
+	Scan() (t *token.Token)
 	Error() error
 }
 
@@ -139,8 +139,8 @@ func (s *scanner) error(p token.Position, msg string) {
 	s.err.Add(p, msg)
 }
 
-func (s *scanner) Scan() (t token.Token) {
-	t = token.Token{}
+func (s *scanner) Scan() (t *token.Token) {
+	t = &token.Token{}
 	t.Position = s.curPos()
 	t.Type = token.ILLEGAL
 	switch ch := s.ch; {
@@ -515,9 +515,9 @@ func (s *scanner) nextIsPunctuator() (string, int, bool) {
 	return "", 0, false
 }
 
-func Scan(filename string, r io.Reader) ([]token.Token, error) {
+func Scan(filename string, r io.Reader) ([]*token.Token, error) {
 	s := NewScan(filename, r)
-	tks := []token.Token{}
+	tks := []*token.Token{}
 	for {
 		tok := s.Scan()
 		if tok.Type == token.EOF {
@@ -531,11 +531,11 @@ func Scan(filename string, r io.Reader) ([]token.Token, error) {
 	return tks, s.Error()
 }
 
-func ScanString(code string) ([]token.Token, error) {
-	return Scan("", bytes.NewBufferString(code))
+func ScanString(name, code string) ([]*token.Token, error) {
+	return Scan(name, bytes.NewBufferString(code))
 }
 
-func ScanFile(filename string) ([]token.Token, error) {
+func ScanFile(filename string) ([]*token.Token, error) {
 	f, er := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
 	if er != nil {
 		return nil, er

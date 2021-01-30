@@ -55,7 +55,7 @@ func exists(name string) bool {
 	return false
 }
 
-func saveJson(filename string, tks []token.Token) error {
+func saveJson(filename string, tks []*token.Token) error {
 	buf := &bytes.Buffer{}
 	je := json.NewEncoder(buf)
 	je.SetEscapeHTML(false)
@@ -66,12 +66,12 @@ func saveJson(filename string, tks []token.Token) error {
 	}
 }
 
-func loadJson(filename string) ([]token.Token, error) {
+func loadJson(filename string) ([]*token.Token, error) {
 	buf, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
-	tks := []token.Token{}
+	tks := []*token.Token{}
 	if err := json.Unmarshal(buf, &tks); err != nil {
 		return nil, err
 	} else {
@@ -132,7 +132,7 @@ func Test_scanner_scanQuote(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := ScanString(tt.code)
+			_, err := ScanString("", tt.code)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ScanString() error = %v, wantErr %v", err, tt.wantErr)
 				return
