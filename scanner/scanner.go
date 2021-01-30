@@ -188,8 +188,7 @@ func (s *scanner) Scan() (t *token.Token) {
 			s.next()
 			switch ch {
 			case -1:
-				t.Type = token.EOF
-				t.Lit = "<EOF>"
+				return nil
 			case '\n':
 				t.Type = token.NEWLINE
 				t.Lit = "\n"
@@ -520,7 +519,7 @@ func Scan(filename string, r io.Reader) ([]*token.Token, error) {
 	tks := []*token.Token{}
 	for {
 		tok := s.Scan()
-		if tok.Type == token.EOF {
+		if tok == nil {
 			break
 		}
 		if i := len(tks) - 1; tok.Type == token.WHITESPACE && i >= 0 && tks[i].Type == token.WHITESPACE {

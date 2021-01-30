@@ -3,8 +3,6 @@ package scanner
 import (
 	"bytes"
 	"dxkite.cn/go-c11/token"
-	"encoding/json"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -55,30 +53,6 @@ func exists(name string) bool {
 	return false
 }
 
-func saveJson(filename string, tks []*token.Token) error {
-	buf := &bytes.Buffer{}
-	je := json.NewEncoder(buf)
-	je.SetEscapeHTML(false)
-	if err := je.Encode(tks); err != nil {
-		return err
-	} else {
-		return ioutil.WriteFile(filename, buf.Bytes(), os.ModePerm)
-	}
-}
-
-func loadJson(filename string) ([]*token.Token, error) {
-	buf, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	tks := []*token.Token{}
-	if err := json.Unmarshal(buf, &tks); err != nil {
-		return nil, err
-	} else {
-		return tks, nil
-	}
-}
-
 func TestScanFile(t *testing.T) {
 	if err := filepath.Walk("testdata/", func(p string, info os.FileInfo, err error) error {
 		ext := filepath.Ext(p)
@@ -90,14 +64,14 @@ func TestScanFile(t *testing.T) {
 					return
 				}
 				if !exists(p + ".json") {
-					if err := saveJson(p+".json", got); err != nil {
-						t.Errorf("saveJson error = %v", err)
+					if err := token.SaveJson(p+".json", got); err != nil {
+						t.Errorf("SaveJson error = %v", err)
 						return
 					}
 				}
-				want, err := loadJson(p + ".json")
+				want, err := token.LoadJson(p + ".json")
 				if err != nil {
-					t.Errorf("loadJson() error = %v", err)
+					t.Errorf("LoadJson() error = %v", err)
 					return
 				}
 				if !reflect.DeepEqual(got, want) {
