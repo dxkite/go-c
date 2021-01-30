@@ -10,6 +10,17 @@ import (
 	"unicode/utf8"
 )
 
+type Scanner interface {
+	Scan() (t token.Token)
+	Error() error
+}
+
+func NewScan(filename string, r io.Reader) Scanner {
+	s := &scanner{}
+	s.init(filename, r)
+	return s
+}
+
 type scanner struct {
 	filename  string
 	r         *bufio.Reader
@@ -188,6 +199,14 @@ func (s *scanner) Scan() (t token.Token) {
 		}
 	}
 	return
+}
+
+func (s *scanner) Error() error {
+	var err error
+	if s.err.Len() > 0 {
+		err = s.err
+	}
+	return err
 }
 
 func isWhitespace(ch rune) bool {
@@ -484,25 +503,19 @@ func (s *scanner) nextIsPunctuator() (string, int, bool) {
 }
 
 func Scan(filename string, r io.Reader) ([]token.Token, error) {
-	s := &scanner{}
-	s.init(filename, r)
+	s := NewScan(filename, r)
 	tks := []token.Token{}
 	for {
 		tok := s.Scan()
 		if tok.Type == token.EOF {
 			break
 		}
-		if i := len(tks) -1 ;
-			tok.Type == token.WHITESPACE && i >= 0 && tks[i].Type == token.WHITESPACE {
+		if i := len(tks) - 1; tok.Type == token.WHITESPACE && i >= 0 && tks[i].Type == token.WHITESPACE {
 			continue
 		}
 		tks = append(tks, tok)
 	}
-	var err error
-	if s.err.Len() > 0 {
-		err = s.err
-	}
-	return tks, err
+	return tks, s.Error()
 }
 
 func ScanFile(filename string) ([]token.Token, error) {
