@@ -90,7 +90,7 @@ func TestScanFile(t *testing.T) {
 					return
 				}
 				if !exists(p + ".json") {
-					if err := saveJson(p + ".json", got); err != nil {
+					if err := saveJson(p+".json", got); err != nil {
 						t.Errorf("saveJson error = %v", err)
 						return
 					}
@@ -108,5 +108,35 @@ func TestScanFile(t *testing.T) {
 		return nil
 	}); err != nil {
 		t.Error(err)
+	}
+}
+
+func Test_scanner_scanQuote(t *testing.T) {
+	tests := []struct {
+		name    string
+		code    string
+		wantErr bool
+	}{
+		{
+			"success", `'1' '\123' '\x12' '\u1234' '\U12345678'`, false,
+		},
+		{
+			"error", `'12'`, true,
+		},
+		{
+			"error", `'\u12'`, true,
+		},
+		{
+			"error", `'\1234'`, true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := ScanString(tt.code)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ScanString() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
 	}
 }

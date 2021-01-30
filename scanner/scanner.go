@@ -2,6 +2,7 @@ package scanner
 
 import (
 	"bufio"
+	"bytes"
 	"dxkite.cn/go-c11/token"
 	"fmt"
 	"io"
@@ -297,6 +298,9 @@ func (s *scanner) scanQuote(name string, quote rune) string {
 		} else {
 			s.next()
 		}
+		if quote == '\'' {
+			break
+		}
 	}
 	if s.ch != quote {
 		s.error(s.curPos(), fmt.Sprintf("unclosed %s lit %c", name, quote))
@@ -318,16 +322,18 @@ func (s *scanner) scanEscape() bool {
 		n := 2
 		for n > 0 && isOct(s.ch) {
 			n--
+			s.next()
 		}
 	case 'x':
 		s.next()
-		n := 4
+		n := 2
 		for n > 0 {
 			if !isHex(s.ch) {
 				s.error(s.curPos(), fmt.Sprintf("unexpected %c in hex escape", s.ch))
 				return false
 			}
 			n--
+			s.next()
 		}
 	case 'u', 'U':
 		return s.scanUniversalEscape()
@@ -516,6 +522,10 @@ func Scan(filename string, r io.Reader) ([]token.Token, error) {
 		tks = append(tks, tok)
 	}
 	return tks, s.Error()
+}
+
+func ScanString(code string) ([]token.Token, error) {
+	return Scan("", bytes.NewBufferString(code))
 }
 
 func ScanFile(filename string) ([]token.Token, error) {
