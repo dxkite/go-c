@@ -114,3 +114,15 @@ func Test_scanner_scanQuote(t *testing.T) {
 		})
 	}
 }
+
+func Test_peekScanner_Peek(t *testing.T) {
+	s := NewStringScan("", "int float u'1' '\\123' '\\x12' '\\u1234' '\\U12345678'")
+	p := NewPeekScan(s)
+	pn := p.Peek(3)
+	for i , item := range pn {
+		r := p.Scan()
+		if !reflect.DeepEqual(item, r) {
+			t.Errorf("PeekScanError(%d): want %v got %v", i, item, r)
+		}
+	}
+}

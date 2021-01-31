@@ -16,11 +16,24 @@ type Scanner interface {
 	Error() error
 }
 
+type PeekScanner interface {
+	Scanner
+	Peek(offset int) []*token.Token
+	PeekOne() *token.Token
+}
+
 func NewScan(filename string, r io.Reader) Scanner {
 	s := &scanner{}
 	s.init(filename, r)
 	return s
 }
+
+func NewStringScan(filename string, code string) Scanner {
+	s := &scanner{}
+	s.init(filename, bytes.NewBufferString(code))
+	return s
+}
+
 
 type scanner struct {
 	filename  string
@@ -541,4 +554,85 @@ func ScanFile(filename string) ([]*token.Token, error) {
 	}
 	defer func() { _ = f.Close() }()
 	return Scan(filename, f)
+}
+
+type arrayScanner struct {
+	arr []*token.Token
+	off int
+}
+
+func NewArrayScan(tok []*token.Token) Scanner {
+	return &arrayScanner{
+		arr: tok,
+		off: 0,
+	}
+}
+
+func (a *arrayScanner) Scan() (t *token.Token) {
+	of := a.off
+	a.off++
+	if of < len(a.arr) {
+		return a.arr[of]
+	}
+	return nil
+}
+
+func (a *arrayScanner) Error() error {
+	return nil
+}
+
+type peekScanner struct {
+	c   []*token.Token
+	s   Scanner
+	off int
+}
+
+func NewPeekScan(s Scanner) PeekScanner {
+	return &peekScanner{
+		c:   []*token.Token{},
+		s:   s,
+		off: 0,
+	}
+}
+
+func (s *peekScanner) Scan() (t *token.Token) {
+	of := s.off
+	s.off++
+	if of < len(s.c) {
+		return s.c[of]
+	}
+	s.c = s.c[0:0]
+	s.off = 0
+	return s.s.Scan()
+}
+
+func (s *peekScanner) Peek(n int) (t []*token.Token) {
+	of := s.off
+	t = []*token.Token{}
+	lc := len(s.c)
+	for n > len(t) && of < lc {
+		t = append(t, s.c[of])
+		of++
+	}
+	for n > len(t) {
+		r := s.s.Scan()
+		if r == nil {
+			return
+		}
+		t = append(t, r)
+		s.c = append(s.c, r)
+	}
+	return
+}
+
+func (s *peekScanner)  PeekOne() *token.Token {
+	p := s.Peek(1)
+	if len(p) == 1 {
+		return p[0]
+	}
+	return nil
+}
+
+func (s *peekScanner) Error() error {
+	return s.s.Error()
 }
