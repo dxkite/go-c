@@ -34,7 +34,6 @@ func NewStringScan(filename string, code string) Scanner {
 	return s
 }
 
-
 type scanner struct {
 	filename  string
 	r         *bufio.Reader
@@ -488,23 +487,6 @@ func (s *scanner) scanNumberBase(base int) {
 	return
 }
 
-var ps = []string{
-	"...", ".", ",", "?", ":", ";",
-	"[", "]", "(", ")", "{", "}", "~",
-	"->", "--", "-=", "-",
-	"++", "+=", "+",
-	"&=", "&&", "&",
-	"*=", "*",
-	"!", "!=",
-	"==", "=",
-	"^=", "^",
-	"/=", "/",
-	"%=", "%:%:", "%:", "%",
-	"||", "|=", "|",
-	"<<=", ">>=", "<<", ">>", "<:", ":>", "<%", "%>", "<=", ">=", "<", ">",
-	"##", "#",
-}
-
 var mp = map[string]string{
 	"<:":   "[",
 	":>":   "]",
@@ -515,13 +497,27 @@ var mp = map[string]string{
 }
 
 func (s *scanner) nextIsPunctuator() (string, int, bool) {
-	for _, p := range ps {
-		if s.peekCN(string(s.ch), len(p)-1) == p {
-			l := len(p)
-			if v, ok := mp[p]; ok {
-				return v, l, true
+	tok := s.peekCN(string(s.ch), 3)
+	for i := len(tok); i > 0; i-- {
+		switch ch := tok[:i]; ch {
+		case "...", ".", ",", "?", ":", ";",
+			"[", "]", "(", ")", "{", "}", "~",
+			"->", "--", "-=", "-",
+			"++", "+=", "+",
+			"&=", "&&", "&",
+			"*=", "*",
+			"!", "!=",
+			"==", "=",
+			"^=", "^",
+			"/=", "/",
+			"%=", "%:%:", "%:", "%",
+			"||", "|=", "|",
+			"<<=", ">>=", "<<", ">>", "<:", ":>", "<%", "%>", "<=", ">=", "<", ">",
+			"##", "#":
+			if v, ok := mp[ch]; ok {
+				return v, i, true
 			}
-			return p, l, true
+			return ch, i, true
 		}
 	}
 	return "", 0, false
@@ -625,7 +621,7 @@ func (s *peekScanner) Peek(n int) (t []*token.Token) {
 	return
 }
 
-func (s *peekScanner)  PeekOne() *token.Token {
+func (s *peekScanner) PeekOne() *token.Token {
 	p := s.Peek(1)
 	if len(p) == 1 {
 		return p[0]
