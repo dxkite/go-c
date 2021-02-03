@@ -28,6 +28,7 @@ func SaveJson(filename string, tks []*Token) error {
 	buf := &bytes.Buffer{}
 	je := json.NewEncoder(buf)
 	je.SetEscapeHTML(false)
+	je.SetIndent("", "    ");
 	if err := je.Encode(tks); err != nil {
 		return err
 	} else {
