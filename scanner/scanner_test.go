@@ -119,10 +119,41 @@ func Test_peekScanner_Peek(t *testing.T) {
 	s := NewStringScan("", "int float u'1' '\\123' '\\x12' '\\u1234' '\\U12345678'")
 	p := NewPeekScan(s)
 	pn := p.Peek(3)
-	for i , item := range pn {
+	for i, item := range pn {
 		r := p.Scan()
 		if !reflect.DeepEqual(item, r) {
 			t.Errorf("PeekScanError(%d): want %v got %v", i, item, r)
+		}
+	}
+}
+
+func Test_multiScanner_Scan(t *testing.T) {
+	s1 := NewStringScan("s1", "int '")
+	s2 := NewStringScan("s2", "float u'1' a")
+	s3 := NewStringScan("s3", "abc=12")
+	s := NewMultiScanner(s2, s1)
+	p := NewPeekScan(s)
+	pn := p.Peek(4)
+
+	for i := 0; i < 2; i++ {
+		r := p.Scan()
+		if !reflect.DeepEqual(pn[i], r) {
+			t.Errorf("PeekScanError(%d): want %v got %v", i, pn[i], r)
+		}
+	}
+
+	ss := NewMultiScanner(p)
+	ss.Push(s3)
+
+	for i := 0; i < 3; i++ {
+		// scan abc=12
+		ss.Scan()
+	}
+
+	for i := 2; i < 4; i++ {
+		r := ss.Scan()
+		if !reflect.DeepEqual(pn[i], r) {
+			t.Errorf("PeekScanError(%d): want %v got %v", i, pn[i], r)
 		}
 	}
 }

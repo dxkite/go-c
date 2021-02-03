@@ -13,7 +13,7 @@ import (
 
 type Scanner interface {
 	Scan() (t *token.Token)
-	Error() error
+	Error() *ErrorList
 }
 
 type PeekScanner interface {
@@ -213,12 +213,8 @@ func (s *scanner) Scan() (t *token.Token) {
 	return
 }
 
-func (s *scanner) Error() error {
-	var err error
-	if s.err.Len() > 0 {
-		err = s.err
-	}
-	return err
+func (s *scanner) Error() *ErrorList {
+	return &s.err
 }
 
 func isWhitespace(ch rune) bool {
@@ -555,12 +551,14 @@ func ScanFile(filename string) ([]*token.Token, error) {
 type arrayScanner struct {
 	arr []*token.Token
 	off int
+	err ErrorList
 }
 
 func NewArrayScan(tok []*token.Token) Scanner {
 	return &arrayScanner{
 		arr: tok,
 		off: 0,
+		err: ErrorList{},
 	}
 }
 
@@ -573,8 +571,8 @@ func (a *arrayScanner) Scan() (t *token.Token) {
 	return nil
 }
 
-func (a *arrayScanner) Error() error {
-	return nil
+func (a *arrayScanner) Error() *ErrorList {
+	return &a.err
 }
 
 type peekScanner struct {
@@ -629,6 +627,54 @@ func (s *peekScanner) PeekOne() *token.Token {
 	return nil
 }
 
-func (s *peekScanner) Error() error {
+func (s *peekScanner) Error() *ErrorList {
 	return s.s.Error()
+}
+
+type MultiScanner interface {
+	Scanner
+	Push(s Scanner)
+}
+
+type multiScanner struct {
+	s   []Scanner
+	cur int
+}
+
+func NewMultiScanner(s ...Scanner) MultiScanner {
+	return &multiScanner{
+		s:   s,
+		cur: len(s) - 1,
+	}
+}
+
+func (ms *multiScanner) Scan() (t *token.Token) {
+	for ms.cur >= 0 {
+		t = ms.s[ms.cur].Scan()
+		if t != nil {
+			return
+		}
+
+		if ms.cur > 0 {
+			err := ms.s[ms.cur].Error()
+			ms.cur--
+			ms.s[ms.cur].Error().Merge(*err)
+		} else {
+			ms.cur--
+		}
+	}
+	return
+}
+
+func (ms *multiScanner) Push(s Scanner) {
+	ms.cur++
+	if ms.cur >= len(ms.s) {
+		ms.s = append(ms.s, s)
+	} else {
+		ms.s[ms.cur] = s
+	}
+}
+
+func (ms *multiScanner) Error() *ErrorList {
+	return ms.s[ms.cur].Error()
 }
