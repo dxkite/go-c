@@ -644,7 +644,7 @@ type multiScanner struct {
 	cur int
 }
 
-func NewMultiScanner(s ...Scanner) MultiScanner {
+func NewMultiScan(s ...Scanner) MultiScanner {
 	return &multiScanner{
 		s:   s,
 		cur: len(s) - 1,

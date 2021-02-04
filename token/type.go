@@ -7,8 +7,8 @@ type Type int
 const (
 	ILLEGAL Type = iota
 	EOF
-	INT    // int number
-	FLOAT  //  float number
+	INT   // int number
+	FLOAT //  float number
 	IDENT
 	CHAR
 	STRING

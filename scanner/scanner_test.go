@@ -131,7 +131,7 @@ func Test_multiScanner_Scan(t *testing.T) {
 	s1 := NewStringScan("s1", "int '")
 	s2 := NewStringScan("s2", "float u'1' a")
 	s3 := NewStringScan("s3", "abc=12")
-	s := NewMultiScanner(s2, s1)
+	s := NewMultiScan(s2, s1)
 	p := NewPeekScan(s)
 	pn := p.Peek(4)
 
@@ -142,7 +142,7 @@ func Test_multiScanner_Scan(t *testing.T) {
 		}
 	}
 
-	ss := NewMultiScanner(p)
+	ss := NewMultiScan(p)
 	ss.Push(s3)
 
 	for i := 0; i < 3; i++ {
