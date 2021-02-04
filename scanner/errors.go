@@ -41,7 +41,7 @@ func (p ErrorList) Less(i, j int) bool {
 	if p[i].Pos.Filename != p[j].Pos.Filename {
 		return len(p[i].Pos.Filename) < len(p[j].Pos.Filename)
 	}
-	return p[i].Pos.Offset < p[j].Pos.Offset
+	return p[i].Pos.Column < p[j].Pos.Column
 }
 
 // 排序输出

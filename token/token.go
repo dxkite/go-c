@@ -13,8 +13,6 @@ type Position struct {
 	Filename string
 	// 行,列
 	Line, Column int
-	// 完整偏移量
-	Offset int
 }
 
 // token
@@ -28,7 +26,7 @@ func SaveJson(filename string, tks []*Token) error {
 	buf := &bytes.Buffer{}
 	je := json.NewEncoder(buf)
 	je.SetEscapeHTML(false)
-	je.SetIndent("", "    ");
+	je.SetIndent("", "    ")
 	if err := je.Encode(tks); err != nil {
 		return err
 	} else {

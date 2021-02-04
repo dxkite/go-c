@@ -141,7 +141,6 @@ func (s *scanner) peekCN(ch string, n int) string {
 func (s *scanner) curPos() token.Position {
 	return token.Position{
 		Filename: s.filename,
-		Offset:   s.offset,
 		Line:     s.line,
 		Column:   s.col,
 	}
@@ -532,7 +531,11 @@ func Scan(filename string, r io.Reader) ([]*token.Token, error) {
 		}
 		tks = append(tks, tok)
 	}
-	return tks, s.Error()
+	var err error
+	if s.Error().Len() > 0 {
+		err = s.Error()
+	}
+	return tks, err
 }
 
 func ScanString(name, code string) ([]*token.Token, error) {

@@ -3,8 +3,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 1,
-            "Offset": 0
+            "Column": 1
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -13,8 +12,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 2,
-            "Offset": 1
+            "Column": 2
         },
         "Type": "IDENT",
         "Lit": "include"
@@ -23,8 +21,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 9,
-            "Offset": 8
+            "Column": 9
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -33,8 +30,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 10,
-            "Offset": 9
+            "Column": 10
         },
         "Type": "PUNCTUATOR",
         "Lit": "<"
@@ -43,8 +39,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 11,
-            "Offset": 10
+            "Column": 11
         },
         "Type": "IDENT",
         "Lit": "stdio"
@@ -53,8 +48,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 16,
-            "Offset": 15
+            "Column": 16
         },
         "Type": "PUNCTUATOR",
         "Lit": "."
@@ -63,8 +57,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 17,
-            "Offset": 16
+            "Column": 17
         },
         "Type": "IDENT",
         "Lit": "h"
@@ -73,8 +66,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 18,
-            "Offset": 17
+            "Column": 18
         },
         "Type": "PUNCTUATOR",
         "Lit": ">"
@@ -83,8 +75,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
-            "Column": 19,
-            "Offset": 18
+            "Column": 19
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -93,8 +84,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
-            "Column": 1,
-            "Offset": 20
+            "Column": 1
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -103,8 +93,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
-            "Column": 2,
-            "Offset": 21
+            "Column": 2
         },
         "Type": "IDENT",
         "Lit": "include"
@@ -113,8 +102,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
-            "Column": 9,
-            "Offset": 28
+            "Column": 9
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -123,8 +111,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
-            "Column": 10,
-            "Offset": 29
+            "Column": 10
         },
         "Type": "STRING",
         "Lit": "\"stdio.h\""
@@ -133,8 +120,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
-            "Column": 19,
-            "Offset": 38
+            "Column": 19
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -143,8 +129,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 1,
-            "Offset": 40
+            "Column": 1
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -153,8 +138,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 2,
-            "Offset": 41
+            "Column": 2
         },
         "Type": "IDENT",
         "Lit": "define"
@@ -163,8 +147,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 8,
-            "Offset": 47
+            "Column": 8
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -173,8 +156,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 9,
-            "Offset": 48
+            "Column": 9
         },
         "Type": "IDENT",
         "Lit": "M"
@@ -183,8 +165,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 10,
-            "Offset": 49
+            "Column": 10
         },
         "Type": "PUNCTUATOR",
         "Lit": "("
@@ -193,8 +174,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 11,
-            "Offset": 50
+            "Column": 11
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -203,8 +183,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 12,
-            "Offset": 51
+            "Column": 12
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -213,8 +192,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 13,
-            "Offset": 52
+            "Column": 13
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -223,8 +201,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 14,
-            "Offset": 53
+            "Column": 14
         },
         "Type": "PUNCTUATOR",
         "Lit": "..."
@@ -233,8 +210,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 17,
-            "Offset": 56
+            "Column": 17
         },
         "Type": "PUNCTUATOR",
         "Lit": ")"
@@ -243,8 +219,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 18,
-            "Offset": 57
+            "Column": 18
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -253,8 +228,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 19,
-            "Offset": 58
+            "Column": 19
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -263,8 +237,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 20,
-            "Offset": 59
+            "Column": 20
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -273,8 +246,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 21,
-            "Offset": 60
+            "Column": 21
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -283,8 +255,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 22,
-            "Offset": 61
+            "Column": 22
         },
         "Type": "PUNCTUATOR",
         "Lit": "##"
@@ -293,8 +264,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 24,
-            "Offset": 63
+            "Column": 24
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -303,8 +273,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 25,
-            "Offset": 64
+            "Column": 25
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -313,8 +282,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 26,
-            "Offset": 65
+            "Column": 26
         },
         "Type": "IDENT",
         "Lit": "__VA_ARGS__"
@@ -323,8 +291,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
-            "Column": 37,
-            "Offset": 76
+            "Column": 37
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -333,8 +300,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 1,
-            "Offset": 78
+            "Column": 1
         },
         "Type": "PUNCTUATOR",
         "Lit": "#"
@@ -343,8 +309,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 3,
-            "Offset": 80
+            "Column": 3
         },
         "Type": "IDENT",
         "Lit": "define"
@@ -353,8 +318,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 9,
-            "Offset": 86
+            "Column": 9
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -363,8 +327,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 10,
-            "Offset": 87
+            "Column": 10
         },
         "Type": "IDENT",
         "Lit": "C"
@@ -373,8 +336,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 11,
-            "Offset": 88
+            "Column": 11
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -383,8 +345,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 12,
-            "Offset": 89
+            "Column": 12
         },
         "Type": "INT",
         "Lit": "12345"
@@ -393,8 +354,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 17,
-            "Offset": 94
+            "Column": 17
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -403,8 +363,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 5,
-            "Column": 1,
-            "Offset": 96
+            "Column": 1
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -413,8 +372,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 1,
-            "Offset": 98
+            "Column": 1
         },
         "Type": "KEYWORD",
         "Lit": "int"
@@ -423,8 +381,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 4,
-            "Offset": 101
+            "Column": 4
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -433,8 +390,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 5,
-            "Offset": 102
+            "Column": 5
         },
         "Type": "IDENT",
         "Lit": "main"
@@ -443,8 +399,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 9,
-            "Offset": 106
+            "Column": 9
         },
         "Type": "PUNCTUATOR",
         "Lit": "("
@@ -453,8 +408,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 10,
-            "Offset": 107
+            "Column": 10
         },
         "Type": "PUNCTUATOR",
         "Lit": ")"
@@ -463,8 +417,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 11,
-            "Offset": 108
+            "Column": 11
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -473,8 +426,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 12,
-            "Offset": 109
+            "Column": 12
         },
         "Type": "PUNCTUATOR",
         "Lit": "{"
@@ -483,8 +435,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
-            "Column": 14,
-            "Offset": 111
+            "Column": 14
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -493,8 +444,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 7,
-            "Column": 1,
-            "Offset": 113
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -503,8 +453,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 7,
-            "Column": 5,
-            "Offset": 117
+            "Column": 5
         },
         "Type": "KEYWORD",
         "Lit": "int"
@@ -513,8 +462,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 7,
-            "Column": 8,
-            "Offset": 120
+            "Column": 8
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -523,8 +471,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 7,
-            "Column": 9,
-            "Offset": 121
+            "Column": 9
         },
         "Type": "IDENT",
         "Lit": "ab"
@@ -533,8 +480,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 2,
-            "Offset": 126
+            "Column": 2
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -543,8 +489,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 3,
-            "Offset": 127
+            "Column": 3
         },
         "Type": "PUNCTUATOR",
         "Lit": "="
@@ -553,8 +498,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 4,
-            "Offset": 128
+            "Column": 4
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -563,8 +507,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 37,
-            "Offset": 161
+            "Column": 37
         },
         "Type": "INT",
         "Lit": "10"
@@ -573,8 +516,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 39,
-            "Offset": 163
+            "Column": 39
         },
         "Type": "PUNCTUATOR",
         "Lit": ";"
@@ -583,8 +525,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 8,
-            "Column": 40,
-            "Offset": 164
+            "Column": 40
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -593,8 +534,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 1,
-            "Offset": 166
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -603,8 +543,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 5,
-            "Offset": 170
+            "Column": 5
         },
         "Type": "KEYWORD",
         "Lit": "char"
@@ -613,8 +552,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 9,
-            "Offset": 174
+            "Column": 9
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -623,8 +561,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 10,
-            "Offset": 175
+            "Column": 10
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -633,8 +570,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 11,
-            "Offset": 176
+            "Column": 11
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -643,8 +579,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 12,
-            "Offset": 177
+            "Column": 12
         },
         "Type": "PUNCTUATOR",
         "Lit": "="
@@ -653,8 +588,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 13,
-            "Offset": 178
+            "Column": 13
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -663,8 +597,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 14,
-            "Offset": 179
+            "Column": 14
         },
         "Type": "CHAR",
         "Lit": "'\\123'"
@@ -673,8 +606,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 20,
-            "Offset": 185
+            "Column": 20
         },
         "Type": "PUNCTUATOR",
         "Lit": ";"
@@ -683,8 +615,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 9,
-            "Column": 21,
-            "Offset": 186
+            "Column": 21
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -693,8 +624,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 1,
-            "Offset": 188
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -703,8 +633,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 5,
-            "Offset": 192
+            "Column": 5
         },
         "Type": "KEYWORD",
         "Lit": "int"
@@ -713,8 +642,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 8,
-            "Offset": 195
+            "Column": 8
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -723,8 +651,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 9,
-            "Offset": 196
+            "Column": 9
         },
         "Type": "IDENT",
         "Lit": "num"
@@ -733,8 +660,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 12,
-            "Offset": 199
+            "Column": 12
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -743,8 +669,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 13,
-            "Offset": 200
+            "Column": 13
         },
         "Type": "PUNCTUATOR",
         "Lit": "="
@@ -753,8 +678,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 14,
-            "Offset": 201
+            "Column": 14
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -763,8 +687,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 15,
-            "Offset": 202
+            "Column": 15
         },
         "Type": "FLOAT",
         "Lit": ".213e-2"
@@ -773,8 +696,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 22,
-            "Offset": 209
+            "Column": 22
         },
         "Type": "PUNCTUATOR",
         "Lit": ";"
@@ -783,8 +705,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 23,
-            "Offset": 210
+            "Column": 23
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -793,8 +714,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 10,
-            "Column": 34,
-            "Offset": 221
+            "Column": 34
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -803,8 +723,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 1,
-            "Offset": 223
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -813,8 +732,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 5,
-            "Offset": 227
+            "Column": 5
         },
         "Type": "KEYWORD",
         "Lit": "if"
@@ -823,8 +741,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 7,
-            "Offset": 229
+            "Column": 7
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -833,8 +750,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 8,
-            "Offset": 230
+            "Column": 8
         },
         "Type": "PUNCTUATOR",
         "Lit": "("
@@ -843,8 +759,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 9,
-            "Offset": 231
+            "Column": 9
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -853,8 +768,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 10,
-            "Offset": 232
+            "Column": 10
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -863,8 +777,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 11,
-            "Offset": 233
+            "Column": 11
         },
         "Type": "PUNCTUATOR",
         "Lit": "!="
@@ -873,8 +786,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 13,
-            "Offset": 235
+            "Column": 13
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -883,8 +795,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 14,
-            "Offset": 236
+            "Column": 14
         },
         "Type": "INT",
         "Lit": "10"
@@ -893,8 +804,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 16,
-            "Offset": 238
+            "Column": 16
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -903,8 +813,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 17,
-            "Offset": 239
+            "Column": 17
         },
         "Type": "PUNCTUATOR",
         "Lit": "&&"
@@ -913,8 +822,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 19,
-            "Offset": 241
+            "Column": 19
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -923,8 +831,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 20,
-            "Offset": 242
+            "Column": 20
         },
         "Type": "IDENT",
         "Lit": "ab"
@@ -933,8 +840,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 22,
-            "Offset": 244
+            "Column": 22
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -943,8 +849,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 23,
-            "Offset": 245
+            "Column": 23
         },
         "Type": "PUNCTUATOR",
         "Lit": ">"
@@ -953,8 +858,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 24,
-            "Offset": 246
+            "Column": 24
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -963,8 +867,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 25,
-            "Offset": 247
+            "Column": 25
         },
         "Type": "INT",
         "Lit": "10"
@@ -973,8 +876,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 27,
-            "Offset": 249
+            "Column": 27
         },
         "Type": "PUNCTUATOR",
         "Lit": ")"
@@ -983,8 +885,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 28,
-            "Offset": 250
+            "Column": 28
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -993,8 +894,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 29,
-            "Offset": 251
+            "Column": 29
         },
         "Type": "PUNCTUATOR",
         "Lit": "{"
@@ -1003,8 +903,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 11,
-            "Column": 30,
-            "Offset": 252
+            "Column": 30
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -1013,8 +912,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 1,
-            "Offset": 254
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1023,8 +921,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 9,
-            "Offset": 262
+            "Column": 9
         },
         "Type": "IDENT",
         "Lit": "printf"
@@ -1033,8 +930,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 15,
-            "Offset": 268
+            "Column": 15
         },
         "Type": "PUNCTUATOR",
         "Lit": "("
@@ -1043,8 +939,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 16,
-            "Offset": 269
+            "Column": 16
         },
         "Type": "STRING",
         "Lit": "\"v\""
@@ -1053,8 +948,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 19,
-            "Offset": 272
+            "Column": 19
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -1063,8 +957,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 20,
-            "Offset": 273
+            "Column": 20
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1073,8 +966,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 21,
-            "Offset": 274
+            "Column": 21
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -1083,8 +975,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 22,
-            "Offset": 275
+            "Column": 22
         },
         "Type": "PUNCTUATOR",
         "Lit": ")"
@@ -1093,8 +984,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 23,
-            "Offset": 276
+            "Column": 23
         },
         "Type": "PUNCTUATOR",
         "Lit": ";"
@@ -1103,8 +993,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 12,
-            "Column": 24,
-            "Offset": 277
+            "Column": 24
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -1113,8 +1002,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 13,
-            "Column": 1,
-            "Offset": 279
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1123,8 +1011,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 13,
-            "Column": 5,
-            "Offset": 283
+            "Column": 5
         },
         "Type": "PUNCTUATOR",
         "Lit": "}"
@@ -1133,8 +1020,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 13,
-            "Column": 6,
-            "Offset": 284
+            "Column": 6
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -1143,8 +1029,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 1,
-            "Offset": 286
+            "Column": 1
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1153,8 +1038,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 5,
-            "Offset": 290
+            "Column": 5
         },
         "Type": "IDENT",
         "Lit": "M"
@@ -1163,8 +1047,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 6,
-            "Offset": 291
+            "Column": 6
         },
         "Type": "PUNCTUATOR",
         "Lit": "("
@@ -1173,8 +1056,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 7,
-            "Offset": 292
+            "Column": 7
         },
         "Type": "IDENT",
         "Lit": "a"
@@ -1183,8 +1065,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 8,
-            "Offset": 293
+            "Column": 8
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -1193,8 +1074,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 9,
-            "Offset": 294
+            "Column": 9
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1203,8 +1083,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 10,
-            "Offset": 295
+            "Column": 10
         },
         "Type": "IDENT",
         "Lit": "b"
@@ -1213,8 +1092,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 11,
-            "Offset": 296
+            "Column": 11
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -1223,8 +1101,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 12,
-            "Offset": 297
+            "Column": 12
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1233,8 +1110,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 13,
-            "Offset": 298
+            "Column": 13
         },
         "Type": "IDENT",
         "Lit": "c"
@@ -1243,8 +1119,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 14,
-            "Offset": 299
+            "Column": 14
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -1253,8 +1128,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 15,
-            "Offset": 300
+            "Column": 15
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1263,8 +1137,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 16,
-            "Offset": 301
+            "Column": 16
         },
         "Type": "IDENT",
         "Lit": "d"
@@ -1273,8 +1146,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 17,
-            "Offset": 302
+            "Column": 17
         },
         "Type": "PUNCTUATOR",
         "Lit": ","
@@ -1283,8 +1155,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 18,
-            "Offset": 303
+            "Column": 18
         },
         "Type": "WHITESPACE",
         "Lit": " "
@@ -1293,8 +1164,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 19,
-            "Offset": 304
+            "Column": 19
         },
         "Type": "IDENT",
         "Lit": "e"
@@ -1303,8 +1173,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 20,
-            "Offset": 305
+            "Column": 20
         },
         "Type": "PUNCTUATOR",
         "Lit": "["
@@ -1313,8 +1182,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 22,
-            "Offset": 307
+            "Column": 22
         },
         "Type": "PUNCTUATOR",
         "Lit": "]"
@@ -1323,8 +1191,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 23,
-            "Offset": 308
+            "Column": 23
         },
         "Type": "PUNCTUATOR",
         "Lit": ")"
@@ -1333,8 +1200,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 24,
-            "Offset": 309
+            "Column": 24
         },
         "Type": "PUNCTUATOR",
         "Lit": ";"
@@ -1343,8 +1209,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 14,
-            "Column": 25,
-            "Offset": 310
+            "Column": 25
         },
         "Type": "NEWLINE",
         "Lit": "\n"
@@ -1353,8 +1218,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 15,
-            "Column": 1,
-            "Offset": 312
+            "Column": 1
         },
         "Type": "PUNCTUATOR",
         "Lit": "}"
@@ -1363,8 +1227,7 @@
         "Position": {
             "Filename": "testdata\\simple.c",
             "Line": 15,
-            "Column": 2,
-            "Offset": 313
+            "Column": 2
         },
         "Type": "NEWLINE",
         "Lit": "\n"

@@ -17,16 +17,16 @@ func Test_scanner_next(t *testing.T) {
 		Lit rune
 		Pos token.Position
 	}{
-		{'a', token.Position{Filename: "", Line: 1, Column: 1, Offset: 0}},
-		{'中', token.Position{Filename: "", Line: 1, Column: 2, Offset: 1}},
-		{'♥', token.Position{Filename: "", Line: 1, Column: 3, Offset: 4}},
-		{'\n', token.Position{Filename: "", Line: 1, Column: 4, Offset: 7}},
-		{'\n', token.Position{Filename: "", Line: 2, Column: 1, Offset: 9}},
-		{'a', token.Position{Filename: "", Line: 3, Column: 1, Offset: 10}},
-		{'b', token.Position{Filename: "", Line: 4, Column: 1, Offset: 13}},
-		{'\n', token.Position{Filename: "", Line: 4, Column: 2, Offset: 14}},
-		{'a', token.Position{Filename: "", Line: 5, Column: 1, Offset: 15}},
-		{'b', token.Position{Filename: "", Line: 6, Column: 1, Offset: 19}},
+		{'a', token.Position{Filename: "", Line: 1, Column: 1}},
+		{'中', token.Position{Filename: "", Line: 1, Column: 2}},
+		{'♥', token.Position{Filename: "", Line: 1, Column: 3}},
+		{'\n', token.Position{Filename: "", Line: 1, Column: 4}},
+		{'\n', token.Position{Filename: "", Line: 2, Column: 1}},
+		{'a', token.Position{Filename: "", Line: 3, Column: 1}},
+		{'b', token.Position{Filename: "", Line: 4, Column: 1}},
+		{'\n', token.Position{Filename: "", Line: 4, Column: 2}},
+		{'a', token.Position{Filename: "", Line: 5, Column: 1}},
+		{'b', token.Position{Filename: "", Line: 6, Column: 1}},
 	}
 
 	for _, tt := range tests {
