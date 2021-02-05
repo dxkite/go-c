@@ -1,4 +1,4 @@
-package scanner
+package go_c11
 
 import (
 	"fmt"

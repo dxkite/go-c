@@ -1,6 +1,7 @@
 package preprocess
 
 import (
+	"dxkite.cn/go-c11"
 	"dxkite.cn/go-c11/scanner"
 	"dxkite.cn/go-c11/token"
 	"fmt"
@@ -52,7 +53,7 @@ type Context struct {
 	in  scanner.MultiScanner
 	rcd bool
 	tks []*token.Token
-	err scanner.ErrorList
+	err go_c11.ErrorList
 	// 条件栈
 	cdt *ConditionStack
 }
@@ -90,7 +91,7 @@ func (c *Context) Scan() (t *token.Token) {
 	return t
 }
 
-func (c *Context) Error() *scanner.ErrorList {
+func (c *Context) Error() *go_c11.ErrorList {
 	return &c.err
 }
 

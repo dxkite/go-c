@@ -3,6 +3,7 @@ package scanner
 import (
 	"bufio"
 	"bytes"
+	"dxkite.cn/go-c11"
 	"dxkite.cn/go-c11/token"
 	"fmt"
 	"io"
@@ -13,7 +14,7 @@ import (
 
 type Scanner interface {
 	Scan() (t *token.Token)
-	Error() *ErrorList
+	Error() *go_c11.ErrorList
 }
 
 type PeekScanner interface {
@@ -41,7 +42,7 @@ type scanner struct {
 	offset    int
 	rdOffset  int
 	line, col int
-	err       ErrorList
+	err       go_c11.ErrorList
 	rcd       bool
 	lit       string
 }
@@ -212,7 +213,7 @@ func (s *scanner) Scan() (t *token.Token) {
 	return
 }
 
-func (s *scanner) Error() *ErrorList {
+func (s *scanner) Error() *go_c11.ErrorList {
 	return &s.err
 }
 
@@ -554,14 +555,14 @@ func ScanFile(filename string) ([]*token.Token, error) {
 type arrayScanner struct {
 	arr []*token.Token
 	off int
-	err ErrorList
+	err go_c11.ErrorList
 }
 
 func NewArrayScan(tok []*token.Token) Scanner {
 	return &arrayScanner{
 		arr: tok,
 		off: 0,
-		err: ErrorList{},
+		err: go_c11.ErrorList{},
 	}
 }
 
@@ -574,7 +575,7 @@ func (a *arrayScanner) Scan() (t *token.Token) {
 	return nil
 }
 
-func (a *arrayScanner) Error() *ErrorList {
+func (a *arrayScanner) Error() *go_c11.ErrorList {
 	return &a.err
 }
 
@@ -630,7 +631,7 @@ func (s *peekScanner) PeekOne() *token.Token {
 	return nil
 }
 
-func (s *peekScanner) Error() *ErrorList {
+func (s *peekScanner) Error() *go_c11.ErrorList {
 	return s.s.Error()
 }
 
@@ -678,6 +679,6 @@ func (ms *multiScanner) Push(s Scanner) {
 	}
 }
 
-func (ms *multiScanner) Error() *ErrorList {
+func (ms *multiScanner) Error() *go_c11.ErrorList {
 	return ms.s[ms.cur].Error()
 }
