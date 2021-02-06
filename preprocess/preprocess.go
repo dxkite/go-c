@@ -148,17 +148,16 @@ func (c *Context) DefineVal(name, value string) error {
 	return nil
 }
 
-func (c *Context) Define(name string, val MacroDecl) error {
+func (c *Context) Define(name string, val MacroDecl) {
 	c.Val[name] = val
-	return nil
 }
 
-func (c *Context) DefineHandler(name string, val HandlerFn) error {
+func (c *Context) DefineHandler(name string, val HandlerFn) {
 	c.Val[name] = &MacroHandler{
 		Name:    name,
 		Handler: val,
 	}
-	return nil
+	return
 }
 
 func (c *Context) IsDefined(name string) bool {
@@ -167,9 +166,9 @@ func (c *Context) IsDefined(name string) bool {
 }
 
 func (p *Context) Init() {
-	_ = p.DefineHandler("__FILE__", p.fileFn)
-	_ = p.DefineHandler("__LINE__", p.lineFn)
-	_ = p.DefineHandler("__COUNTER__", p.counterFn)
+	p.DefineHandler("__FILE__", p.fileFn)
+	p.DefineHandler("__LINE__", p.lineFn)
+	p.DefineHandler("__COUNTER__", p.counterFn)
 	_ = p.DefineVal("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
 	_ = p.DefineVal("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
 }
@@ -258,8 +257,9 @@ func (c *Context) doMacro() {
 		} else {
 			c.err.Add(c.pos, "unexpected #endif")
 		}
-	case "include":
 	case "define":
+		c.doDefine()
+	case "include":
 	case "pragma":
 	case "line":
 	case "error":
@@ -286,12 +286,15 @@ func (c *Context) push(tok []*token.Token) {
 
 // 处理宏展开
 func (c *Context) Extract(tok *token.Token) ([]*token.Token, bool) {
+	if tok.Type != token.IDENT {
+		return nil, false
+	}
 	if v, ok := c.Val[tok.Lit]; ok {
 		switch val := v.(type) {
 		case *MacroVal:
-			return c.ExtractAt(tok.Position, val.Body), true
+			return c.ExtractVal(tok, val.Body), true
 		case *MacroHandler:
-			return c.ExtractAt(tok.Position, val.Handler(tok)), true
+			return c.ExtractVal(tok, val.Handler(tok)), true
 		case *MacroFunc:
 			// 忽略非函数式宏
 			if n := c.peekNext(); n.Lit != "(" {
@@ -303,10 +306,11 @@ func (c *Context) Extract(tok *token.Token) ([]*token.Token, bool) {
 	return nil, false
 }
 
-// 在某位置展开宏
-func (c *Context) ExtractAt(pos token.Position, tks []*token.Token) []*token.Token {
+// 在某位置展开宏变量
+func (c *Context) ExtractVal(v *token.Token, tks []*token.Token) []*token.Token {
 	ex := make([]*token.Token, len(tks))
 	col := 0
+	pos := v.Position
 	for i, tok := range tks {
 		if i == 0 {
 			col = tok.Position.Column
@@ -346,17 +350,23 @@ func (c *Context) peekNext() *token.Token {
 
 // peek 下一个 token
 func (c *Context) peekOne() *token.Token {
-	if _, ok := c.in.(scanner.PeekScanner); !ok {
-		c.in = scanner.NewMultiScan(scanner.NewPeekScan(c.in))
+	if ps, ok := c.in.(scanner.PeekScanner); ok {
+		return ps.PeekOne()
 	}
-	return c.in.(scanner.PeekScanner).PeekOne()
+	p := scanner.NewPeekScan(c.in)
+	tok := p.PeekOne()
+	c.in = scanner.NewMultiScan(p)
+	return tok
 }
 
 func (c *Context) peek(offset int) []*token.Token {
-	if _, ok := c.in.(scanner.PeekScanner); !ok {
-		c.in = scanner.NewMultiScan(scanner.NewPeekScan(c.in))
+	if ps, ok := c.in.(scanner.PeekScanner); ok {
+		return ps.Peek(offset)
 	}
-	return c.in.(scanner.PeekScanner).Peek(offset)
+	p := scanner.NewPeekScan(c.in)
+	tok := p.Peek(offset)
+	c.in = scanner.NewMultiScan(p)
+	return tok
 }
 
 func (c *Context) expectIdent() string {
@@ -370,11 +380,16 @@ func (c *Context) expectIdent() string {
 }
 
 func (c *Context) expectEndMacro() {
-	if c.tok == token.NEWLINE || c.tok == token.EOF {
+	if c.isMacroEnd() {
 		c.nextToken()
 		return
 	}
 	c.err.Add(c.pos, fmt.Sprintf("expect end macro got %s", c.tok))
+}
+
+// 宏结尾
+func (c *Context) isMacroEnd() bool {
+	return c.tok == token.NEWLINE || c.tok == token.EOF
 }
 
 // 跳过无法到达的代码
@@ -449,4 +464,32 @@ func (c *Context) evalConstExpr() bool {
 	}
 	// TODO parse expr
 	return false
+}
+
+func (c *Context) doDefine() {
+	c.nextToken()
+	ident := c.expectIdent()
+	if n := c.peekOne(); n.Lit == "(" {
+		c.doDefineFunc(ident)
+	} else {
+		c.doDefineVal(ident)
+	}
+	c.expectEndMacro()
+}
+
+func (c *Context) doDefineVal(ident string) {
+	tks := make([]*token.Token, 0)
+	c.nextToken()
+	for !c.isMacroEnd() {
+		tks = append(tks, c.cur)
+		c.nextToken()
+	}
+	c.Define(ident, &MacroVal{
+		Name: ident,
+		Body: tks,
+	})
+}
+
+func (c *Context) doDefineFunc(ident string) {
+
 }
