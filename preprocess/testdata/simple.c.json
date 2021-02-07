@@ -1,389 +1,389 @@
 [
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 1
         },
-        "Type": "KEYWORD",
+        "Typ": "KEYWORD",
         "Lit": "int"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 4
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "main"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 9
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 10
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 11
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 12
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "{"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 1,
             "Column": 13
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
             "Column": 5
         },
-        "Type": "KEYWORD",
+        "Typ": "KEYWORD",
         "Lit": "int"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
             "Column": 8
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 2,
             "Column": 9
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "ab"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 2
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 3
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "="
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 4
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 5
         },
-        "Type": "INT",
+        "Typ": "INT",
         "Lit": "100"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 8
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 3,
             "Column": 9
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 5
         },
-        "Type": "KEYWORD",
+        "Typ": "KEYWORD",
         "Lit": "char"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 9
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 10
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "p"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 11
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "["
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 12
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "]"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 13
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 14
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "="
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 15
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 16
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 33
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 34
         },
-        "Type": "INT",
+        "Typ": "INT",
         "Lit": "10"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 36
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
             "Column": 37
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 5,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 5,
             "Column": 5
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 5,
             "Column": 15
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "printf"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 11
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 12
         },
-        "Type": "STRING",
+        "Typ": "STRING",
         "Lit": "\"hello world\\n\""
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 27
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 28
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 6,
             "Column": 29
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 7,
             "Column": 1
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "}"
     }
 ]

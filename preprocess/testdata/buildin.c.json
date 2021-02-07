@@ -1,515 +1,605 @@
 [
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 1
         },
-        "Type": "KEYWORD",
+        "Typ": "KEYWORD",
         "Lit": "int"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 4
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "main"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 9
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 10
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 11
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 12
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "{"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 1,
             "Column": 13
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "printf"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 11
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 12
         },
-        "Type": "STRING",
+        "Typ": "STRING",
         "Lit": "\"file %s:%d count %d\\n\""
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 35
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 36
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 37
         },
-        "Type": "STRING",
-        "Lit": "\"testdata\\\\buildin.c\""
+        "Typ": "STRING",
+        "Lit": "\"testdata\\\\buildin.c\"",
+        "Index": 1,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 2,
+                "Column": 37
+            },
+            "Typ": "IDENT",
+            "Lit": "__FILE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 45
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 46
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 47
         },
-        "Type": "STRING",
-        "Lit": "2"
+        "Typ": "STRING",
+        "Lit": "2",
+        "Index": 2,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 2,
+                "Column": 47
+            },
+            "Typ": "IDENT",
+            "Lit": "__LINE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 55
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 56
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 57
         },
-        "Type": "INT",
-        "Lit": "0"
+        "Typ": "INT",
+        "Lit": "0",
+        "Index": 3,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 2,
+                "Column": 57
+            },
+            "Typ": "IDENT",
+            "Lit": "__COUNTER__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 68
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 69
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
             "Column": 70
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "printf"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 11
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 12
         },
-        "Type": "STRING",
+        "Typ": "STRING",
         "Lit": "\"file %s:%d count %d\\n\""
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 35
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 36
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 37
         },
-        "Type": "STRING",
-        "Lit": "\"testdata\\\\buildin.c\""
+        "Typ": "STRING",
+        "Lit": "\"testdata\\\\buildin.c\"",
+        "Index": 1,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 3,
+                "Column": 37
+            },
+            "Typ": "IDENT",
+            "Lit": "__FILE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 45
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 46
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 47
         },
-        "Type": "STRING",
-        "Lit": "3"
+        "Typ": "STRING",
+        "Lit": "3",
+        "Index": 2,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 3,
+                "Column": 47
+            },
+            "Typ": "IDENT",
+            "Lit": "__LINE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 55
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 56
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 57
         },
-        "Type": "INT",
-        "Lit": "1"
+        "Typ": "INT",
+        "Lit": "1",
+        "Index": 3,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 3,
+                "Column": 57
+            },
+            "Typ": "IDENT",
+            "Lit": "__COUNTER__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 68
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 69
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
             "Column": 70
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 1
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 5
         },
-        "Type": "IDENT",
+        "Typ": "IDENT",
         "Lit": "printf"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 11
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "("
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 12
         },
-        "Type": "STRING",
+        "Typ": "STRING",
         "Lit": "\"file %s:%d count %d\\n\""
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 35
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 36
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 37
         },
-        "Type": "STRING",
-        "Lit": "\"testdata\\\\buildin.c\""
+        "Typ": "STRING",
+        "Lit": "\"testdata\\\\buildin.c\"",
+        "Index": 1,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 4,
+                "Column": 37
+            },
+            "Typ": "IDENT",
+            "Lit": "__FILE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 45
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 46
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 47
         },
-        "Type": "STRING",
-        "Lit": "4"
+        "Typ": "STRING",
+        "Lit": "4",
+        "Index": 2,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 4,
+                "Column": 47
+            },
+            "Typ": "IDENT",
+            "Lit": "__LINE__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 55
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ","
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 56
         },
-        "Type": "WHITESPACE",
+        "Typ": "WHITESPACE",
         "Lit": " "
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 57
         },
-        "Type": "INT",
-        "Lit": "2"
+        "Typ": "INT",
+        "Lit": "2",
+        "Index": 3,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\buildin.c",
+                "Line": 4,
+                "Column": 57
+            },
+            "Typ": "IDENT",
+            "Lit": "__COUNTER__"
+        }
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 68
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ")"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 69
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": ";"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
             "Column": 70
         },
-        "Type": "NEWLINE",
+        "Typ": "NEWLINE",
         "Lit": "\n"
     },
     {
-        "Position": {
+        "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 5,
             "Column": 1
         },
-        "Type": "PUNCTUATOR",
+        "Typ": "PUNCTUATOR",
         "Lit": "}"
     }
 ]
