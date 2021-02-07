@@ -290,6 +290,8 @@ func (c *Context) doMacro() {
 		}
 	case "define":
 		c.doDefine()
+	case "undef":
+		c.doUndef()
 	case "include":
 	case "pragma":
 	case "line":
@@ -512,6 +514,20 @@ func (c *Context) doDefine() {
 	} else {
 		c.doDefineVal(ident)
 	}
+	c.expectEndMacro()
+}
+
+func (c *Context) skipEndMacro() {
+	for !c.isMacroEnd() {
+		c.nextToken()
+	}
+}
+
+func (c *Context) doUndef() {
+	c.nextToken()
+	ident := c.expectIdent()
+	delete(c.Val, ident)
+	c.skipEndMacro()
 	c.expectEndMacro()
 }
 
