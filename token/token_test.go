@@ -5,19 +5,36 @@ import (
 	"testing"
 )
 
+type token struct {
+	Pos Position
+	Typ Type
+	Lit string
+}
+
+func (t *token) Position() Position {
+	return t.Pos
+}
+
+func (t *token) Type() Type {
+	return t.Typ
+}
+func (t *token) Literal() string {
+	return t.Lit
+}
+
 func TestString(t *testing.T) {
 
-	tks := []*Token{
-		{Lit: "a", Position: Position{Filename: "", Line: 1, Column: 1}},
-		{Lit: "中", Position: Position{Filename: "", Line: 1, Column: 2}},
-		{Lit: "♥", Position: Position{Filename: "", Line: 1, Column: 3}},
-		{Lit: "\n", Type: NEWLINE, Position: Position{Filename: "", Line: 1, Column: 4}},
-		{Lit: "\n", Type: NEWLINE, Position: Position{Filename: "", Line: 2, Column: 1}},
-		{Lit: "a", Position: Position{Filename: "", Line: 3, Column: 1}},
-		{Lit: "b", Position: Position{Filename: "", Line: 4, Column: 1}},
-		{Lit: "\n", Type: NEWLINE, Position: Position{Filename: "", Line: 4, Column: 2}},
-		{Lit: "a", Position: Position{Filename: "", Line: 5, Column: 1}},
-		{Lit: "b", Position: Position{Filename: "", Line: 6, Column: 1}},
+	tks := []Token{
+		&token{Lit: "a", Pos: Position{Filename: "", Line: 1, Column: 1}},
+		&token{Lit: "中", Pos: Position{Filename: "", Line: 1, Column: 2}},
+		&token{Lit: "♥", Pos: Position{Filename: "", Line: 1, Column: 3}},
+		&token{Lit: "\n", Typ: NEWLINE, Pos: Position{Filename: "", Line: 1, Column: 4}},
+		&token{Lit: "\n", Typ: NEWLINE, Pos: Position{Filename: "", Line: 2, Column: 1}},
+		&token{Lit: "a", Pos: Position{Filename: "", Line: 3, Column: 1}},
+		&token{Lit: "b", Pos: Position{Filename: "", Line: 4, Column: 1}},
+		&token{Lit: "\n", Typ: NEWLINE, Pos: Position{Filename: "", Line: 4, Column: 2}},
+		&token{Lit: "a", Pos: Position{Filename: "", Line: 5, Column: 1}},
+		&token{Lit: "b", Pos: Position{Filename: "", Line: 6, Column: 1}},
 	}
 
 	got := String(tks)

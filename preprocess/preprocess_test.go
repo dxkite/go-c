@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"reflect"
 	"testing"
 )
 
@@ -37,16 +36,18 @@ func TestScanFile(t *testing.T) {
 				ctx := New(scanner.NewScan(p, f))
 				ctx.Init()
 
-				if !exists(p+".json") || !exists(p+"c") {
-					tks := []*token.Token{}
-					for {
-						t := ctx.Scan()
-						if t == nil {
-							break
-						}
-						tks = append(tks, t)
+				tks := []token.Token{}
+				for {
+					t := ctx.Scan()
+					if t == nil {
+						break
 					}
-					if err := token.SaveJson(p+".json", tks); err != nil {
+					tks = append(tks, t)
+				}
+
+				if !exists(p+".json") || !exists(p+"c") {
+
+					if err := scanner.SaveJson(p+".json", tks); err != nil {
 						t.Errorf("SaveJson error = %v", err)
 					}
 
@@ -54,23 +55,6 @@ func TestScanFile(t *testing.T) {
 						t.Errorf("SaveResult error = %v", err)
 					}
 					return
-				}
-
-				wantList, err := token.LoadJson(p + ".json")
-
-				if err != nil {
-					t.Errorf("LoadJson() error = %v", err)
-					return
-				}
-
-				tks := []*token.Token{}
-
-				for _, want := range wantList {
-					got := ctx.Scan()
-					tks = append(tks, got)
-					if !reflect.DeepEqual(got, want) {
-						t.Errorf("ScanFile() got = %+v, want %+v", *got, *want)
-					}
 				}
 
 				if data, err := ioutil.ReadFile(p + "c"); err != nil {

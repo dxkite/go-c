@@ -13,14 +13,14 @@ import (
 )
 
 type Scanner interface {
-	Scan() (t *token.Token)
+	Scan() (t token.Token)
 	Error() *go_c11.ErrorList
 }
 
 type PeekScanner interface {
 	Scanner
-	Peek(offset int) []*token.Token
-	PeekOne() *token.Token
+	Peek(offset int) []token.Token
+	PeekOne() token.Token
 }
 
 func NewScan(filename string, r io.Reader) Scanner {
@@ -45,6 +45,23 @@ type scanner struct {
 	err       go_c11.ErrorList
 	rcd       bool
 	lit       string
+}
+
+type Token struct {
+	Pos token.Position
+	Typ token.Type
+	Lit string
+}
+
+func (t *Token) Position() token.Position {
+	return t.Pos
+}
+
+func (t *Token) Type() token.Type {
+	return t.Typ
+}
+func (t *Token) Literal() string {
+	return t.Lit
 }
 
 // init
@@ -151,27 +168,27 @@ func (s *scanner) error(p token.Position, msg string) {
 	s.err.Add(p, msg)
 }
 
-func (s *scanner) Scan() (t *token.Token) {
-	t = &token.Token{}
-	t.Position = s.curPos()
-	t.Type = token.ILLEGAL
+func (s *scanner) Scan() token.Token {
+	t := &Token{}
+	t.Pos = s.curPos()
+	t.Typ = token.ILLEGAL
 	switch ch := s.ch; {
 	case isWhitespace(ch):
-		t.Type = token.WHITESPACE
+		t.Typ = token.WHITESPACE
 		t.Lit = " "
 		s.skipWhitespace()
 	case ch == '/' && (s.peek() == '/' || s.peek() == '*'):
-		t.Type = token.WHITESPACE
+		t.Typ = token.WHITESPACE
 		t.Lit = " "
 		s.skipComment()
 	case s.nextIsChar(ch):
-		t.Type = token.CHAR
+		t.Typ = token.CHAR
 		t.Lit = s.scanChar()
 	case s.nextIsString(ch):
-		t.Type = token.STRING
+		t.Typ = token.STRING
 		t.Lit = s.scanString()
 	case isLetter(ch):
-		t.Type = token.IDENT
+		t.Typ = token.IDENT
 		t.Lit = s.scanIdentifier()
 		switch t.Lit {
 		case "auto", "break", "case", "char",
@@ -184,14 +201,14 @@ func (s *scanner) Scan() (t *token.Token) {
 			"_Alignas", "_Alignof", "_Atomic", "_Bool", "_Complex",
 			"_Generic", "_Imaginary", "_Noreturn", "_Static_assert",
 			"_Thread_local":
-			t.Type = token.KEYWORD
+			t.Typ = token.KEYWORD
 		}
 	case s.nextIsNumber():
-		t.Type, t.Lit = s.scanNumber()
+		t.Typ, t.Lit = s.scanNumber()
 	default:
 		if lit, n, ok := s.nextIsPunctuator(); ok {
 			t.Lit = lit
-			t.Type = token.PUNCTUATOR
+			t.Typ = token.PUNCTUATOR
 			for n > 0 {
 				n--
 				s.next()
@@ -202,15 +219,15 @@ func (s *scanner) Scan() (t *token.Token) {
 			case -1:
 				return nil
 			case '\n':
-				t.Type = token.NEWLINE
+				t.Typ = token.NEWLINE
 				t.Lit = "\n"
 			default:
 				t.Lit = string(ch)
-				t.Type = token.TEXT
+				t.Typ = token.TEXT
 			}
 		}
 	}
-	return
+	return t
 }
 
 func (s *scanner) Error() *go_c11.ErrorList {
@@ -519,19 +536,24 @@ func (s *scanner) nextIsPunctuator() (string, int, bool) {
 	return "", 0, false
 }
 
-func Scan(filename string, r io.Reader) ([]*token.Token, error) {
-	s := NewScan(filename, r)
-	tks := []*token.Token{}
+func ScanToken(s Scanner) []token.Token {
+	tks := make([]token.Token, 0)
 	for {
 		tok := s.Scan()
 		if tok == nil {
 			break
 		}
-		if i := len(tks) - 1; tok.Type == token.WHITESPACE && i >= 0 && tks[i].Type == token.WHITESPACE {
+		if i := len(tks) - 1; tok.Type() == token.WHITESPACE && i >= 0 && tks[i].Type() == token.WHITESPACE {
 			continue
 		}
 		tks = append(tks, tok)
 	}
+	return tks
+}
+
+func Scan(filename string, r io.Reader) ([]token.Token, error) {
+	s := NewScan(filename, r)
+	tks := ScanToken(s)
 	var err error
 	if s.Error().Len() > 0 {
 		err = s.Error()
@@ -539,11 +561,11 @@ func Scan(filename string, r io.Reader) ([]*token.Token, error) {
 	return tks, err
 }
 
-func ScanString(name, code string) ([]*token.Token, error) {
+func ScanString(name, code string) ([]token.Token, error) {
 	return Scan(name, bytes.NewBufferString(code))
 }
 
-func ScanFile(filename string) ([]*token.Token, error) {
+func ScanFile(filename string) ([]token.Token, error) {
 	f, er := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
 	if er != nil {
 		return nil, er
@@ -553,12 +575,12 @@ func ScanFile(filename string) ([]*token.Token, error) {
 }
 
 type arrayScanner struct {
-	arr []*token.Token
+	arr []token.Token
 	off int
 	err go_c11.ErrorList
 }
 
-func NewArrayScan(tok []*token.Token) Scanner {
+func NewArrayScan(tok []token.Token) Scanner {
 	return &arrayScanner{
 		arr: tok,
 		off: 0,
@@ -566,7 +588,7 @@ func NewArrayScan(tok []*token.Token) Scanner {
 	}
 }
 
-func (a *arrayScanner) Scan() (t *token.Token) {
+func (a *arrayScanner) Scan() (t token.Token) {
 	of := a.off
 	a.off++
 	if of < len(a.arr) {
@@ -580,20 +602,20 @@ func (a *arrayScanner) Error() *go_c11.ErrorList {
 }
 
 type peekScanner struct {
-	c   []*token.Token
+	c   []token.Token
 	s   Scanner
 	off int
 }
 
 func NewPeekScan(s Scanner) PeekScanner {
 	return &peekScanner{
-		c:   []*token.Token{},
+		c:   []token.Token{},
 		s:   s,
 		off: 0,
 	}
 }
 
-func (s *peekScanner) Scan() (t *token.Token) {
+func (s *peekScanner) Scan() (t token.Token) {
 	of := s.off
 	s.off++
 	if of < len(s.c) {
@@ -604,9 +626,9 @@ func (s *peekScanner) Scan() (t *token.Token) {
 	return s.s.Scan()
 }
 
-func (s *peekScanner) Peek(n int) (t []*token.Token) {
+func (s *peekScanner) Peek(n int) (t []token.Token) {
 	of := s.off
-	t = []*token.Token{}
+	t = []token.Token{}
 	lc := len(s.c)
 	for n > len(t) && of < lc {
 		t = append(t, s.c[of])
@@ -623,7 +645,7 @@ func (s *peekScanner) Peek(n int) (t []*token.Token) {
 	return
 }
 
-func (s *peekScanner) PeekOne() *token.Token {
+func (s *peekScanner) PeekOne() token.Token {
 	p := s.Peek(1)
 	if len(p) == 1 {
 		return p[0]
@@ -652,7 +674,7 @@ func NewMultiScan(s ...Scanner) MultiScanner {
 	}
 }
 
-func (ms *multiScanner) Scan() (t *token.Token) {
+func (ms *multiScanner) Scan() (t token.Token) {
 	for ms.cur >= 0 {
 		t = ms.s[ms.cur].Scan()
 		if t != nil {

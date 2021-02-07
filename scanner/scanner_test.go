@@ -3,6 +3,7 @@ package scanner
 import (
 	"bytes"
 	"dxkite.cn/go-c11/token"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -58,24 +59,28 @@ func TestScanFile(t *testing.T) {
 		ext := filepath.Ext(p)
 		if ext == ".c" {
 			t.Run(p, func(t *testing.T) {
-				got, err := ScanFile(p)
+				tks, err := ScanFile(p)
 				if err != nil {
 					t.Errorf("ScanFile() error = %v", err)
 					return
 				}
-				if !exists(p + ".json") {
-					if err := token.SaveJson(p+".json", got); err != nil {
+				expect := p + ".expect.json"
+				if !exists(expect) {
+					if err := SaveJson(expect, tks); err != nil {
 						t.Errorf("SaveJson error = %v", err)
 						return
 					}
 				}
-				want, err := token.LoadJson(p + ".json")
+
+				want, err := ioutil.ReadFile(expect)
 				if err != nil {
-					t.Errorf("LoadJson() error = %v", err)
+					t.Errorf("ReadFile() error = %v", err)
 					return
 				}
-				if !reflect.DeepEqual(got, want) {
-					t.Errorf("ScanFile() got = %+v, want %+v", got, want)
+
+				got, _ := EncodingJson(tks)
+				if !bytes.Equal(want, got) {
+					t.Errorf("ScanFile() got = %s, want %s", got, want)
 				}
 			})
 		}

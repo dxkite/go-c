@@ -16,17 +16,17 @@ type MacroDecl interface {
 
 type MacroVal struct {
 	Name string
-	Body []*token.Token
+	Body []token.Token
 }
 
 type MacroFunc struct {
 	Name     string
 	Params   []string
 	Ellipsis bool // ...
-	Body     []*token.Token
+	Body     []token.Token
 }
 
-type HandlerFn func(tok *token.Token) []*token.Token
+type HandlerFn func(tok token.Token) []token.Token
 
 // MacroVal Handler
 type MacroHandler struct {
@@ -38,21 +38,50 @@ func (m *MacroVal) decl()     {}
 func (m *MacroFunc) decl()    {}
 func (m *MacroHandler) decl() {}
 
+// 宏定义
+type MacroInfo struct {
+	Decl  MacroDecl // 定义信息
+	Index int       // 定义的优先级
+}
+
+type Token struct {
+	Pos token.Position
+	Typ token.Type
+	Lit string
+	// 展开优先级
+	Index int
+	// 展开
+	Expand token.Token
+}
+
+func (t *Token) Position() token.Position {
+	return t.Pos
+}
+
+func (t *Token) Type() token.Type {
+	return t.Typ
+}
+func (t *Token) Literal() string {
+	return t.Lit
+}
+
 // 解析环境
 type Context struct {
-	Val     map[string]MacroDecl // 宏定义
-	Inc     []string             // 文件目录
-	counter int                  // __COUNTER__
-	once    map[string]struct{}  // #pragma once
+	Val     map[string]*MacroInfo // 宏定义
+	Inc     []string              // 文件目录
+	counter int                   // __COUNTER__
+	once    map[string]struct{}   // #pragma once
 
+	// MacroIndex
+	idx int
 	// 当前元素
 	lit string
 	pos token.Position
 	tok token.Type
-	cur *token.Token
+	cur token.Token
 	in  scanner.MultiScanner
 	rcd bool
-	tks []*token.Token
+	tks []token.Token
 	err go_c11.ErrorList
 	// 条件栈
 	cdt *ConditionStack
@@ -63,14 +92,14 @@ func New(s scanner.Scanner) *Context {
 	c := &Context{}
 	c.in = scanner.NewMultiScan(s)
 	c.err.Reset()
-	c.Val = map[string]MacroDecl{}
+	c.Val = map[string]*MacroInfo{}
 	c.cdt = NewConditionStack()
 	c.next()
 	return c
 }
 
 // 测试 once
-func (c *Context) Scan() (t *token.Token) {
+func (c *Context) Scan() (t token.Token) {
 	for t == nil {
 		if c.tok == token.EOF {
 			break
@@ -80,7 +109,7 @@ func (c *Context) Scan() (t *token.Token) {
 			continue
 		}
 		// 宏展开
-		if c.doExtract(c.cur) {
+		if c.doExpand(c.cur) {
 			c.next()
 			continue
 		}
@@ -95,8 +124,8 @@ func (c *Context) Error() *go_c11.ErrorList {
 	return &c.err
 }
 
-func tokIsMacro(tok *token.Token) bool {
-	return tok.Position.Column == 1 && tok.Lit == "#"
+func tokIsMacro(tok token.Token) bool {
+	return tok.Position().Column == 1 && tok.Literal() == "#"
 }
 
 // 获取下一个
@@ -106,9 +135,9 @@ func (c *Context) next() {
 	}
 	c.cur = c.in.Scan()
 	if c.cur != nil {
-		c.lit = c.cur.Lit
-		c.tok = c.cur.Type
-		c.pos = c.cur.Position
+		c.lit = c.cur.Literal()
+		c.tok = c.cur.Type()
+		c.pos = c.cur.Position()
 	} else {
 		c.tok = token.EOF
 		c.lit = ""
@@ -140,23 +169,25 @@ func (c *Context) DefineVal(name, value string) error {
 	if tok, err := scanner.ScanString("<build-in>", value); err != nil {
 		return err
 	} else {
-		c.Val[name] = &MacroVal{
+		c.Define(name, &MacroVal{
 			Name: name,
 			Body: tok,
-		}
+		})
 	}
 	return nil
 }
 
 func (c *Context) Define(name string, val MacroDecl) {
-	c.Val[name] = val
+	c.idx++
+	def := &MacroInfo{val, c.idx}
+	c.Val[name] = def
 }
 
 func (c *Context) DefineHandler(name string, val HandlerFn) {
-	c.Val[name] = &MacroHandler{
+	c.Define(name, &MacroHandler{
 		Name:    name,
 		Handler: val,
-	}
+	})
 	return
 }
 
@@ -165,40 +196,40 @@ func (c *Context) IsDefined(name string) bool {
 	return ok
 }
 
-func (p *Context) Init() {
-	p.DefineHandler("__FILE__", p.fileFn)
-	p.DefineHandler("__LINE__", p.lineFn)
-	p.DefineHandler("__COUNTER__", p.counterFn)
-	_ = p.DefineVal("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
-	_ = p.DefineVal("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
+func (c *Context) Init() {
+	c.DefineHandler("__FILE__", c.fileFn)
+	c.DefineHandler("__LINE__", c.lineFn)
+	c.DefineHandler("__COUNTER__", c.counterFn)
+	_ = c.DefineVal("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
+	_ = c.DefineVal("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
 }
 
-func (p *Context) counterFn(tok *token.Token) []*token.Token {
-	val := &token.Token{
-		Position: tok.Position,
-		Type:     token.INT,
-		Lit:      strconv.Itoa(p.counter),
+func (c *Context) counterFn(tok token.Token) []token.Token {
+	val := &Token{
+		Pos: tok.Position(),
+		Typ: token.INT,
+		Lit: strconv.Itoa(c.counter),
 	}
-	p.counter++
-	return []*token.Token{val}
+	c.counter++
+	return []token.Token{val}
 }
 
-func (p *Context) fileFn(tok *token.Token) []*token.Token {
-	val := &token.Token{
-		Position: tok.Position,
-		Type:     token.STRING,
-		Lit:      strconv.QuoteToGraphic(tok.Position.Filename),
+func (c *Context) fileFn(tok token.Token) []token.Token {
+	val := &Token{
+		Pos: tok.Position(),
+		Typ: token.STRING,
+		Lit: strconv.QuoteToGraphic(tok.Position().Filename),
 	}
-	return []*token.Token{val}
+	return []token.Token{val}
 }
 
-func (p *Context) lineFn(tok *token.Token) []*token.Token {
-	val := &token.Token{
-		Position: tok.Position,
-		Type:     token.STRING,
-		Lit:      strconv.Itoa(tok.Position.Line),
+func (c *Context) lineFn(tok token.Token) []token.Token {
+	val := &Token{
+		Pos: tok.Position(),
+		Typ: token.STRING,
+		Lit: strconv.Itoa(tok.Position().Line),
 	}
-	return []*token.Token{val}
+	return []token.Token{val}
 }
 
 func (c *Context) doMacro() {
@@ -268,11 +299,11 @@ func (c *Context) doMacro() {
 }
 
 // 展开宏
-func (c *Context) doExtract(tok *token.Token) bool {
-	if tok.Type != token.IDENT {
+func (c *Context) doExpand(tok token.Token) bool {
+	if tok.Type() != token.IDENT {
 		return false
 	}
-	if tks, ok := c.Extract(tok); ok {
+	if tks, ok := c.Expand(tok); ok {
 		c.push(tks)
 		return true
 	}
@@ -280,24 +311,29 @@ func (c *Context) doExtract(tok *token.Token) bool {
 }
 
 // 展开宏
-func (c *Context) push(tok []*token.Token) {
+func (c *Context) push(tok []token.Token) {
 	c.in.Push(scanner.NewArrayScan(tok))
 }
 
 // 处理宏展开
-func (c *Context) Extract(tok *token.Token) ([]*token.Token, bool) {
-	if tok.Type != token.IDENT {
+func (c *Context) Expand(tok token.Token) ([]token.Token, bool) {
+	if tok.Type() != token.IDENT {
 		return nil, false
 	}
-	if v, ok := c.Val[tok.Lit]; ok {
-		switch val := v.(type) {
+	name := tok.Literal()
+	if v, ok := c.Val[name]; ok {
+		// 宏未定义时不展开
+		if t, ok := tok.(*Token); ok && v.Index > t.Index {
+			return nil, false
+		}
+		switch val := v.Decl.(type) {
 		case *MacroVal:
-			return c.ExtractVal(tok, val.Body), true
+			return c.ExpandVal(tok, v.Index, val.Body), true
 		case *MacroHandler:
-			return c.ExtractVal(tok, val.Handler(tok)), true
+			return c.ExpandVal(tok, v.Index, val.Handler(tok)), true
 		case *MacroFunc:
 			// 忽略非函数式宏
-			if n := c.peekNext(); n.Lit != "(" {
+			if n := c.peekNext(); n.Literal() != "(" {
 				return nil, false
 			}
 			// 处理
@@ -306,23 +342,25 @@ func (c *Context) Extract(tok *token.Token) ([]*token.Token, bool) {
 	return nil, false
 }
 
-// 在某位置展开宏变量
-func (c *Context) ExtractVal(v *token.Token, tks []*token.Token) []*token.Token {
-	ex := make([]*token.Token, len(tks))
+// 展开宏
+func (c *Context) ExpandVal(v token.Token, idx int, tks []token.Token) []token.Token {
+	ex := make([]token.Token, len(tks))
 	col := 0
-	pos := v.Position
+	pos := v.Position()
 	for i, tok := range tks {
 		if i == 0 {
-			col = tok.Position.Column
+			col = tok.Position().Column
 		}
-		t := &token.Token{
-			Position: token.Position{
+		t := &Token{
+			Pos: token.Position{
 				Filename: pos.Filename,
 				Line:     pos.Line,
-				Column:   pos.Column + tok.Position.Column - col,
+				Column:   pos.Column + tok.Position().Column - col,
 			},
-			Type: tok.Type,
-			Lit:  tok.Lit,
+			Typ:    tok.Type(),
+			Lit:    tok.Literal(),
+			Index:  idx,
+			Expand: v,
 		}
 		ex[i] = t
 	}
@@ -330,26 +368,26 @@ func (c *Context) ExtractVal(v *token.Token, tks []*token.Token) []*token.Token 
 }
 
 // peek 下一个非空 token
-func (c *Context) peekNext() *token.Token {
+func (c *Context) peekNext() token.Token {
 	n := 1
 	for {
 		v := c.peek(n)
 		if len(v) < n {
 			break
 		}
-		if v[n-1].Type != token.WHITESPACE {
+		if v[n-1].Type() != token.WHITESPACE {
 			return v[n-1]
 		}
 	}
-	return &token.Token{
-		Position: token.Position{},
-		Type:     token.EOF,
-		Lit:      "",
+	return &Token{
+		Pos: token.Position{},
+		Typ: token.EOF,
+		Lit: "",
 	}
 }
 
 // peek 下一个 token
-func (c *Context) peekOne() *token.Token {
+func (c *Context) peekOne() token.Token {
 	if ps, ok := c.in.(scanner.PeekScanner); ok {
 		return ps.PeekOne()
 	}
@@ -359,7 +397,7 @@ func (c *Context) peekOne() *token.Token {
 	return tok
 }
 
-func (c *Context) peek(offset int) []*token.Token {
+func (c *Context) peek(offset int) []token.Token {
 	if ps, ok := c.in.(scanner.PeekScanner); ok {
 		return ps.Peek(offset)
 	}
@@ -393,9 +431,9 @@ func (c *Context) isMacroEnd() bool {
 }
 
 // 跳过无法到达的代码
-func (c *Context) skipUtilCdt(names ...string) []*token.Token {
+func (c *Context) skipUtilCdt(names ...string) []token.Token {
 	cdt := 0
-	tks := make([]*token.Token, 2)
+	tks := make([]token.Token, 2)
 	for {
 		c.next()
 		if c.tok == token.EOF {
@@ -452,7 +490,7 @@ func (c *Context) skipUtilElse() {
 }
 
 func (c *Context) evalConstExpr() bool {
-	tks := []*token.Token{}
+	tks := []token.Token{}
 	for {
 		if c.tok == token.EOF || c.tok == token.NEWLINE {
 			break
@@ -469,7 +507,7 @@ func (c *Context) evalConstExpr() bool {
 func (c *Context) doDefine() {
 	c.nextToken()
 	ident := c.expectIdent()
-	if n := c.peekOne(); n.Lit == "(" {
+	if n := c.peekOne(); n.Literal() == "(" {
 		c.doDefineFunc(ident)
 	} else {
 		c.doDefineVal(ident)
@@ -478,7 +516,7 @@ func (c *Context) doDefine() {
 }
 
 func (c *Context) doDefineVal(ident string) {
-	tks := make([]*token.Token, 0)
+	tks := make([]token.Token, 0)
 	c.nextToken()
 	for !c.isMacroEnd() {
 		tks = append(tks, c.cur)
