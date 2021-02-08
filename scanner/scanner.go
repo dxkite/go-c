@@ -704,3 +704,19 @@ func (ms *multiScanner) Push(s Scanner) {
 func (ms *multiScanner) Error() *go_c11.ErrorList {
 	return ms.s[ms.cur].Error()
 }
+
+type tokenScanner struct {
+	Scanner
+}
+
+// 扫描字符串
+// 跳过空白符
+func NewTokenScan(s Scanner) Scanner {
+	return &tokenScanner{s}
+}
+
+func (ts *tokenScanner) Scan() (t token.Token) {
+	for t = ts.Scanner.Scan(); t != nil && t.Type() == token.WHITESPACE; t = ts.Scanner.Scan() {
+	}
+	return t
+}
