@@ -1,0 +1,158 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 6,
+            "Column": 1
+        },
+        "Typ": "INT",
+        "Lit": "1020",
+        "Index": 4,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\concat.c",
+                "Line": 6,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "A"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 6,
+            "Column": 2
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 6,
+            "Column": 3
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 7,
+            "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "A123",
+        "Index": 5,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\concat.c",
+                "Line": 7,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "B"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 7,
+            "Column": 2
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 7,
+            "Column": 3
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 8,
+            "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "C"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 8,
+            "Column": 2
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 8,
+            "Column": 3
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 9,
+            "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 9,
+            "Column": 2
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 9,
+            "Column": 3
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 10,
+            "Column": 1
+        },
+        "Typ": "ILLEGAL",
+        "Lit": "123A",
+        "Index": 6,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\concat.c",
+                "Line": 10,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "E"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 10,
+            "Column": 2
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    }
+]
