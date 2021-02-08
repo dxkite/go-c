@@ -22,7 +22,8 @@ func (e Error) Error() string {
 type ErrorList []*Error
 
 // 添加一个错误
-func (p *ErrorList) Add(pos token.Position, msg string) {
+func (p *ErrorList) Add(pos token.Position, msg string, args ...interface{}) {
+	msg = fmt.Sprintf(msg, args...)
 	*p = append(*p, &Error{pos, msg})
 }
 
