@@ -1,0 +1,26 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 12
+        },
+        "Msg": "unclosed char lit '"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 17
+        },
+        "Msg": "unclosed char lit '"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 15
+        },
+        "Msg": "unexpected ' in unicode escape"
+    }
+]

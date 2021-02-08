@@ -1,0 +1,209 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 1,
+            "Column": 1
+        },
+        "Typ": "KEYWORD",
+        "Lit": "int"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 1,
+            "Column": 4
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 1,
+            "Column": 5
+        },
+        "Typ": "IDENT",
+        "Lit": "a"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 1,
+            "Column": 6
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 1,
+            "Column": 7
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 1
+        },
+        "Typ": "KEYWORD",
+        "Lit": "char"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 5
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 6
+        },
+        "Typ": "IDENT",
+        "Lit": "a"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 7
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 8
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "="
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 9
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 10
+        },
+        "Typ": "CHAR",
+        "Lit": "'1"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 12
+        },
+        "Typ": "INT",
+        "Lit": "234"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 15
+        },
+        "Typ": "CHAR",
+        "Lit": "';"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 2,
+            "Column": 17
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 1
+        },
+        "Typ": "KEYWORD",
+        "Lit": "char"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 5
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 6
+        },
+        "Typ": "IDENT",
+        "Lit": "a"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 7
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 8
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "="
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 9
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 10
+        },
+        "Typ": "CHAR",
+        "Lit": "'\\u12'"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\simple-error.c",
+            "Line": 3,
+            "Column": 16
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    }
+]

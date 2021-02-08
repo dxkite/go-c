@@ -1,7 +1,9 @@
 package go_c11
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 	"sort"
 
 	"dxkite.cn/go-c11/token"
@@ -59,4 +61,33 @@ func (p ErrorList) Error() string {
 		return p[0].Error()
 	}
 	return fmt.Sprintf("%s (and %d more errors)", p[0], len(p)-1)
+}
+
+func (p *ErrorList) SaveFile(filename string) error {
+	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	je := json.NewEncoder(f)
+	je.SetEscapeHTML(false)
+	je.SetIndent("", "    ")
+	if err := je.Encode(p); err != nil {
+		_ = f.Close()
+		return err
+	}
+	return f.Close()
+}
+
+func (p *ErrorList) LoadFromFile(filename string) error {
+	f, err := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	je := json.NewDecoder(f)
+	if err := je.Decode(&p); err != nil {
+		_ = f.Close()
+		return err
+	} else {
+		return f.Close()
+	}
 }

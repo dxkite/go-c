@@ -217,7 +217,7 @@ func (s *scanner) Scan() token.Token {
 			s.next()
 			switch ch {
 			case -1:
-				return nil
+				t.Typ = token.EOF
 			case '\n':
 				t.Typ = token.NEWLINE
 				t.Lit = "\n"
@@ -540,7 +540,7 @@ func ScanToken(s Scanner) []token.Token {
 	tks := make([]token.Token, 0)
 	for {
 		tok := s.Scan()
-		if tok == nil {
+		if tok.Type() == token.EOF {
 			break
 		}
 		if i := len(tks) - 1; tok.Type() == token.WHITESPACE && i >= 0 && tks[i].Type() == token.WHITESPACE {
@@ -551,17 +551,13 @@ func ScanToken(s Scanner) []token.Token {
 	return tks
 }
 
-func Scan(filename string, r io.Reader) ([]token.Token, error) {
+func Scan(filename string, r io.Reader) ([]token.Token, *go_c11.ErrorList) {
 	s := NewScan(filename, r)
 	tks := ScanToken(s)
-	var err error
-	if s.Error().Len() > 0 {
-		err = s.Error()
-	}
-	return tks, err
+	return tks, s.Error()
 }
 
-func ScanString(name, code string) ([]token.Token, error) {
+func ScanString(name, code string) ([]token.Token, *go_c11.ErrorList) {
 	return Scan(name, bytes.NewBufferString(code))
 }
 
@@ -594,7 +590,9 @@ func (a *arrayScanner) Scan() (t token.Token) {
 	if of < len(a.arr) {
 		return a.arr[of]
 	}
-	return nil
+	return &Token{
+		Typ: token.EOF,
+	}
 }
 
 func (a *arrayScanner) Error() *go_c11.ErrorList {
@@ -636,21 +634,17 @@ func (s *peekScanner) Peek(n int) (t []token.Token) {
 	}
 	for n > len(t) {
 		r := s.s.Scan()
-		if r == nil {
-			return
-		}
 		t = append(t, r)
 		s.c = append(s.c, r)
+		if r.Type() == token.EOF {
+			break
+		}
 	}
 	return
 }
 
 func (s *peekScanner) PeekOne() token.Token {
-	p := s.Peek(1)
-	if len(p) == 1 {
-		return p[0]
-	}
-	return nil
+	return s.Peek(1)[0]
 }
 
 func (s *peekScanner) Error() *go_c11.ErrorList {
@@ -677,10 +671,9 @@ func NewMultiScan(s ...Scanner) MultiScanner {
 func (ms *multiScanner) Scan() (t token.Token) {
 	for ms.cur >= 0 {
 		t = ms.s[ms.cur].Scan()
-		if t != nil {
-			return
+		if t.Type() != token.EOF {
+			break
 		}
-
 		if ms.cur > 0 {
 			err := ms.s[ms.cur].Error()
 			ms.cur--
@@ -716,7 +709,8 @@ func NewTokenScan(s Scanner) Scanner {
 }
 
 func (ts *tokenScanner) Scan() (t token.Token) {
-	for t = ts.Scanner.Scan(); t != nil && t.Type() == token.WHITESPACE; t = ts.Scanner.Scan() {
+	for t = ts.Scanner.Scan(); t.Type() == token.WHITESPACE; t = ts.Scanner.Scan() {
+		// next
 	}
 	return t
 }
