@@ -11,7 +11,16 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 8,
+            "Column": 1
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 9,
             "Column": 1
         },
         "Typ": "KEYWORD",
@@ -20,7 +29,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 4
         },
         "Typ": "WHITESPACE",
@@ -29,7 +38,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 5
         },
         "Typ": "IDENT",
@@ -38,7 +47,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 9
         },
         "Typ": "PUNCTUATOR",
@@ -47,7 +56,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 10
         },
         "Typ": "PUNCTUATOR",
@@ -56,7 +65,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 11
         },
         "Typ": "WHITESPACE",
@@ -65,7 +74,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 12
         },
         "Typ": "PUNCTUATOR",
@@ -74,7 +83,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 5,
+            "Line": 9,
             "Column": 13
         },
         "Typ": "NEWLINE",
@@ -83,7 +92,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
+            "Line": 10,
             "Column": 1
         },
         "Typ": "WHITESPACE",
@@ -92,7 +101,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
+            "Line": 10,
             "Column": 5
         },
         "Typ": "IDENT",
@@ -101,7 +110,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
+            "Line": 10,
             "Column": 11
         },
         "Typ": "PUNCTUATOR",
@@ -110,17 +119,17 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
+            "Line": 10,
             "Column": 12
         },
         "Typ": "STRING",
-        "Lit": "\"%d\\n\""
+        "Lit": "\"%d %d\\n\""
     },
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 18
+            "Line": 10,
+            "Column": 21
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -128,8 +137,8 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 19
+            "Line": 10,
+            "Column": 22
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -137,17 +146,17 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 20
+            "Line": 10,
+            "Column": 23
         },
         "Typ": "INT",
         "Lit": "30",
-        "Index": 8,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 20
+                "Line": 10,
+                "Column": 23
             },
             "Typ": "IDENT",
             "Lit": "C"
@@ -156,17 +165,17 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 23
+            "Line": 10,
+            "Column": 26
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 8,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 20
+                "Line": 10,
+                "Column": 23
             },
             "Typ": "IDENT",
             "Lit": "C"
@@ -175,26 +184,26 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 25
+            "Line": 10,
+            "Column": 28
         },
         "Typ": "INT",
         "Lit": "20",
-        "Index": 7,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 25
+                "Line": 10,
+                "Column": 28
             },
             "Typ": "IDENT",
             "Lit": "B",
-            "Index": 8,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 20
+                    "Line": 10,
+                    "Column": 23
                 },
                 "Typ": "IDENT",
                 "Lit": "C"
@@ -204,26 +213,26 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 28
+            "Line": 10,
+            "Column": 31
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 7,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 25
+                "Line": 10,
+                "Column": 28
             },
             "Typ": "IDENT",
             "Lit": "B",
-            "Index": 8,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 20
+                    "Line": 10,
+                    "Column": 23
                 },
                 "Typ": "IDENT",
                 "Lit": "C"
@@ -233,35 +242,35 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 30
+            "Line": 10,
+            "Column": 33
         },
         "Typ": "INT",
         "Lit": "10",
-        "Index": 6,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 30
+                "Line": 10,
+                "Column": 33
             },
             "Typ": "IDENT",
             "Lit": "A",
-            "Index": 7,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 25
+                    "Line": 10,
+                    "Column": 28
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
-                "Index": 8,
+                "Index": 0,
                 "Expand": {
                     "Pos": {
                         "Filename": "testdata\\valdef-2.c",
-                        "Line": 6,
-                        "Column": 20
+                        "Line": 10,
+                        "Column": 23
                     },
                     "Typ": "IDENT",
                     "Lit": "C"
@@ -272,35 +281,35 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 33
+            "Line": 10,
+            "Column": 36
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 6,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 30
+                "Line": 10,
+                "Column": 33
             },
             "Typ": "IDENT",
             "Lit": "A",
-            "Index": 7,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 25
+                    "Line": 10,
+                    "Column": 28
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
-                "Index": 8,
+                "Index": 0,
                 "Expand": {
                     "Pos": {
                         "Filename": "testdata\\valdef-2.c",
-                        "Line": 6,
-                        "Column": 20
+                        "Line": 10,
+                        "Column": 23
                     },
                     "Typ": "IDENT",
                     "Lit": "C"
@@ -311,44 +320,44 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 35
+            "Line": 10,
+            "Column": 38
         },
         "Typ": "STRING",
-        "Lit": "6",
-        "Index": 2,
+        "Lit": "10",
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 35
+                "Line": 10,
+                "Column": 38
             },
             "Typ": "IDENT",
             "Lit": "__LINE__",
-            "Index": 6,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 30
+                    "Line": 10,
+                    "Column": 33
                 },
                 "Typ": "IDENT",
                 "Lit": "A",
-                "Index": 7,
+                "Index": 0,
                 "Expand": {
                     "Pos": {
                         "Filename": "testdata\\valdef-2.c",
-                        "Line": 6,
-                        "Column": 25
+                        "Line": 10,
+                        "Column": 28
                     },
                     "Typ": "IDENT",
                     "Lit": "B",
-                    "Index": 8,
+                    "Index": 0,
                     "Expand": {
                         "Pos": {
                             "Filename": "testdata\\valdef-2.c",
-                            "Line": 6,
-                            "Column": 20
+                            "Line": 10,
+                            "Column": 23
                         },
                         "Typ": "IDENT",
                         "Lit": "C"
@@ -360,35 +369,35 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 44
+            "Line": 10,
+            "Column": 47
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 6,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 30
+                "Line": 10,
+                "Column": 33
             },
             "Typ": "IDENT",
             "Lit": "A",
-            "Index": 7,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 25
+                    "Line": 10,
+                    "Column": 28
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
-                "Index": 8,
+                "Index": 0,
                 "Expand": {
                     "Pos": {
                         "Filename": "testdata\\valdef-2.c",
-                        "Line": 6,
-                        "Column": 20
+                        "Line": 10,
+                        "Column": 23
                     },
                     "Typ": "IDENT",
                     "Lit": "C"
@@ -399,35 +408,35 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 46
+            "Line": 10,
+            "Column": 49
         },
         "Typ": "IDENT",
         "Lit": "B",
-        "Index": 6,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 30
+                "Line": 10,
+                "Column": 33
             },
             "Typ": "IDENT",
             "Lit": "A",
-            "Index": 7,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 25
+                    "Line": 10,
+                    "Column": 28
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
-                "Index": 8,
+                "Index": 0,
                 "Expand": {
                     "Pos": {
                         "Filename": "testdata\\valdef-2.c",
-                        "Line": 6,
-                        "Column": 20
+                        "Line": 10,
+                        "Column": 23
                     },
                     "Typ": "IDENT",
                     "Lit": "C"
@@ -438,26 +447,26 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 32
+            "Line": 10,
+            "Column": 35
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 7,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 25
+                "Line": 10,
+                "Column": 28
             },
             "Typ": "IDENT",
             "Lit": "B",
-            "Index": 8,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 20
+                    "Line": 10,
+                    "Column": 23
                 },
                 "Typ": "IDENT",
                 "Lit": "C"
@@ -467,26 +476,26 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 34
+            "Line": 10,
+            "Column": 37
         },
         "Typ": "IDENT",
         "Lit": "C",
-        "Index": 7,
+        "Index": 0,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
-                "Line": 6,
-                "Column": 25
+                "Line": 10,
+                "Column": 28
             },
             "Typ": "IDENT",
             "Lit": "B",
-            "Index": 8,
+            "Index": 0,
             "Expand": {
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
-                    "Line": 6,
-                    "Column": 20
+                    "Line": 10,
+                    "Column": 23
                 },
                 "Typ": "IDENT",
                 "Lit": "C"
@@ -496,8 +505,93 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 21
+            "Line": 10,
+            "Column": 24
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ","
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 10,
+            "Column": 25
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 10,
+            "Column": 26
+        },
+        "Typ": "CHAR",
+        "Lit": "'E'",
+        "Index": 0,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\valdef-2.c",
+                "Line": 10,
+                "Column": 26
+            },
+            "Typ": "IDENT",
+            "Lit": "E"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 10,
+            "Column": 30
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "+",
+        "Index": 0,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\valdef-2.c",
+                "Line": 10,
+                "Column": 26
+            },
+            "Typ": "IDENT",
+            "Lit": "E"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 10,
+            "Column": 32
+        },
+        "Typ": "CHAR",
+        "Lit": "'F'",
+        "Index": 0,
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\valdef-2.c",
+                "Line": 10,
+                "Column": 32
+            },
+            "Typ": "IDENT",
+            "Lit": "F",
+            "Index": 0,
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\valdef-2.c",
+                    "Line": 10,
+                    "Column": 26
+                },
+                "Typ": "IDENT",
+                "Lit": "E"
+            }
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\valdef-2.c",
+            "Line": 10,
+            "Column": 27
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")"
@@ -505,8 +599,8 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 22
+            "Line": 10,
+            "Column": 28
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -514,8 +608,8 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 6,
-            "Column": 23
+            "Line": 10,
+            "Column": 29
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -523,7 +617,7 @@
     {
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
-            "Line": 7,
+            "Line": 11,
             "Column": 1
         },
         "Typ": "PUNCTUATOR",

@@ -39,12 +39,6 @@ func (m *MacroVal) decl()     {}
 func (m *MacroFunc) decl()    {}
 func (m *MacroHandler) decl() {}
 
-// 宏定义
-type MacroInfo struct {
-	Decl  MacroDecl // 定义信息
-	Index int       // 定义的优先级
-}
-
 type Token struct {
 	Pos token.Position
 	Typ token.Type
@@ -66,26 +60,42 @@ func (t *Token) Literal() string {
 	return t.Lit
 }
 
+func (t *Token) ExpandFrom(tok token.Token) bool {
+	var exp token.Token
+	// 获取展开历史
+	if t, ok := tok.(*Token); ok && t.Expand != nil {
+		exp = t.Expand
+	} else {
+		return false
+	}
+	// 不递归展开
+	for {
+		if exp.Literal() == tok.Literal() {
+			return true
+		}
+		if t, ok := exp.(*Token); ok && t.Expand != nil {
+			exp = t.Expand
+		} else {
+			return false
+		}
+	}
+}
+
 // 解析环境
 type Context struct {
-	Val     map[string]*MacroInfo // 宏定义
-	Inc     []string              // 文件目录
-	counter int                   // __COUNTER__
-	once    map[string]struct{}   // #pragma once
+	Val     map[string]MacroDecl // 宏定义
+	Inc     []string             // 文件目录
+	counter int                  // __COUNTER__
+	once    map[string]struct{}  // #pragma once
+	cdt     *ConditionStack      // 条件栈
+	idx     int                  // MacroIndex
 
-	// MacroIndex
-	idx int
 	// 当前元素
-	lit string
-	pos token.Position
-	tok token.Type
 	cur token.Token
 	in  scanner.MultiScanner
 	rcd bool
 	tks []token.Token
 	err go_c11.ErrorList
-	// 条件栈
-	cdt *ConditionStack
 }
 
 // 设置输入
@@ -93,7 +103,7 @@ func New(s scanner.Scanner) *Context {
 	c := &Context{}
 	c.in = scanner.NewMultiScan(s)
 	c.err.Reset()
-	c.Val = map[string]*MacroInfo{}
+	c.Val = map[string]MacroDecl{}
 	c.cdt = NewConditionStack()
 	c.next()
 	return c
@@ -102,7 +112,7 @@ func New(s scanner.Scanner) *Context {
 // 测试 once
 func (c *Context) Scan() (t token.Token) {
 	for t == nil {
-		if c.tok == token.EOF {
+		if c.cur.Type() == token.EOF {
 			break
 		}
 		if tokIsMacro(c.cur) {
@@ -134,14 +144,6 @@ func (c *Context) next() {
 		c.tks = append(c.tks, c.cur)
 	}
 	c.cur = c.in.Scan()
-	if c.cur != nil {
-		c.lit = c.cur.Literal()
-		c.tok = c.cur.Type()
-		c.pos = c.cur.Position()
-	} else {
-		c.tok = token.EOF
-		c.lit = ""
-	}
 }
 
 func (c *Context) record() {
@@ -159,7 +161,7 @@ func (c *Context) arr() []token.Token {
 func (c *Context) nextToken() {
 	for {
 		c.next()
-		if c.tok != token.WHITESPACE {
+		if c.cur.Type() != token.WHITESPACE {
 			break
 		}
 	}
@@ -189,9 +191,7 @@ func (c *Context) DefineVal(name, value string) error {
 }
 
 func (c *Context) Define(name string, val MacroDecl) {
-	c.idx++
-	def := &MacroInfo{val, c.idx}
-	c.Val[name] = def
+	c.Val[name] = val
 }
 
 func (c *Context) DefineHandler(name string, val HandlerFn) {
@@ -245,7 +245,7 @@ func (c *Context) lineFn(tok token.Token) []token.Token {
 
 func (c *Context) doMacro() {
 	c.nextToken()
-	switch c.lit {
+	switch c.cur.Literal() {
 	case "if":
 		c.next()
 		cdt := c.evalConstExpr()
@@ -279,7 +279,7 @@ func (c *Context) doMacro() {
 			c.next() // endif
 			c.expectEndMacro()
 		} else {
-			c.err.Add(c.pos, "unexpected #else")
+			c.err.Add(c.cur.Position(), "unexpected #else")
 		}
 	case "else":
 		c.next()
@@ -289,7 +289,7 @@ func (c *Context) doMacro() {
 			c.next()
 			c.expectEndMacro()
 		} else {
-			c.err.Add(c.pos, "unexpected #else")
+			c.err.Add(c.cur.Position(), "unexpected #else")
 		}
 	case "endif":
 		if c.cdt.Top() == IN_THEN || c.cdt.Top() == IN_ELSE {
@@ -297,7 +297,7 @@ func (c *Context) doMacro() {
 			c.next() // endif
 			c.expectEndMacro()
 		} else {
-			c.err.Add(c.pos, "unexpected #endif")
+			c.err.Add(c.cur.Position(), "unexpected #endif")
 		}
 	case "define":
 		c.doDefine()
@@ -332,24 +332,21 @@ func (c *Context) Expand(tok token.Token) ([]token.Token, bool) {
 	if tok.Type() != token.IDENT {
 		return nil, false
 	}
+	// 递归展开处理
+	if t, ok := tok.(*Token); ok && t.ExpandFrom(tok) {
+		return nil, false
+	}
 	name := tok.Literal()
 	if v, ok := c.Val[name]; ok {
-		switch val := v.Decl.(type) {
+
+		switch val := v.(type) {
 		case *MacroVal:
-			// 宏未定义时不展开
-			if t, ok := tok.(*Token); ok && v.Index > t.Index {
-				return nil, false
-			}
-			tks := c.ExpandVal(tok, v.Index, val.Body, nil)
+			tks := c.ExpandVal(tok, val.Body, nil)
 			c.push(tks)
 			c.next()
 			return tks, true
 		case *MacroHandler:
-			// 宏未定义时不展开
-			if t, ok := tok.(*Token); ok && v.Index > t.Index {
-				return nil, false
-			}
-			tks := c.ExpandVal(tok, v.Index, val.Handler(tok), nil)
+			tks := c.ExpandVal(tok, val.Handler(tok), nil)
 			c.push(tks)
 			c.next()
 			return tks, true
@@ -358,12 +355,8 @@ func (c *Context) Expand(tok token.Token) ([]token.Token, bool) {
 			if n := c.peekNext(); n.Literal() != "(" {
 				return nil, false
 			}
-			// 宏未定义时不展开
-			if !c.canExpandMacroFunc(tok) {
-				return nil, false
-			}
 			// 处理
-			if tks, ok := c.ExpandFunc(tok, v.Index, val); ok {
+			if tks, ok := c.ExpandFunc(tok, val); ok {
 				tks = append(tks, c.cur)
 				c.push(tks)
 				c.next()
@@ -376,29 +369,8 @@ func (c *Context) Expand(tok token.Token) ([]token.Token, bool) {
 	return nil, false
 }
 
-func (c *Context) canExpandMacroFunc(tok token.Token) bool {
-	var exp token.Token
-	// 获取展开历史
-	if t, ok := tok.(*Token); ok && t.Expand != nil {
-		exp = t.Expand
-	} else {
-		return true
-	}
-	// 不递归展开
-	for {
-		if exp.Literal() == tok.Literal() {
-			return false
-		}
-		if t, ok := exp.(*Token); ok && t.Expand != nil {
-			exp = t.Expand
-		} else {
-			return true
-		}
-	}
-}
-
 // 展开宏
-func (c *Context) ExpandVal(v token.Token, idx int, tks []token.Token, params map[string][]token.Token) []token.Token {
+func (c *Context) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
 	ex := make([]token.Token, 0)
 	col := 0
 	pos := v.Position()
@@ -421,7 +393,7 @@ func (c *Context) ExpandVal(v token.Token, idx int, tks []token.Token, params ma
 			lit = tok.Literal() + nxt.Literal()
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
-				c.err.Add(c.pos, "invalid ## operator between %s and %s", lit, nxt.Literal())
+				c.err.Add(c.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
 			}
 		}
 
@@ -452,7 +424,6 @@ func (c *Context) ExpandVal(v token.Token, idx int, tks []token.Token, params ma
 			},
 			Typ:    typ,
 			Lit:    lit,
-			Index:  idx,
 			Expand: v,
 		}
 		ex = append(ex, t)
@@ -503,12 +474,12 @@ func (c *Context) peek(offset int) []token.Token {
 }
 
 func (c *Context) expectIdent() string {
-	if c.tok == token.IDENT {
-		lit := c.lit
+	if c.cur.Type() == token.IDENT {
+		lit := c.cur.Literal()
 		c.next()
 		return lit
 	}
-	c.err.Add(c.pos, fmt.Sprintf("expect token %s got %s", token.IDENT, c.tok))
+	c.err.Add(c.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, c.cur.Type()))
 	return ""
 }
 
@@ -517,11 +488,11 @@ func (c *Context) expectPunctuator(lit string) {
 }
 
 func (c *Context) punctuator(lit string, require bool) {
-	if c.tok == token.PUNCTUATOR && lit == c.lit {
+	if c.cur.Type() == token.PUNCTUATOR && lit == c.cur.Literal() {
 		c.nextToken()
 	}
 	if require {
-		c.err.Add(c.pos, fmt.Sprintf("expect punctuator %s got %s", lit, c.lit))
+		c.err.Add(c.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, c.cur.Literal()))
 	}
 }
 
@@ -530,12 +501,12 @@ func (c *Context) expectEndMacro() {
 		c.nextToken()
 		return
 	}
-	c.err.Add(c.pos, fmt.Sprintf("expect end macro got %s", c.tok))
+	c.err.Add(c.cur.Position(), fmt.Sprintf("expect end macro got %s", c.cur.Type()))
 }
 
 // 宏结尾
 func (c *Context) isMacroEnd() bool {
-	return c.tok == token.NEWLINE || c.tok == token.EOF
+	return c.cur.Type() == token.NEWLINE || c.cur.Type() == token.EOF
 }
 
 // 跳过无法到达的代码
@@ -544,26 +515,26 @@ func (c *Context) skipUtilCdt(names ...string) []token.Token {
 	tks := make([]token.Token, 2)
 	for {
 		c.next()
-		if c.tok == token.EOF {
-			c.err.Add(c.pos, fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
+		if c.cur.Type() == token.EOF {
+			c.err.Add(c.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
 			break
 		}
 		if tokIsMacro(c.cur) {
 			tks[0] = c.cur
 			c.nextToken()
-			switch c.lit {
+			switch c.cur.Literal() {
 			case "if", "ifndef", "ifdef":
 				cdt++
 			default:
 				if cdt == 0 {
 					for _, name := range names {
-						if name == c.lit {
+						if name == c.cur.Literal() {
 							tks[1] = c.cur
 							return tks
 						}
 					}
 				}
-				if c.lit == "endif" {
+				if c.cur.Literal() == "endif" {
 					cdt--
 				}
 			}
@@ -589,7 +560,7 @@ func (c *Context) doIfDefine(want bool) {
 // skip to #else/#elif
 func (c *Context) skipUtilElse() {
 	m := c.skipUtilCdt("elif", "else")
-	if c.lit == "elif" {
+	if c.cur.Literal() == "elif" {
 		c.next()  // elif
 		c.push(m) // push back
 	} else {
@@ -600,10 +571,10 @@ func (c *Context) skipUtilElse() {
 func (c *Context) evalConstExpr() bool {
 	tks := []token.Token{}
 	for {
-		if c.tok == token.EOF || c.tok == token.NEWLINE {
+		if c.cur.Type() == token.EOF || c.cur.Type() == token.NEWLINE {
 			break
 		}
-		if c.tok != token.WHITESPACE {
+		if c.cur.Type() != token.WHITESPACE {
 			tks = append(tks, c.cur)
 		}
 		c.next()
@@ -615,7 +586,7 @@ func (c *Context) evalConstExpr() bool {
 func (c *Context) doDefine() {
 	c.nextToken()
 	ident := c.expectIdent()
-	if c.lit == "(" {
+	if c.cur.Literal() == "(" {
 		c.doDefineFunc(ident)
 	} else {
 		c.doDefineVal(ident)
@@ -678,17 +649,17 @@ func (c *Context) doDefineFunc(ident string) {
 	c.expectPunctuator("(")
 
 	elp := false
-	for !c.isMacroEnd() && c.lit != ")" {
-		if c.lit == "..." {
+	for !c.isMacroEnd() && c.cur.Literal() != ")" {
+		if c.cur.Literal() == "..." {
 			elp = true
 			c.nextToken()
 			break
-		} else if c.tok == token.IDENT {
-			params = append(params, c.lit)
+		} else if c.cur.Type() == token.IDENT {
+			params = append(params, c.cur.Literal())
 			c.nextToken()
 			c.punctuator(",", false)
 		} else {
-			c.err.Add(c.pos, fmt.Sprintf("expect ident, got %s <%s>", c.tok, c.lit))
+			c.err.Add(c.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", c.cur.Type(), c.cur.Literal()))
 			break
 		}
 	}
@@ -714,7 +685,7 @@ func (c *Context) doDefineFunc(ident string) {
 }
 
 // 展开函数
-func (c *Context) ExpandFunc(tok token.Token, index int, val *MacroFunc) ([]token.Token, bool) {
+func (c *Context) ExpandFunc(tok token.Token, val *MacroFunc) ([]token.Token, bool) {
 	c.record()
 	c.nextToken()
 	params, ok := c.readParameters(val)
@@ -726,7 +697,7 @@ func (c *Context) ExpandFunc(tok token.Token, index int, val *MacroFunc) ([]toke
 		c.next()
 		return nil, false
 	}
-	return c.ExpandVal(tok, index, val.Body, params), true
+	return c.ExpandVal(tok, val.Body, params), true
 }
 
 func (c *Context) readParameters(val *MacroFunc) (map[string][]token.Token, bool) {
@@ -734,7 +705,7 @@ func (c *Context) readParameters(val *MacroFunc) (map[string][]token.Token, bool
 	params := map[string][]token.Token{}
 	i := 0
 	lp := len(val.Params)
-	for !c.isMacroEnd() && c.lit != ")" {
+	for !c.isMacroEnd() && c.cur.Literal() != ")" {
 		if len(params) < lp {
 			p := c.readParameter()
 			params[val.Params[i]] = p
@@ -742,13 +713,13 @@ func (c *Context) readParameters(val *MacroFunc) (map[string][]token.Token, bool
 		} else if val.Ellipsis {
 			params["__VA_ARGS__"] = c.readEllipsisParameter()
 		} else {
-			c.err.Add(c.pos, "expect params %d got %d", lp, i)
+			c.err.Add(c.cur.Position(), "expect params %d got %d", lp, i)
 		}
 		i++
 	}
 	c.expectPunctuator(")")
 	if len(params) < lp {
-		c.err.Add(c.pos, "requires %d arguments, but only %d given", lp, len(params))
+		c.err.Add(c.cur.Position(), "requires %d arguments, but only %d given", lp, len(params))
 		return nil, false
 	}
 	return params, true
@@ -758,11 +729,11 @@ func (c *Context) readParameters(val *MacroFunc) (map[string][]token.Token, bool
 func (c *Context) readParameter() []token.Token {
 	c.record()
 	paren := 0
-	for !c.isMacroEnd() && c.lit != "," && c.lit != ")" {
-		if c.lit == "(" {
+	for !c.isMacroEnd() && c.cur.Literal() != "," && c.cur.Literal() != ")" {
+		if c.cur.Literal() == "(" {
 			paren++
 		}
-		if c.lit == ")" && paren != 0 {
+		if c.cur.Literal() == ")" && paren != 0 {
 			paren--
 			c.nextToken()
 		}
@@ -775,8 +746,8 @@ func (c *Context) readParameter() []token.Token {
 func (c *Context) readEllipsisParameter() []token.Token {
 	c.record()
 	paren := 0
-	for !c.isMacroEnd() && c.lit != ")" {
-		if c.lit == "(" {
+	for !c.isMacroEnd() && c.cur.Literal() != ")" {
+		if c.cur.Literal() == "(" {
 			paren++
 		}
 		if c.peekNext().Literal() == ")" && paren > 0 {
