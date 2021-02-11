@@ -257,7 +257,7 @@ func (c *Expander) Error() *go_c11.ErrorList {
 
 func tokIsMacro(tok token.Token) bool {
 	// 展开后的#不作为宏符号
-	if _, ok := tok.(*Token); ok {
+	if v, ok := tok.(*Token); ok && v.Expand != nil {
 		return false
 	}
 	return tok.Position().Column == 1 && tok.Literal() == "#"
@@ -370,7 +370,7 @@ func (e *Expander) doMacro() {
 	case "pragma":
 		e.doPragma()
 	case "line":
-
+		e.doLine()
 	case "error":
 	default:
 		e.skipEndMacro()
@@ -910,6 +910,61 @@ func (e *Expander) doPragma() {
 		}
 	}
 	e.expectEndMacro()
+}
+
+func (e *Expander) doLine() {
+	e.record()
+	file := e.cur.Position().Filename
+	line := e.cur.Position().Line
+	e.skipEndMacro()
+	v := e.arr()
+	enable := false
+	for _, item := range v {
+		if item.Type() == token.INT {
+			enable = true
+			line, _ = strconv.Atoi(item.Literal())
+		}
+		if item.Type() == token.STRING {
+			enable = true
+			file, _ = strconv.Unquote(item.Literal())
+		}
+	}
+	if enable {
+		e.in = mockLine(e.in, e.cur.Position(), file, line)
+	}
+	e.expectEndMacro()
+}
+
+type lineDirective struct {
+	scanner.MultiScanner
+	scope string
+	delta int
+	file  string
+}
+
+func (ld *lineDirective) Scan() token.Token {
+	t := ld.MultiScanner.Scan()
+	if t.Position().Filename == ld.scope {
+		tt := &Token{
+			Pos:    t.Position(),
+			Typ:    t.Type(),
+			Lit:    t.Literal(),
+			Expand: nil,
+		}
+		tt.Pos.Filename = ld.file
+		tt.Pos.Line = tt.Pos.Line + ld.delta
+		return tt
+	}
+	return t
+}
+
+func mockLine(s scanner.MultiScanner, pos token.Position, file string, line int) scanner.MultiScanner {
+	ld := &lineDirective{}
+	ld.delta = line - pos.Line
+	ld.file = file
+	ld.scope = pos.Filename
+	ld.MultiScanner = s
+	return ld
 }
 
 type preprocess struct {
