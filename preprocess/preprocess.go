@@ -909,6 +909,7 @@ func (e *Expander) doPragma() {
 			e.ctx.pragmaOnce(pp)
 		}
 	}
+	e.expectEndMacro()
 }
 
 type preprocess struct {
