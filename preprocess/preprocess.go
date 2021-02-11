@@ -40,13 +40,10 @@ func (m *MacroFunc) decl()    {}
 func (m *MacroHandler) decl() {}
 
 type Token struct {
-	Pos token.Position
-	Typ token.Type
-	Lit string
-	// 展开优先级
-	Index int
-	// 展开
-	Expand token.Token
+	Pos    token.Position
+	Typ    token.Type
+	Lit    string
+	Expand token.Token // 父级展开
 }
 
 func (t *Token) Position() token.Position {
@@ -205,6 +202,7 @@ type Expander struct {
 	in  scanner.MultiScanner
 	rcd bool
 	tks []token.Token
+	err go_c11.ErrorList
 }
 
 // 设置输入
@@ -219,7 +217,7 @@ func NewExpander(ctx *Context, s scanner.Scanner) *Expander {
 func (e *Expander) Scan() (t token.Token) {
 	for t == nil {
 		if e.cur.Type() == token.EOF {
-			break
+			return e.cur
 		}
 		if tokIsMacro(e.cur) {
 			e.doMacro()
@@ -236,7 +234,15 @@ func (e *Expander) Scan() (t token.Token) {
 	return t
 }
 
+func (c *Expander) Error() *go_c11.ErrorList {
+	return &c.err
+}
+
 func tokIsMacro(tok token.Token) bool {
+	// 展开后的#不作为宏符号
+	if _, ok := tok.(*Token); ok {
+		return false
+	}
 	return tok.Position().Column == 1 && tok.Literal() == "#"
 }
 
@@ -305,7 +311,7 @@ func (e *Expander) doMacro() {
 			e.next() // endif
 			e.expectEndMacro()
 		} else {
-			e.ctx.AddError(e.cur.Position(), "unexpected #else")
+			e.err.Add(e.cur.Position(), "unexpected #else")
 		}
 	case "else":
 		e.next()
@@ -315,7 +321,7 @@ func (e *Expander) doMacro() {
 			e.next()
 			e.expectEndMacro()
 		} else {
-			e.ctx.AddError(e.cur.Position(), "unexpected #else")
+			e.err.Add(e.cur.Position(), "unexpected #else")
 		}
 	case "endif":
 		if e.ctx.Top() == IN_THEN || e.ctx.Top() == IN_ELSE {
@@ -323,7 +329,7 @@ func (e *Expander) doMacro() {
 			e.next() // endif
 			e.expectEndMacro()
 		} else {
-			e.ctx.AddError(e.cur.Position(), "unexpected #endif")
+			e.err.Add(e.cur.Position(), "unexpected #endif")
 		}
 	case "define":
 		e.doDefine()
@@ -411,7 +417,7 @@ func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string
 			lit = tok.Literal() + nxt.Literal()
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
-				e.ctx.AddError(e.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
+				e.err.Add(e.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
 			}
 		}
 
@@ -428,7 +434,9 @@ func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string
 		if tok.Type() == token.IDENT && params != nil {
 			if v, ok := params[tok.Literal()]; ok {
 				ms := scanner.NewMultiScan(ps)
-				ms.Push(scanner.NewArrayScan(v))
+				vv := scanner.NewArrayScan(v)
+				exp := NewExpander(e.ctx, vv)
+				ms.Push(exp)
 				ps = scanner.NewPeekScan(ms)
 				continue
 			}
@@ -497,7 +505,7 @@ func (e *Expander) expectIdent() string {
 		e.next()
 		return lit
 	}
-	e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, e.cur.Type()))
+	e.err.Add(e.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, e.cur.Type()))
 	return ""
 }
 
@@ -510,7 +518,7 @@ func (e *Expander) punctuator(lit string, require bool) {
 		e.nextToken()
 	}
 	if require {
-		e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, e.cur.Literal()))
+		e.err.Add(e.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, e.cur.Literal()))
 	}
 }
 
@@ -519,7 +527,7 @@ func (e *Expander) expectEndMacro() {
 		e.nextToken()
 		return
 	}
-	e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect end macro got %s", e.cur.Type()))
+	e.err.Add(e.cur.Position(), fmt.Sprintf("expect end macro got %s", e.cur.Type()))
 }
 
 // 宏结尾
@@ -534,7 +542,7 @@ func (e *Expander) skipUtilCdt(names ...string) []token.Token {
 	for {
 		e.next()
 		if e.cur.Type() == token.EOF {
-			e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
+			e.err.Add(e.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
 			break
 		}
 		if tokIsMacro(e.cur) {
@@ -635,7 +643,7 @@ func (e *Expander) doDefineVal(ident string) {
 	}
 
 	if pos, err := checkValidMacroExpr(tks); err != nil {
-		e.ctx.AddError(pos, err.Error())
+		e.err.Add(pos, err.Error())
 		return
 	}
 
@@ -677,7 +685,7 @@ func (e *Expander) doDefineFunc(ident string) {
 			e.nextToken()
 			e.punctuator(",", false)
 		} else {
-			e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", e.cur.Type(), e.cur.Literal()))
+			e.err.Add(e.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", e.cur.Type(), e.cur.Literal()))
 			break
 		}
 	}
@@ -690,7 +698,7 @@ func (e *Expander) doDefineFunc(ident string) {
 	}
 
 	if pos, err := checkValidMacroExpr(tks); err != nil {
-		e.ctx.AddError(pos, err.Error())
+		e.err.Add(pos, err.Error())
 		return
 	}
 
@@ -731,13 +739,13 @@ func (e *Expander) readParameters(val *MacroFunc) (map[string][]token.Token, boo
 		} else if val.Ellipsis {
 			params["__VA_ARGS__"] = e.readEllipsisParameter()
 		} else {
-			e.ctx.AddError(e.cur.Position(), "expect params %d got %d", lp, i)
+			e.err.Add(e.cur.Position(), "expect params %d got %d", lp, i)
 		}
 		i++
 	}
 	e.expectPunctuator(")")
 	if len(params) < lp {
-		e.ctx.AddError(e.cur.Position(), "requires %d arguments, but only %d given", lp, len(params))
+		e.err.Add(e.cur.Position(), "requires %d arguments, but only %d given", lp, len(params))
 		return nil, false
 	}
 	return params, true

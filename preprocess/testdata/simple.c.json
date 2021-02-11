@@ -246,24 +246,6 @@
         "Pos": {
             "Filename": "testdata\\simple.c",
             "Line": 4,
-            "Column": 16
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\simple.c",
-            "Line": 4,
-            "Column": 33
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\simple.c",
-            "Line": 4,
             "Column": 34
         },
         "Typ": "INT",
@@ -292,15 +274,6 @@
             "Filename": "testdata\\simple.c",
             "Line": 5,
             "Column": 1
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\simple.c",
-            "Line": 5,
-            "Column": 5
         },
         "Typ": "WHITESPACE",
         "Lit": " "

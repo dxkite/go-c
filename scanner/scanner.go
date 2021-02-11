@@ -543,6 +543,7 @@ func ScanToken(s Scanner) []token.Token {
 		if tok.Type() == token.EOF {
 			break
 		}
+		// 合并连续空白
 		if i := len(tks) - 1; tok.Type() == token.WHITESPACE && i >= 0 && tks[i].Type() == token.WHITESPACE {
 			continue
 		}

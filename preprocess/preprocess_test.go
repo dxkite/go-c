@@ -37,16 +37,8 @@ func TestScanFile(t *testing.T) {
 				ctx.Init()
 
 				exp := NewExpander(ctx, scanner.NewScan(p, f))
-				ctx.Init()
 
-				tks := []token.Token{}
-				for {
-					t := exp.Scan()
-					if t == nil {
-						break
-					}
-					tks = append(tks, t)
-				}
+				tks := scanner.ScanToken(exp)
 
 				if !exists(p+".json") || !exists(p+"c") {
 
