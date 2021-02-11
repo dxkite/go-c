@@ -95,12 +95,14 @@ func NewContext() *Context {
 	c.err.Reset()
 	c.Val = map[string]MacroDecl{}
 	c.cdt = NewConditionStack()
+	c.once = map[string]struct{}{}
 	return c
 }
 
 // 测试 once
 func (c *Context) onceContain(p string) bool {
-	_, ok := c.once[p]
+	pp, _ := filepath.Abs(p)
+	_, ok := c.once[pp]
 	return ok
 }
 
@@ -366,7 +368,9 @@ func (e *Expander) doMacro() {
 	case "include":
 		e.doInclude()
 	case "pragma":
+		e.doPragma()
 	case "line":
+
 	case "error":
 	default:
 		e.skipEndMacro()
@@ -878,12 +882,32 @@ func (e *Expander) searchFile(s string, tok token.Token) (string, bool) {
 
 func (e *Expander) includeFile(s string) {
 	if fn, ok := e.searchFile(s, e.cur); ok {
+
+		if e.ctx.onceContain(fn) {
+			e.skipEndMacro()
+			e.expectEndMacro()
+			return
+		}
+
 		sc := scanner.NewFileScan(fn)
 		e.push([]token.Token{e.cur})
 		e.in.Push(sc)
 		e.next()
 	} else {
 		e.ctx.AddError(e.cur.Position(), "file not found %s", s)
+	}
+}
+
+func (e *Expander) doPragma() {
+	e.record()
+	e.skipEndMacro()
+	p := e.arr()
+	for _, v := range p {
+		// 支持 pragma once 指令
+		if v.Literal() == "once" {
+			pp, _ := filepath.Abs(v.Position().Filename)
+			e.ctx.pragmaOnce(pp)
+		}
 	}
 }
 
