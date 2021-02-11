@@ -614,6 +614,13 @@ func (e *Expander) evalConstExpr() bool {
 func (e *Expander) doDefine() {
 	e.nextToken()
 	ident := e.expectIdent()
+
+	if e.ctx.IsDefined(ident) {
+		e.err.Add(e.cur.Position(), "duplicate define of %s", ident)
+		e.skipEndMacro()
+		return
+	}
+
 	if e.cur.Literal() == "(" {
 		e.doDefineFunc(ident)
 	} else {
