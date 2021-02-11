@@ -33,12 +33,15 @@ func TestScanFile(t *testing.T) {
 					return
 				}
 				defer func() { _ = f.Close() }()
-				ctx := New(scanner.NewScan(p, f))
+				ctx := NewContext()
+				ctx.Init()
+
+				exp := NewExpander(ctx, scanner.NewScan(p, f))
 				ctx.Init()
 
 				tks := []token.Token{}
 				for {
-					t := ctx.Scan()
+					t := exp.Scan()
 					if t == nil {
 						break
 					}

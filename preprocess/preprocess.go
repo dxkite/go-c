@@ -88,83 +88,15 @@ type Context struct {
 	counter int                  // __COUNTER__
 	once    map[string]struct{}  // #pragma once
 	cdt     *ConditionStack      // 条件栈
-	idx     int                  // MacroIndex
-
-	// 当前元素
-	cur token.Token
-	in  scanner.MultiScanner
-	rcd bool
-	tks []token.Token
-	err go_c11.ErrorList
+	err     go_c11.ErrorList
 }
 
-// 设置输入
-func New(s scanner.Scanner) *Context {
+func NewContext() *Context {
 	c := &Context{}
-	c.in = scanner.NewMultiScan(s)
 	c.err.Reset()
 	c.Val = map[string]MacroDecl{}
 	c.cdt = NewConditionStack()
-	c.next()
 	return c
-}
-
-// 测试 once
-func (c *Context) Scan() (t token.Token) {
-	for t == nil {
-		if c.cur.Type() == token.EOF {
-			break
-		}
-		if tokIsMacro(c.cur) {
-			c.doMacro()
-			continue
-		}
-		// 宏展开
-		if c.doExpand(c.cur) {
-			continue
-		}
-		// 普通token
-		t = c.cur
-		c.next()
-	}
-	return t
-}
-
-func (c *Context) Error() *go_c11.ErrorList {
-	return &c.err
-}
-
-func tokIsMacro(tok token.Token) bool {
-	return tok.Position().Column == 1 && tok.Literal() == "#"
-}
-
-// 获取下一个
-func (c *Context) next() {
-	if c.rcd && c.cur != nil {
-		c.tks = append(c.tks, c.cur)
-	}
-	c.cur = c.in.Scan()
-}
-
-func (c *Context) record() {
-	c.rcd = true
-	c.tks = c.tks[0:0]
-}
-
-func (c *Context) arr() []token.Token {
-	pp := []token.Token{}
-	pp = append(pp, c.tks...)
-	return pp
-}
-
-// 获取下一个非空token
-func (c *Context) nextToken() {
-	for {
-		c.next()
-		if c.cur.Type() != token.WHITESPACE {
-			break
-		}
-	}
 }
 
 // 测试 once
@@ -243,66 +175,160 @@ func (c *Context) lineFn(tok token.Token) []token.Token {
 	return []token.Token{val}
 }
 
-func (c *Context) doMacro() {
-	c.nextToken()
-	switch c.cur.Literal() {
+func (c *Context) Error() *go_c11.ErrorList {
+	return &c.err
+}
+
+// 添加错误
+func (c *Context) AddError(pos token.Position, msg string, args ...interface{}) {
+	c.err.Add(pos, msg, args...)
+}
+
+// 栈顶
+func (c *Context) Top() Condition {
+	return c.cdt.Top()
+}
+
+// 压入栈
+func (c *Context) Push(cdt Condition) {
+	c.cdt.Push(cdt)
+}
+
+// 弹出栈
+func (c *Context) Pop() Condition {
+	return c.cdt.Pop()
+}
+
+type Expander struct {
+	ctx *Context
+	cur token.Token
+	in  scanner.MultiScanner
+	rcd bool
+	tks []token.Token
+}
+
+// 设置输入
+func NewExpander(ctx *Context, s scanner.Scanner) *Expander {
+	e := &Expander{}
+	e.in = scanner.NewMultiScan(s)
+	e.ctx = ctx
+	e.next()
+	return e
+}
+
+func (e *Expander) Scan() (t token.Token) {
+	for t == nil {
+		if e.cur.Type() == token.EOF {
+			break
+		}
+		if tokIsMacro(e.cur) {
+			e.doMacro()
+			continue
+		}
+		// 宏展开
+		if e.Expand(e.cur) {
+			continue
+		}
+		// 普通token
+		t = e.cur
+		e.next()
+	}
+	return t
+}
+
+func tokIsMacro(tok token.Token) bool {
+	return tok.Position().Column == 1 && tok.Literal() == "#"
+}
+
+// 获取下一个
+func (e *Expander) next() {
+	if e.rcd && e.cur != nil {
+		e.tks = append(e.tks, e.cur)
+	}
+	e.cur = e.in.Scan()
+}
+
+func (e *Expander) record() {
+	e.rcd = true
+	e.tks = e.tks[0:0]
+}
+
+func (e *Expander) arr() []token.Token {
+	pp := []token.Token{}
+	pp = append(pp, e.tks...)
+	return pp
+}
+
+// 获取下一个非空token
+func (e *Expander) nextToken() {
+	for {
+		e.next()
+		if e.cur.Type() != token.WHITESPACE {
+			break
+		}
+	}
+}
+
+func (e *Expander) doMacro() {
+	e.nextToken()
+	switch e.cur.Literal() {
 	case "if":
-		c.next()
-		cdt := c.evalConstExpr()
-		c.expectEndMacro()
+		e.next()
+		cdt := e.evalConstExpr()
+		e.expectEndMacro()
 		if cdt {
-			c.cdt.Push(IN_THEN)
+			e.ctx.Push(IN_THEN)
 		} else {
 			// 跳到下一个分支
-			c.cdt.Push(IN_ELSE)
-			c.skipUtilElse()
+			e.ctx.Push(IN_ELSE)
+			e.skipUtilElse()
 		}
 	case "ifdef":
-		c.doIfDefine(true)
+		e.doIfDefine(true)
 	case "ifndef":
-		c.doIfDefine(false)
+		e.doIfDefine(false)
 	case "elif":
-		c.next()
-		if c.cdt.Top() == IN_ELSE {
-			cdt := c.evalConstExpr()
-			c.expectEndMacro()
+		e.next()
+		if e.ctx.Top() == IN_ELSE {
+			cdt := e.evalConstExpr()
+			e.expectEndMacro()
 			if cdt {
-				c.cdt.Pop()
-				c.cdt.Push(IN_THEN)
+				e.ctx.Pop()
+				e.ctx.Push(IN_THEN)
 			} else {
 				// 跳到下一个分支
-				c.skipUtilElse()
+				e.skipUtilElse()
 			}
-		} else if c.cdt.Top() == IN_THEN {
+		} else if e.ctx.Top() == IN_THEN {
 			// 直接跳到结尾
-			c.skipUtilCdt("endif")
-			c.next() // endif
-			c.expectEndMacro()
+			e.skipUtilCdt("endif")
+			e.next() // endif
+			e.expectEndMacro()
 		} else {
-			c.err.Add(c.cur.Position(), "unexpected #else")
+			e.ctx.AddError(e.cur.Position(), "unexpected #else")
 		}
 	case "else":
-		c.next()
-		c.expectEndMacro()
-		if c.cdt.Top() == IN_THEN {
-			c.skipUtilCdt("endif")
-			c.next()
-			c.expectEndMacro()
+		e.next()
+		e.expectEndMacro()
+		if e.ctx.Top() == IN_THEN {
+			e.skipUtilCdt("endif")
+			e.next()
+			e.expectEndMacro()
 		} else {
-			c.err.Add(c.cur.Position(), "unexpected #else")
+			e.ctx.AddError(e.cur.Position(), "unexpected #else")
 		}
 	case "endif":
-		if c.cdt.Top() == IN_THEN || c.cdt.Top() == IN_ELSE {
-			c.cdt.Pop()
-			c.next() // endif
-			c.expectEndMacro()
+		if e.ctx.Top() == IN_THEN || e.ctx.Top() == IN_ELSE {
+			e.ctx.Pop()
+			e.next() // endif
+			e.expectEndMacro()
 		} else {
-			c.err.Add(c.cur.Position(), "unexpected #endif")
+			e.ctx.AddError(e.cur.Position(), "unexpected #endif")
 		}
 	case "define":
-		c.doDefine()
+		e.doDefine()
 	case "undef":
-		c.doUndef()
+		e.doUndef()
 	case "include":
 	case "pragma":
 	case "line":
@@ -311,66 +337,58 @@ func (c *Context) doMacro() {
 	}
 }
 
-// 展开宏
-func (c *Context) doExpand(tok token.Token) bool {
+// 重新压入token
+func (e *Expander) push(tok []token.Token) {
+	e.in.Push(scanner.NewArrayScan(tok))
+}
+
+// 处理宏展开
+func (e *Expander) Expand(tok token.Token) bool {
+	// 非标识符不展开
 	if tok.Type() != token.IDENT {
 		return false
 	}
-	if _, ok := c.Expand(tok); ok {
-		return true
+
+	// 不允许递归展开
+	if t, ok := tok.(*Token); ok && t.ExpandFrom(tok) {
+		return false
+	}
+
+	name := tok.Literal()
+	if v, ok := e.ctx.Val[name]; ok {
+
+		switch val := v.(type) {
+		case *MacroVal:
+			tks := e.ExpandVal(tok, val.Body, nil)
+			e.push(tks)
+			e.next()
+			return true
+		case *MacroHandler:
+			tks := e.ExpandVal(tok, val.Handler(tok), nil)
+			e.push(tks)
+			e.next()
+			return true
+		case *MacroFunc:
+			// 忽略非函数式宏
+			if n := e.peekNext(); n.Literal() != "(" {
+				return false
+			}
+			// 处理
+			if tks, ok := e.ExpandFunc(tok, val); ok {
+				tks = append(tks, e.cur)
+				e.push(tks)
+				e.next()
+				return true
+			} else {
+				return false
+			}
+		}
 	}
 	return false
 }
 
 // 展开宏
-func (c *Context) push(tok []token.Token) {
-	c.in.Push(scanner.NewArrayScan(tok))
-}
-
-// 处理宏展开
-func (c *Context) Expand(tok token.Token) ([]token.Token, bool) {
-	if tok.Type() != token.IDENT {
-		return nil, false
-	}
-	// 递归展开处理
-	if t, ok := tok.(*Token); ok && t.ExpandFrom(tok) {
-		return nil, false
-	}
-	name := tok.Literal()
-	if v, ok := c.Val[name]; ok {
-
-		switch val := v.(type) {
-		case *MacroVal:
-			tks := c.ExpandVal(tok, val.Body, nil)
-			c.push(tks)
-			c.next()
-			return tks, true
-		case *MacroHandler:
-			tks := c.ExpandVal(tok, val.Handler(tok), nil)
-			c.push(tks)
-			c.next()
-			return tks, true
-		case *MacroFunc:
-			// 忽略非函数式宏
-			if n := c.peekNext(); n.Literal() != "(" {
-				return nil, false
-			}
-			// 处理
-			if tks, ok := c.ExpandFunc(tok, val); ok {
-				tks = append(tks, c.cur)
-				c.push(tks)
-				c.next()
-				return tks, true
-			} else {
-				return nil, false
-			}
-		}
-	}
-	return nil, false
-}
-
-// 展开宏
-func (c *Context) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
+func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
 	ex := make([]token.Token, 0)
 	col := 0
 	pos := v.Position()
@@ -393,7 +411,7 @@ func (c *Context) ExpandVal(v token.Token, tks []token.Token, params map[string]
 			lit = tok.Literal() + nxt.Literal()
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
-				c.err.Add(c.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
+				e.ctx.AddError(e.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
 			}
 		}
 
@@ -444,10 +462,10 @@ func isValidToken(lit string) bool {
 }
 
 // peek 下一个非空 token
-func (c *Context) peekNext() token.Token {
+func (e *Expander) peekNext() token.Token {
 	n := 1
 	for {
-		v := c.peek(n)
+		v := e.peek(n)
 		if len(v) < n {
 			break
 		}
@@ -463,78 +481,78 @@ func (c *Context) peekNext() token.Token {
 	}
 }
 
-func (c *Context) peek(offset int) []token.Token {
-	if ps, ok := c.in.(scanner.PeekScanner); ok {
+func (e *Expander) peek(offset int) []token.Token {
+	if ps, ok := e.in.(scanner.PeekScanner); ok {
 		return ps.Peek(offset)
 	}
-	p := scanner.NewPeekScan(c.in)
+	p := scanner.NewPeekScan(e.in)
 	tok := p.Peek(offset)
-	c.in = scanner.NewMultiScan(p)
+	e.in = scanner.NewMultiScan(p)
 	return tok
 }
 
-func (c *Context) expectIdent() string {
-	if c.cur.Type() == token.IDENT {
-		lit := c.cur.Literal()
-		c.next()
+func (e *Expander) expectIdent() string {
+	if e.cur.Type() == token.IDENT {
+		lit := e.cur.Literal()
+		e.next()
 		return lit
 	}
-	c.err.Add(c.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, c.cur.Type()))
+	e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, e.cur.Type()))
 	return ""
 }
 
-func (c *Context) expectPunctuator(lit string) {
-	c.punctuator(lit, true)
+func (e *Expander) expectPunctuator(lit string) {
+	e.punctuator(lit, true)
 }
 
-func (c *Context) punctuator(lit string, require bool) {
-	if c.cur.Type() == token.PUNCTUATOR && lit == c.cur.Literal() {
-		c.nextToken()
+func (e *Expander) punctuator(lit string, require bool) {
+	if e.cur.Type() == token.PUNCTUATOR && lit == e.cur.Literal() {
+		e.nextToken()
 	}
 	if require {
-		c.err.Add(c.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, c.cur.Literal()))
+		e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, e.cur.Literal()))
 	}
 }
 
-func (c *Context) expectEndMacro() {
-	if c.isMacroEnd() {
-		c.nextToken()
+func (e *Expander) expectEndMacro() {
+	if e.isMacroEnd() {
+		e.nextToken()
 		return
 	}
-	c.err.Add(c.cur.Position(), fmt.Sprintf("expect end macro got %s", c.cur.Type()))
+	e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect end macro got %s", e.cur.Type()))
 }
 
 // 宏结尾
-func (c *Context) isMacroEnd() bool {
-	return c.cur.Type() == token.NEWLINE || c.cur.Type() == token.EOF
+func (e *Expander) isMacroEnd() bool {
+	return e.cur.Type() == token.NEWLINE || e.cur.Type() == token.EOF
 }
 
 // 跳过无法到达的代码
-func (c *Context) skipUtilCdt(names ...string) []token.Token {
+func (e *Expander) skipUtilCdt(names ...string) []token.Token {
 	cdt := 0
 	tks := make([]token.Token, 2)
 	for {
-		c.next()
-		if c.cur.Type() == token.EOF {
-			c.err.Add(c.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
+		e.next()
+		if e.cur.Type() == token.EOF {
+			e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
 			break
 		}
-		if tokIsMacro(c.cur) {
-			tks[0] = c.cur
-			c.nextToken()
-			switch c.cur.Literal() {
+		if tokIsMacro(e.cur) {
+			tks[0] = e.cur
+			e.nextToken()
+			switch e.cur.Literal() {
 			case "if", "ifndef", "ifdef":
 				cdt++
 			default:
 				if cdt == 0 {
 					for _, name := range names {
-						if name == c.cur.Literal() {
-							tks[1] = c.cur
+						if name == e.cur.Literal() {
+							tks[1] = e.cur
 							return tks
 						}
 					}
 				}
-				if c.cur.Literal() == "endif" {
+				if e.cur.Literal() == "endif" {
 					cdt--
 				}
 			}
@@ -544,84 +562,84 @@ func (c *Context) skipUtilCdt(names ...string) []token.Token {
 }
 
 // #ifdef #ifndef
-func (c *Context) doIfDefine(want bool) {
-	c.nextToken()
-	ident := c.expectIdent()
-	cdt := c.IsDefined(ident)
+func (e *Expander) doIfDefine(want bool) {
+	e.nextToken()
+	ident := e.expectIdent()
+	cdt := e.ctx.IsDefined(ident)
 	if cdt == want {
-		c.cdt.Push(IN_THEN)
+		e.ctx.Push(IN_THEN)
 	} else {
-		c.cdt.Push(IN_ELSE)
-		c.skipUtilElse()
+		e.ctx.Push(IN_ELSE)
+		e.skipUtilElse()
 	}
-	c.expectEndMacro()
+	e.expectEndMacro()
 }
 
 // skip to #else/#elif
-func (c *Context) skipUtilElse() {
-	m := c.skipUtilCdt("elif", "else")
-	if c.cur.Literal() == "elif" {
-		c.next()  // elif
-		c.push(m) // push back
+func (e *Expander) skipUtilElse() {
+	m := e.skipUtilCdt("elif", "else")
+	if e.cur.Literal() == "elif" {
+		e.next()  // elif
+		e.push(m) // push back
 	} else {
-		c.next() // else
+		e.next() // else
 	}
 }
 
-func (c *Context) evalConstExpr() bool {
+func (e *Expander) evalConstExpr() bool {
 	tks := []token.Token{}
 	for {
-		if c.cur.Type() == token.EOF || c.cur.Type() == token.NEWLINE {
+		if e.cur.Type() == token.EOF || e.cur.Type() == token.NEWLINE {
 			break
 		}
-		if c.cur.Type() != token.WHITESPACE {
-			tks = append(tks, c.cur)
+		if e.cur.Type() != token.WHITESPACE {
+			tks = append(tks, e.cur)
 		}
-		c.next()
+		e.next()
 	}
 	// TODO parse expr
 	return false
 }
 
-func (c *Context) doDefine() {
-	c.nextToken()
-	ident := c.expectIdent()
-	if c.cur.Literal() == "(" {
-		c.doDefineFunc(ident)
+func (e *Expander) doDefine() {
+	e.nextToken()
+	ident := e.expectIdent()
+	if e.cur.Literal() == "(" {
+		e.doDefineFunc(ident)
 	} else {
-		c.doDefineVal(ident)
+		e.doDefineVal(ident)
 	}
-	c.expectEndMacro()
+	e.expectEndMacro()
 }
 
-func (c *Context) skipEndMacro() {
-	for !c.isMacroEnd() {
-		c.nextToken()
+func (e *Expander) skipEndMacro() {
+	for !e.isMacroEnd() {
+		e.nextToken()
 	}
 }
 
-func (c *Context) doUndef() {
-	c.nextToken()
-	ident := c.expectIdent()
-	delete(c.Val, ident)
-	c.skipEndMacro()
-	c.expectEndMacro()
+func (e *Expander) doUndef() {
+	e.nextToken()
+	ident := e.expectIdent()
+	delete(e.ctx.Val, ident)
+	e.skipEndMacro()
+	e.expectEndMacro()
 }
 
-func (c *Context) doDefineVal(ident string) {
+func (e *Expander) doDefineVal(ident string) {
 	tks := make([]token.Token, 0)
-	c.nextToken()
-	for !c.isMacroEnd() {
-		tks = append(tks, c.cur)
-		c.nextToken()
+	e.nextToken()
+	for !e.isMacroEnd() {
+		tks = append(tks, e.cur)
+		e.nextToken()
 	}
 
 	if pos, err := checkValidMacroExpr(tks); err != nil {
-		c.err.Add(pos, err.Error())
+		e.ctx.AddError(pos, err.Error())
 		return
 	}
 
-	c.Define(ident, &MacroVal{
+	e.ctx.Define(ident, &MacroVal{
 		Name: ident,
 		Body: tks,
 	})
@@ -643,40 +661,40 @@ func checkValidMacroExpr(tks []token.Token) (token.Position, error) {
 	return token.Position{}, nil
 }
 
-func (c *Context) doDefineFunc(ident string) {
+func (e *Expander) doDefineFunc(ident string) {
 	tks := make([]token.Token, 0)
 	params := make([]string, 0)
-	c.expectPunctuator("(")
+	e.expectPunctuator("(")
 
 	elp := false
-	for !c.isMacroEnd() && c.cur.Literal() != ")" {
-		if c.cur.Literal() == "..." {
+	for !e.isMacroEnd() && e.cur.Literal() != ")" {
+		if e.cur.Literal() == "..." {
 			elp = true
-			c.nextToken()
+			e.nextToken()
 			break
-		} else if c.cur.Type() == token.IDENT {
-			params = append(params, c.cur.Literal())
-			c.nextToken()
-			c.punctuator(",", false)
+		} else if e.cur.Type() == token.IDENT {
+			params = append(params, e.cur.Literal())
+			e.nextToken()
+			e.punctuator(",", false)
 		} else {
-			c.err.Add(c.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", c.cur.Type(), c.cur.Literal()))
+			e.ctx.AddError(e.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", e.cur.Type(), e.cur.Literal()))
 			break
 		}
 	}
 
-	c.expectPunctuator(")")
+	e.expectPunctuator(")")
 
-	for !c.isMacroEnd() {
-		tks = append(tks, c.cur)
-		c.nextToken()
+	for !e.isMacroEnd() {
+		tks = append(tks, e.cur)
+		e.nextToken()
 	}
 
 	if pos, err := checkValidMacroExpr(tks); err != nil {
-		c.err.Add(pos, err.Error())
+		e.ctx.AddError(pos, err.Error())
 		return
 	}
 
-	c.Define(ident, &MacroFunc{
+	e.ctx.Define(ident, &MacroFunc{
 		Name:     ident,
 		Params:   params,
 		Ellipsis: elp,
@@ -685,76 +703,76 @@ func (c *Context) doDefineFunc(ident string) {
 }
 
 // 展开函数
-func (c *Context) ExpandFunc(tok token.Token, val *MacroFunc) ([]token.Token, bool) {
-	c.record()
-	c.nextToken()
-	params, ok := c.readParameters(val)
-	scan := c.arr()
+func (e *Expander) ExpandFunc(tok token.Token, val *MacroFunc) ([]token.Token, bool) {
+	e.record()
+	e.nextToken()
+	params, ok := e.readParameters(val)
+	scan := e.arr()
 	// 参数错误不解析
 	if !ok {
-		scan = append(scan, c.cur)
-		c.push(scan)
-		c.next()
+		scan = append(scan, e.cur)
+		e.push(scan)
+		e.next()
 		return nil, false
 	}
-	return c.ExpandVal(tok, val.Body, params), true
+	return e.ExpandVal(tok, val.Body, params), true
 }
 
-func (c *Context) readParameters(val *MacroFunc) (map[string][]token.Token, bool) {
-	c.expectPunctuator("(")
+func (e *Expander) readParameters(val *MacroFunc) (map[string][]token.Token, bool) {
+	e.expectPunctuator("(")
 	params := map[string][]token.Token{}
 	i := 0
 	lp := len(val.Params)
-	for !c.isMacroEnd() && c.cur.Literal() != ")" {
+	for !e.isMacroEnd() && e.cur.Literal() != ")" {
 		if len(params) < lp {
-			p := c.readParameter()
+			p := e.readParameter()
 			params[val.Params[i]] = p
-			c.punctuator(",", i+1 < lp)
+			e.punctuator(",", i+1 < lp)
 		} else if val.Ellipsis {
-			params["__VA_ARGS__"] = c.readEllipsisParameter()
+			params["__VA_ARGS__"] = e.readEllipsisParameter()
 		} else {
-			c.err.Add(c.cur.Position(), "expect params %d got %d", lp, i)
+			e.ctx.AddError(e.cur.Position(), "expect params %d got %d", lp, i)
 		}
 		i++
 	}
-	c.expectPunctuator(")")
+	e.expectPunctuator(")")
 	if len(params) < lp {
-		c.err.Add(c.cur.Position(), "requires %d arguments, but only %d given", lp, len(params))
+		e.ctx.AddError(e.cur.Position(), "requires %d arguments, but only %d given", lp, len(params))
 		return nil, false
 	}
 	return params, true
 }
 
 // 读取参数
-func (c *Context) readParameter() []token.Token {
-	c.record()
+func (e *Expander) readParameter() []token.Token {
+	e.record()
 	paren := 0
-	for !c.isMacroEnd() && c.cur.Literal() != "," && c.cur.Literal() != ")" {
-		if c.cur.Literal() == "(" {
+	for !e.isMacroEnd() && e.cur.Literal() != "," && e.cur.Literal() != ")" {
+		if e.cur.Literal() == "(" {
 			paren++
 		}
-		if c.cur.Literal() == ")" && paren != 0 {
+		if e.cur.Literal() == ")" && paren != 0 {
 			paren--
-			c.nextToken()
+			e.nextToken()
 		}
-		c.nextToken()
+		e.nextToken()
 	}
-	return c.arr()
+	return e.arr()
 }
 
 // 读取参数
-func (c *Context) readEllipsisParameter() []token.Token {
-	c.record()
+func (e *Expander) readEllipsisParameter() []token.Token {
+	e.record()
 	paren := 0
-	for !c.isMacroEnd() && c.cur.Literal() != ")" {
-		if c.cur.Literal() == "(" {
+	for !e.isMacroEnd() && e.cur.Literal() != ")" {
+		if e.cur.Literal() == "(" {
 			paren++
 		}
-		if c.peekNext().Literal() == ")" && paren > 0 {
+		if e.peekNext().Literal() == ")" && paren > 0 {
 			paren--
-			c.nextToken()
+			e.nextToken()
 		}
-		c.nextToken()
+		e.nextToken()
 	}
-	return c.arr()
+	return e.arr()
 }
