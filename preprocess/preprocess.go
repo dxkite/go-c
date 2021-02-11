@@ -786,3 +786,14 @@ func (e *Expander) readEllipsisParameter() []token.Token {
 	}
 	return e.arr()
 }
+
+type preprocess struct {
+	scanner.Scanner
+}
+
+// 预处理扫描器
+func NewPreprocess(ctx *Context, s scanner.Scanner) scanner.Scanner {
+	exp := NewExpander(ctx, s)
+	pre := &preprocess{scanner.NewTokenScan(exp)}
+	return pre
+}
