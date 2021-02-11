@@ -1020,19 +1020,10 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -20
+            "Column": 3
         },
         "Typ": "INT",
-        "Lit": "1",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "1"
     },
     {
         "Pos": {
@@ -1056,19 +1047,10 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -18
+            "Column": 5
         },
         "Typ": "INT",
-        "Lit": "2",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "2"
     },
     {
         "Pos": {
@@ -1092,19 +1074,10 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -16
+            "Column": 7
         },
         "Typ": "INT",
-        "Lit": "3",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "3"
     },
     {
         "Pos": {
@@ -1128,97 +1101,52 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -13
+            "Column": 10
         },
         "Typ": "IDENT",
-        "Lit": "A",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "A"
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -12
+            "Column": 11
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ",",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": ","
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -11
+            "Column": 12
         },
         "Typ": "IDENT",
-        "Lit": "B",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "B"
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -10
+            "Column": 13
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ",",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": ","
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -9
+            "Column": 14
         },
         "Typ": "WHITESPACE",
-        "Lit": " ",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": " "
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": -8
+            "Column": 15
         },
         "Typ": "STRING",
         "Lit": "\"a, b, c\"",
@@ -1226,71 +1154,44 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 1
+                "Column": 15
             },
             "Typ": "IDENT",
-            "Lit": "D"
+            "Lit": "C"
         }
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 3
+            "Column": 26
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ",",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": ","
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 4
+            "Column": 27
         },
         "Typ": "IDENT",
-        "Lit": "D",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": "D"
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 5
+            "Column": 28
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ",",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": ","
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 6
+            "Column": 29
         },
         "Typ": "ILLEGAL",
         "Lit": "123abc",
@@ -1298,53 +1199,35 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 1
+                "Column": 29
             },
             "Typ": "IDENT",
-            "Lit": "D"
+            "Lit": "E"
         }
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 7
+            "Column": 30
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ",",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": ","
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 8
+            "Column": 31
         },
         "Typ": "WHITESPACE",
-        "Lit": " ",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+        "Lit": " "
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 9
+            "Column": 32
         },
         "Typ": "STRING",
         "Lit": "11",
@@ -1352,10 +1235,10 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 1
+                "Column": 32
             },
             "Typ": "IDENT",
-            "Lit": "D"
+            "Lit": "__LINE__"
         }
     },
     {
@@ -2175,7 +2058,7 @@
             "Column": 12
         },
         "Typ": "STRING",
-        "Lit": "\"xy\"",
+        "Lit": "\"x       ##y\"",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",

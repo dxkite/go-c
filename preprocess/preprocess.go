@@ -433,11 +433,13 @@ func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string
 
 		if tok.Type() == token.IDENT && params != nil {
 			if v, ok := params[tok.Literal()]; ok {
-				ms := scanner.NewMultiScan(ps)
 				vv := scanner.NewArrayScan(v)
 				exp := NewExpander(e.ctx, vv)
-				ms.Push(exp)
-				ps = scanner.NewPeekScan(ms)
+				tks := scanner.ScanToken(exp)
+				ex = append(ex, tks...)
+				if exp.err.Len() > 0 {
+					e.err.Merge(exp.err)
+				}
 				continue
 			}
 		}
