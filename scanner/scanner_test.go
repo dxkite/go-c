@@ -44,17 +44,6 @@ func Test_scanner_next(t *testing.T) {
 	}
 }
 
-func exists(name string) bool {
-	_, err := os.Stat(name)
-	if err == nil {
-		return true
-	}
-	if os.IsNotExist(err) {
-		return false
-	}
-	return false
-}
-
 func TestScanFile(t *testing.T) {
 	if err := filepath.Walk("testdata/", func(p string, info os.FileInfo, err error) error {
 		ext := filepath.Ext(p)
@@ -66,7 +55,7 @@ func TestScanFile(t *testing.T) {
 
 				if err != nil {
 					if errorList, ok := err.(*go_c11.ErrorList); ok {
-						if !exists(expectErr) {
+						if !go_c11.Exists(expectErr) {
 							if err := errorList.SaveFile(expectErr); err != nil {
 								t.Errorf("SaveFile error = %v", err)
 								return
@@ -85,7 +74,7 @@ func TestScanFile(t *testing.T) {
 				}
 
 				expect := p + ".expect.json"
-				if !exists(expect) {
+				if !go_c11.Exists(expect) {
 					if err := SaveJson(expect, tks); err != nil {
 						t.Errorf("SaveJson error = %v", err)
 						return

@@ -6,6 +6,8 @@ import (
 	"dxkite.cn/go-c11/token"
 	"errors"
 	"fmt"
+	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -196,6 +198,19 @@ func (c *Context) Pop() Condition {
 	return c.cdt.Pop()
 }
 
+// 查找文件
+func (c *Context) SearchFile(name string, cur string) (string, bool) {
+	if p := path.Join(cur, name); go_c11.Exists(p) {
+		return p, true
+	}
+	for _, rp := range c.Inc {
+		if p := path.Join(rp, name); go_c11.Exists(p) {
+			return p, true
+		}
+	}
+	return "", false
+}
+
 type Expander struct {
 	ctx *Context
 	cur token.Token
@@ -247,11 +262,12 @@ func tokIsMacro(tok token.Token) bool {
 }
 
 // 获取下一个
-func (e *Expander) next() {
+func (e *Expander) next() token.Token {
 	if e.rcd && e.cur != nil {
 		e.tks = append(e.tks, e.cur)
 	}
 	e.cur = e.in.Scan()
+	return e.cur
 }
 
 func (e *Expander) record() {
@@ -266,13 +282,14 @@ func (e *Expander) arr() []token.Token {
 }
 
 // 获取下一个非空token
-func (e *Expander) nextToken() {
+func (e *Expander) nextToken() token.Token {
 	for {
 		e.next()
 		if e.cur.Type() != token.WHITESPACE {
 			break
 		}
 	}
+	return e.cur
 }
 
 func (e *Expander) doMacro() {
@@ -336,6 +353,7 @@ func (e *Expander) doMacro() {
 	case "undef":
 		e.doUndef()
 	case "include":
+		e.doInclude()
 	case "pragma":
 	case "line":
 	case "error":
@@ -792,6 +810,65 @@ func (e *Expander) readEllipsisParameter() []token.Token {
 		e.nextToken()
 	}
 	return e.arr()
+}
+
+func (e *Expander) doInclude() {
+	// include "file"
+	if e.peekNext().Type() == token.STRING {
+		e.nextToken()
+		p, err := strconv.Unquote(e.cur.Literal())
+		if err != nil {
+			e.err.Add(e.cur.Position(), "invalid include string %s", e.cur.Literal())
+		}
+		e.nextToken()
+		e.skipEndMacro() // 跳到换行
+		e.includeFile(p)
+		return
+	}
+
+	// include <file>
+	if e.peekNext().Literal() == "<" {
+		e.nextToken()
+		e.expectPunctuator("<")
+		p := []token.Token{}
+		for !e.isMacroEnd() && e.cur.Literal() != ">" {
+			p = append(p, e.cur)
+			e.next()
+		}
+		e.expectPunctuator(">")
+		e.includeFile(token.RelativeString(p))
+		return
+	}
+
+	// 不进行多次展开
+	if _, ok := e.nextToken().(*Token); ok {
+		e.err.Add(e.nextToken().Position(), "invalid #include")
+		return
+	}
+
+	// 展开include后重新处理
+	e.record()
+	e.skipEndMacro()
+	p := e.arr()
+	exp := NewExpander(e.ctx, scanner.NewArrayScan(p))
+	expand := scanner.ScanToken(exp)
+	e.push(expand)
+	e.doInclude()
+}
+
+func (e *Expander) searchFile(s string, tok token.Token) (string, bool) {
+	return e.ctx.SearchFile(s, filepath.Dir(tok.Position().Filename))
+}
+
+func (e *Expander) includeFile(s string) {
+	if fn, ok := e.searchFile(s, e.cur); ok {
+		sc := scanner.NewFileScan(fn)
+		e.push([]token.Token{e.cur})
+		e.in.Push(sc)
+		e.next()
+	} else {
+		e.ctx.AddError(e.cur.Position(), "file not found %s", s)
+	}
 }
 
 type preprocess struct {

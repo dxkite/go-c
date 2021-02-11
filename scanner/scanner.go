@@ -715,3 +715,39 @@ func (ts *tokenScanner) Scan() (t token.Token) {
 	}
 	return t
 }
+
+type fileScanner struct {
+	Scanner
+	closed bool
+	f      io.ReadCloser
+	name   string
+	eof    token.Token
+}
+
+func NewFileScan(filename string) Scanner {
+	s := &fileScanner{}
+	s.name = filename
+	f, er := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
+	if er != nil {
+		s.Error().Add(token.Position{}, "open file error %s", filename)
+	}
+	s.f = f
+	s.Scanner = NewScan(filename, f)
+	return s
+}
+
+func (s *fileScanner) Scan() token.Token {
+	t := s.Scanner.Scan()
+	if t.Type() == token.EOF {
+		if err := s.f.Close(); err == nil {
+			s.closed = true
+		} else {
+			s.Error().Add(token.Position{}, "close file error %s", s.name)
+		}
+		return t
+	}
+	if s.closed {
+		return s.eof
+	}
+	return t
+}
