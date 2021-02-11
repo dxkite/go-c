@@ -292,6 +292,17 @@ func (e *Expander) nextToken() token.Token {
 	return e.cur
 }
 
+// 获取下一个非空token
+func (e *Expander) skipWhitespace() token.Token {
+	for {
+		if e.cur.Type() != token.WHITESPACE {
+			break
+		}
+		e.next()
+	}
+	return e.cur
+}
+
 func (e *Expander) doMacro() {
 	e.nextToken()
 	switch e.cur.Literal() {
@@ -358,6 +369,7 @@ func (e *Expander) doMacro() {
 	case "line":
 	case "error":
 	default:
+		e.skipEndMacro()
 	}
 }
 
@@ -579,6 +591,9 @@ func (e *Expander) skipUtilCdt(names ...string) []token.Token {
 							return tks
 						}
 					}
+					if e.cur.Literal() == "endif" {
+						return tks[0:0]
+					}
 				}
 				if e.cur.Literal() == "endif" {
 					cdt--
@@ -663,7 +678,8 @@ func (e *Expander) doUndef() {
 
 func (e *Expander) doDefineVal(ident string) {
 	tks := make([]token.Token, 0)
-	e.nextToken()
+	e.skipWhitespace()
+
 	for !e.isMacroEnd() {
 		tks = append(tks, e.cur)
 		e.nextToken()

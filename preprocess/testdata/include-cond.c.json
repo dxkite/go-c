@@ -1,0 +1,65 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 1
+        },
+        "Typ": "INT",
+        "Lit": "10086",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "INCLUDE"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 7
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "+",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "INCLUDE"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 9
+        },
+        "Typ": "INT",
+        "Lit": "0",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 9
+            },
+            "Typ": "IDENT",
+            "Lit": "__COUNTER__",
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\include-cond.c",
+                    "Line": 6,
+                    "Column": 1
+                },
+                "Typ": "IDENT",
+                "Lit": "INCLUDE"
+            }
+        }
+    }
+]
