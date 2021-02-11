@@ -372,6 +372,7 @@ func (e *Expander) doMacro() {
 	case "line":
 		e.doLine()
 	case "error":
+		e.doError()
 	default:
 		e.skipEndMacro()
 	}
@@ -933,6 +934,17 @@ func (e *Expander) doLine() {
 		e.in = mockLine(e.in, e.cur.Position(), file, line)
 	}
 	e.expectEndMacro()
+}
+
+func (e *Expander) doError() {
+	pos := e.cur.Position()
+	e.next() // error
+	e.skipWhitespace()
+	e.record()
+	e.skipEndMacro()
+	msg := e.arr()
+	e.expectEndMacro()
+	e.err.Add(pos, token.InlineString(msg))
 }
 
 type lineDirective struct {

@@ -679,8 +679,8 @@ func (ms *multiScanner) Scan() (t token.Token) {
 			err := ms.s[ms.cur].Error()
 			ms.cur--
 			ms.s[ms.cur].Error().Merge(*err)
-		} else {
-			ms.cur--
+		} else if ms.cur == 0 {
+			return t
 		}
 	}
 	return
