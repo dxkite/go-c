@@ -133,7 +133,6 @@
         },
         "Typ": "STRING",
         "Lit": "\"testdata\\\\buildin.c\"",
-        "Index": 1,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -170,7 +169,6 @@
         },
         "Typ": "STRING",
         "Lit": "2",
-        "Index": 2,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -207,7 +205,6 @@
         },
         "Typ": "INT",
         "Lit": "0",
-        "Index": 3,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -307,7 +304,6 @@
         },
         "Typ": "STRING",
         "Lit": "\"testdata\\\\buildin.c\"",
-        "Index": 1,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -344,7 +340,6 @@
         },
         "Typ": "STRING",
         "Lit": "3",
-        "Index": 2,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -381,7 +376,6 @@
         },
         "Typ": "INT",
         "Lit": "1",
-        "Index": 3,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -481,7 +475,6 @@
         },
         "Typ": "STRING",
         "Lit": "\"testdata\\\\buildin.c\"",
-        "Index": 1,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -518,7 +511,6 @@
         },
         "Typ": "STRING",
         "Lit": "4",
-        "Index": 2,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",
@@ -555,7 +547,6 @@
         },
         "Typ": "INT",
         "Lit": "2",
-        "Index": 3,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\buildin.c",

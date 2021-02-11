@@ -1,15 +1,6 @@
 [
     {
         "Pos": {
-            "Filename": "testdata/pragma.h",
-            "Line": 1,
-            "Column": 13
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
-    },
-    {
-        "Pos": {
             "Filename": "testdata\\pragma.c",
             "Line": 6,
             "Column": 1

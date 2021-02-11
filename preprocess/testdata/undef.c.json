@@ -169,7 +169,6 @@
         },
         "Typ": "IDENT",
         "Lit": "B",
-        "Index": 8,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\undef.c",
@@ -206,7 +205,6 @@
         },
         "Typ": "INT",
         "Lit": "30",
-        "Index": 9,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\undef.c",
@@ -225,7 +223,6 @@
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
-        "Index": 9,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\undef.c",
@@ -244,7 +241,6 @@
         },
         "Typ": "IDENT",
         "Lit": "B",
-        "Index": 9,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\undef.c",

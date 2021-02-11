@@ -1,0 +1,26 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 3,
+            "Column": 11
+        },
+        "Msg": "'##' cannot appear at either end of a macro expansion"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 4,
+            "Column": 15
+        },
+        "Msg": "'##' cannot appear at either end of a macro expansion"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\concat.c",
+            "Line": 10,
+            "Column": 1
+        },
+        "Msg": "invalid ## operator between 123A and A"
+    }
+]

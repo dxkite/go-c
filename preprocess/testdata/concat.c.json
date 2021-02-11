@@ -7,7 +7,6 @@
         },
         "Typ": "INT",
         "Lit": "1020",
-        "Index": 4,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\concat.c",
@@ -44,7 +43,6 @@
         },
         "Typ": "IDENT",
         "Lit": "A123",
-        "Index": 5,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\concat.c",
@@ -135,7 +133,6 @@
         },
         "Typ": "ILLEGAL",
         "Lit": "123A",
-        "Index": 6,
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\concat.c",
