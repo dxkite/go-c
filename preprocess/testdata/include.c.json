@@ -33,7 +33,7 @@
             "Column": 1
         },
         "Typ": "STRING",
-        "Lit": "\"Include3\"",
+        "Lit": "\"Include2\"",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\include.c",
