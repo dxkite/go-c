@@ -2,7 +2,7 @@ package scanner
 
 import (
 	"bytes"
-	"dxkite.cn/go-c11/token"
+	"dxkite.cn/c11/token"
 	"encoding/json"
 	"io/ioutil"
 	"os"

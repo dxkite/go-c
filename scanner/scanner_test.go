@@ -2,8 +2,8 @@ package scanner
 
 import (
 	"bytes"
-	go_c11 "dxkite.cn/go-c11"
-	"dxkite.cn/go-c11/token"
+	go_c11 "dxkite.cn/c11"
+	"dxkite.cn/c11/token"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -54,14 +54,14 @@ func TestScanFile(t *testing.T) {
 				expectErr := p + ".err.json"
 
 				if err != nil {
-					if errorList, ok := err.(*go_c11.ErrorList); ok {
-						if !go_c11.Exists(expectErr) {
+					if errorList, ok := err.(*c11.ErrorList); ok {
+						if !c11.Exists(expectErr) {
 							if err := errorList.SaveFile(expectErr); err != nil {
 								t.Errorf("SaveFile error = %v", err)
 								return
 							}
 						}
-						var loadError go_c11.ErrorList
+						var loadError c11.ErrorList
 						if err := loadError.LoadFromFile(expectErr); err != nil {
 							t.Errorf("LoadFromFile error = %v", err)
 						} else if !reflect.DeepEqual(loadError, *errorList) {
@@ -74,7 +74,7 @@ func TestScanFile(t *testing.T) {
 				}
 
 				expect := p + ".expect.json"
-				if !go_c11.Exists(expect) {
+				if !c11.Exists(expect) {
 					if err := SaveJson(expect, tks); err != nil {
 						t.Errorf("SaveJson error = %v", err)
 						return

@@ -1,4 +1,4 @@
-package go_c11
+package c11
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"os"
 	"sort"
 
-	"dxkite.cn/go-c11/token"
+	"dxkite.cn/c11/token"
 )
 
 // 扫描错误

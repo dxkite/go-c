@@ -3,8 +3,8 @@ package scanner
 import (
 	"bufio"
 	"bytes"
-	"dxkite.cn/go-c11"
-	"dxkite.cn/go-c11/token"
+	"dxkite.cn/c11"
+	"dxkite.cn/c11/token"
 	"fmt"
 	"io"
 	"os"
@@ -14,7 +14,7 @@ import (
 
 type Scanner interface {
 	Scan() (t token.Token)
-	Error() *go_c11.ErrorList
+	Error() *c11.ErrorList
 }
 
 type PeekScanner interface {
@@ -42,7 +42,7 @@ type scanner struct {
 	offset    int
 	rdOffset  int
 	line, col int
-	err       go_c11.ErrorList
+	err       c11.ErrorList
 	rcd       bool
 	lit       string
 }
@@ -230,7 +230,7 @@ func (s *scanner) Scan() token.Token {
 	return t
 }
 
-func (s *scanner) Error() *go_c11.ErrorList {
+func (s *scanner) Error() *c11.ErrorList {
 	return &s.err
 }
 
@@ -552,13 +552,13 @@ func ScanToken(s Scanner) []token.Token {
 	return tks
 }
 
-func Scan(filename string, r io.Reader) ([]token.Token, *go_c11.ErrorList) {
+func Scan(filename string, r io.Reader) ([]token.Token, *c11.ErrorList) {
 	s := NewScan(filename, r)
 	tks := ScanToken(s)
 	return tks, s.Error()
 }
 
-func ScanString(name, code string) ([]token.Token, *go_c11.ErrorList) {
+func ScanString(name, code string) ([]token.Token, *c11.ErrorList) {
 	return Scan(name, bytes.NewBufferString(code))
 }
 
@@ -574,14 +574,14 @@ func ScanFile(filename string) ([]token.Token, error) {
 type arrayScanner struct {
 	arr []token.Token
 	off int
-	err go_c11.ErrorList
+	err c11.ErrorList
 }
 
 func NewArrayScan(tok []token.Token) Scanner {
 	return &arrayScanner{
 		arr: tok,
 		off: 0,
-		err: go_c11.ErrorList{},
+		err: c11.ErrorList{},
 	}
 }
 
@@ -596,7 +596,7 @@ func (a *arrayScanner) Scan() (t token.Token) {
 	}
 }
 
-func (a *arrayScanner) Error() *go_c11.ErrorList {
+func (a *arrayScanner) Error() *c11.ErrorList {
 	return &a.err
 }
 
@@ -648,7 +648,7 @@ func (s *peekScanner) PeekOne() token.Token {
 	return s.Peek(1)[0]
 }
 
-func (s *peekScanner) Error() *go_c11.ErrorList {
+func (s *peekScanner) Error() *c11.ErrorList {
 	return s.s.Error()
 }
 
@@ -695,7 +695,7 @@ func (ms *multiScanner) Push(s Scanner) {
 	}
 }
 
-func (ms *multiScanner) Error() *go_c11.ErrorList {
+func (ms *multiScanner) Error() *c11.ErrorList {
 	return ms.s[ms.cur].Error()
 }
 

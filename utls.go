@@ -1,4 +1,4 @@
-package go_c11
+package c11
 
 import "os"
 

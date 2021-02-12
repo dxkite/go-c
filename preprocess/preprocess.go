@@ -1,9 +1,9 @@
 package preprocess
 
 import (
-	"dxkite.cn/go-c11"
-	"dxkite.cn/go-c11/scanner"
-	"dxkite.cn/go-c11/token"
+	"dxkite.cn/c11"
+	"dxkite.cn/c11/scanner"
+	"dxkite.cn/c11/token"
 	"errors"
 	"fmt"
 	"path"
@@ -87,7 +87,7 @@ type Context struct {
 	counter int                  // __COUNTER__
 	once    map[string]struct{}  // #pragma once
 	cdt     *ConditionStack      // 条件栈
-	err     go_c11.ErrorList
+	err     c11.ErrorList
 }
 
 func NewContext() *Context {
@@ -176,7 +176,7 @@ func (c *Context) lineFn(tok token.Token) []token.Token {
 	return []token.Token{val}
 }
 
-func (c *Context) Error() *go_c11.ErrorList {
+func (c *Context) Error() *c11.ErrorList {
 	return &c.err
 }
 
@@ -202,11 +202,11 @@ func (c *Context) Pop() Condition {
 
 // 查找文件
 func (c *Context) SearchFile(name string, cur string) (string, bool) {
-	if p := path.Join(cur, name); go_c11.Exists(p) {
+	if p := path.Join(cur, name); c11.Exists(p) {
 		return p, true
 	}
 	for _, rp := range c.Inc {
-		if p := path.Join(rp, name); go_c11.Exists(p) {
+		if p := path.Join(rp, name); c11.Exists(p) {
 			return p, true
 		}
 	}
@@ -219,7 +219,7 @@ type Expander struct {
 	in  scanner.MultiScanner
 	rcd bool
 	tks []token.Token
-	err go_c11.ErrorList
+	err c11.ErrorList
 }
 
 // 设置输入
@@ -251,7 +251,7 @@ func (e *Expander) Scan() (t token.Token) {
 	return t
 }
 
-func (e *Expander) Error() *go_c11.ErrorList {
+func (e *Expander) Error() *c11.ErrorList {
 	return &e.err
 }
 

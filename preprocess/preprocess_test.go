@@ -2,9 +2,9 @@ package preprocess
 
 import (
 	"bytes"
-	go_c11 "dxkite.cn/go-c11"
-	"dxkite.cn/go-c11/scanner"
-	"dxkite.cn/go-c11/token"
+	go_c11 "dxkite.cn/c11"
+	"dxkite.cn/c11/scanner"
+	"dxkite.cn/c11/token"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -71,7 +71,7 @@ func TestScanFile(t *testing.T) {
 					}
 				}
 
-				var loadError go_c11.ErrorList
+				var loadError c11.ErrorList
 				if err := loadError.LoadFromFile(expectErr); err != nil {
 					t.Errorf("LoadFromFile error = %v", err)
 				} else if !reflect.DeepEqual(loadError, *exp.Error()) {
