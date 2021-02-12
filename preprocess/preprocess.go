@@ -251,8 +251,8 @@ func (e *Expander) Scan() (t token.Token) {
 	return t
 }
 
-func (c *Expander) Error() *go_c11.ErrorList {
-	return &c.err
+func (e *Expander) Error() *go_c11.ErrorList {
+	return &e.err
 }
 
 func tokIsMacro(tok token.Token) bool {
@@ -278,7 +278,7 @@ func (e *Expander) record() {
 }
 
 func (e *Expander) arr() []token.Token {
-	pp := []token.Token{}
+	var pp []token.Token
 	pp = append(pp, e.tks...)
 	return pp
 }
@@ -430,7 +430,7 @@ func (e *Expander) Expand(tok token.Token) bool {
 
 // 展开宏
 func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
-	ex := make([]token.Token, 0)
+	var ex []token.Token
 	col := 0
 	pos := v.Position()
 	ps := scanner.NewPeekScan(scanner.NewTokenScan(scanner.NewArrayScan(tks)))
@@ -635,7 +635,7 @@ func (e *Expander) skipUtilElse() {
 }
 
 func (e *Expander) evalConstExpr() bool {
-	tks := []token.Token{}
+	var tks []token.Token
 	for {
 		if e.cur.Type() == token.EOF || e.cur.Type() == token.NEWLINE {
 			break
@@ -682,7 +682,7 @@ func (e *Expander) doUndef() {
 }
 
 func (e *Expander) doDefineVal(ident string) {
-	tks := make([]token.Token, 0)
+	var tks []token.Token
 	e.skipWhitespace()
 
 	for !e.isMacroEnd() {
@@ -718,8 +718,9 @@ func checkValidMacroExpr(tks []token.Token) (token.Position, error) {
 }
 
 func (e *Expander) doDefineFunc(ident string) {
-	tks := make([]token.Token, 0)
-	params := make([]string, 0)
+	var tks []token.Token
+	var params []string
+
 	e.expectPunctuator("(")
 
 	elp := false
@@ -851,7 +852,7 @@ func (e *Expander) doInclude() {
 	if e.peekNext().Literal() == "<" {
 		e.nextToken()
 		e.expectPunctuator("<")
-		p := []token.Token{}
+		var p []token.Token
 		for !e.isMacroEnd() && e.cur.Literal() != ">" {
 			p = append(p, e.cur)
 			e.next()
