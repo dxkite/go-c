@@ -2,7 +2,7 @@ package preprocess
 
 import (
 	"bytes"
-	go_c11 "dxkite.cn/c11"
+	"dxkite.cn/c11"
 	"dxkite.cn/c11/scanner"
 	"dxkite.cn/c11/token"
 	"io/ioutil"
