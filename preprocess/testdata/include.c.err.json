@@ -1,18 +1,1 @@
-[
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 2,
-            "Column": 11
-        },
-        "Msg": "expect punctuator < got include2"
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 2,
-            "Column": 22
-        },
-        "Msg": "expect punctuator > got \n"
-    }
-]
+null

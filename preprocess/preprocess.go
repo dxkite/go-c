@@ -553,7 +553,9 @@ func (e *Expander) expectPunctuator(lit string) {
 func (e *Expander) punctuator(lit string, require bool) {
 	if e.cur.Type() == token.PUNCTUATOR && lit == e.cur.Literal() {
 		e.nextToken()
+		return
 	}
+
 	if require {
 		e.err.Add(e.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, e.cur.Literal()))
 	}
