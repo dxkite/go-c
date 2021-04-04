@@ -147,7 +147,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 45
+            "Column": 58
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -156,7 +156,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 46
+            "Column": 59
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -165,7 +165,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 47
+            "Column": 60
         },
         "Typ": "STRING",
         "Lit": "2",
@@ -173,7 +173,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 2,
-                "Column": 47
+                "Column": 60
             },
             "Typ": "IDENT",
             "Lit": "__LINE__"
@@ -183,7 +183,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 55
+            "Column": 61
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -192,7 +192,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 56
+            "Column": 62
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -201,7 +201,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 57
+            "Column": 63
         },
         "Typ": "INT",
         "Lit": "0",
@@ -209,7 +209,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 2,
-                "Column": 57
+                "Column": 63
             },
             "Typ": "IDENT",
             "Lit": "__COUNTER__"
@@ -219,7 +219,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 68
+            "Column": 64
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")"
@@ -228,7 +228,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 69
+            "Column": 65
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -237,7 +237,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 2,
-            "Column": 70
+            "Column": 66
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -318,7 +318,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 45
+            "Column": 58
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -327,7 +327,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 46
+            "Column": 59
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -336,7 +336,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 47
+            "Column": 60
         },
         "Typ": "STRING",
         "Lit": "3",
@@ -344,7 +344,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 3,
-                "Column": 47
+                "Column": 60
             },
             "Typ": "IDENT",
             "Lit": "__LINE__"
@@ -354,7 +354,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 55
+            "Column": 61
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -363,7 +363,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 56
+            "Column": 62
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -372,7 +372,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 57
+            "Column": 63
         },
         "Typ": "INT",
         "Lit": "1",
@@ -380,7 +380,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 3,
-                "Column": 57
+                "Column": 63
             },
             "Typ": "IDENT",
             "Lit": "__COUNTER__"
@@ -390,7 +390,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 68
+            "Column": 64
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")"
@@ -399,7 +399,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 69
+            "Column": 65
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -408,7 +408,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 3,
-            "Column": 70
+            "Column": 66
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -489,7 +489,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 45
+            "Column": 58
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -498,7 +498,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 46
+            "Column": 59
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -507,7 +507,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 47
+            "Column": 60
         },
         "Typ": "STRING",
         "Lit": "4",
@@ -515,7 +515,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 4,
-                "Column": 47
+                "Column": 60
             },
             "Typ": "IDENT",
             "Lit": "__LINE__"
@@ -525,7 +525,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 55
+            "Column": 61
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -534,7 +534,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 56
+            "Column": 62
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -543,7 +543,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 57
+            "Column": 63
         },
         "Typ": "INT",
         "Lit": "2",
@@ -551,7 +551,7 @@
             "Pos": {
                 "Filename": "testdata\\buildin.c",
                 "Line": 4,
-                "Column": 57
+                "Column": 63
             },
             "Typ": "IDENT",
             "Lit": "__COUNTER__"
@@ -561,7 +561,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 68
+            "Column": 64
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")"
@@ -570,7 +570,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 69
+            "Column": 65
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -579,7 +579,7 @@
         "Pos": {
             "Filename": "testdata\\buildin.c",
             "Line": 4,
-            "Column": 70
+            "Column": 66
         },
         "Typ": "NEWLINE",
         "Lit": "\n"

@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 type MacroDecl interface {
@@ -401,11 +402,13 @@ func (e *Expander) Expand(tok token.Token) bool {
 		switch val := v.(type) {
 		case *MacroVal:
 			tks := e.ExpandVal(tok, val.Body, nil)
+			e.deltaLine(tok, tks)
 			e.push(tks)
 			e.next()
 			return true
 		case *MacroHandler:
 			tks := e.ExpandVal(tok, val.Handler(tok), nil)
+			e.deltaLine(tok, tks)
 			e.push(tks)
 			e.next()
 			return true
@@ -417,6 +420,7 @@ func (e *Expander) Expand(tok token.Token) bool {
 			// 处理
 			if tks, ok := e.ExpandFunc(tok, val); ok {
 				tks = append(tks, e.cur)
+				e.deltaLine(tok, tks)
 				e.push(tks)
 				e.next()
 				return true
@@ -426,6 +430,36 @@ func (e *Expander) Expand(tok token.Token) bool {
 		}
 	}
 	return false
+}
+
+// 重新计算行内偏移量
+func (e *Expander) deltaLine(tok token.Token, tks []token.Token) {
+	d := 0
+	lt := len(tks)
+	rcl := utf8.RuneCountInString(tok.Literal())
+	old := tok.Position().Column + utf8.RuneCountInString(tok.Literal())
+	if lt > 0 {
+		t := tks[lt-1]
+		d = t.Position().Column + utf8.RuneCountInString(t.Literal()) - old
+	} else {
+		d = -rcl
+	}
+	e.next()
+	e.record()
+	e.skipEndMacro()
+	end := e.cur
+	arr := e.arr()
+	arr = append(arr, end)
+	for i := range arr {
+		t := &scanner.Token{
+			Pos: arr[i].Position(),
+			Typ: arr[i].Type(),
+			Lit: arr[i].Literal(),
+		}
+		t.Pos.Column += d
+		arr[i] = t
+	}
+	e.push(arr)
 }
 
 // 展开宏

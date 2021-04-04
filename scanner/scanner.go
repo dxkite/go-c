@@ -13,6 +13,7 @@ import (
 )
 
 type Scanner interface {
+	// 获取下一个token, 非空
 	Scan() (t token.Token)
 	Error() *c11.ErrorList
 }
