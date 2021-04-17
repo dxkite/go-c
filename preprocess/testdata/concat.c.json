@@ -21,7 +21,7 @@
         "Pos": {
             "Filename": "testdata\\concat.c",
             "Line": 6,
-            "Column": 2
+            "Column": 5
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -30,7 +30,7 @@
         "Pos": {
             "Filename": "testdata\\concat.c",
             "Line": 6,
-            "Column": 3
+            "Column": 6
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -57,7 +57,7 @@
         "Pos": {
             "Filename": "testdata\\concat.c",
             "Line": 7,
-            "Column": 2
+            "Column": 5
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -66,7 +66,7 @@
         "Pos": {
             "Filename": "testdata\\concat.c",
             "Line": 7,
-            "Column": 3
+            "Column": 6
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -147,7 +147,7 @@
         "Pos": {
             "Filename": "testdata\\concat.c",
             "Line": 10,
-            "Column": 2
+            "Column": 5
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"

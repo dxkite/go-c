@@ -361,12 +361,12 @@ func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string
 		offset := tks[i].Position().Column - col
 		if i+1 < lt && tks[i+1].Literal() == "##" {
 			// ## 操作
+			tok := tks[i]
 			i += 2
-			nxt := tks[i]
-			lit = tks[i].Literal() + nxt.Literal()
+			lit = tok.Literal() + tks[i].Literal()
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
-				e.err.Add(e.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
+				e.err.Add(e.cur.Position(), "invalid ## operator between %s and %s", tok.Literal(), tks[i].Literal())
 			}
 			before := tks[i-2 : i+1]
 			beforeLen := tokenLen(before)

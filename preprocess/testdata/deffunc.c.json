@@ -1301,8 +1301,8 @@
             "Line": 11,
             "Column": 24
         },
-        "Typ": "INT",
-        "Lit": "abcabc",
+        "Typ": "ILLEGAL",
+        "Lit": "123abc",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
@@ -2039,8 +2039,8 @@
             "Line": 12,
             "Column": 1
         },
-        "Typ": "INT",
-        "Lit": "abcabc",
+        "Typ": "ILLEGAL",
+        "Lit": "123abc",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",

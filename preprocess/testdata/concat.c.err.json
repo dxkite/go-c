@@ -21,6 +21,6 @@
             "Line": 10,
             "Column": 1
         },
-        "Msg": "invalid ## operator between 123A and A"
+        "Msg": "invalid ## operator between 123 and A"
     }
 ]
