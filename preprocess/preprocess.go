@@ -6,220 +6,53 @@ import (
 	"dxkite.cn/c11/token"
 	"errors"
 	"fmt"
-	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 	"unicode/utf8"
 )
 
-type MacroDecl interface {
-	decl()
+type Recorder struct {
+	offset []int
+	tks    []token.Token
 }
 
-type MacroVal struct {
-	Name string
-	Body []token.Token
+func (r Recorder) Enable() bool {
+	return len(r.offset) > 0
 }
 
-type MacroFunc struct {
-	Name     string
-	Params   []string
-	Ellipsis bool // ...
-	Body     []token.Token
+func (r *Recorder) Push(tok token.Token) {
+	r.tks = append(r.tks, tok)
 }
 
-type HandlerFn func(tok token.Token) []token.Token
-
-// MacroVal Handler
-type MacroHandler struct {
-	Name    string
-	Handler HandlerFn
+func (r *Recorder) Start() {
+	r.offset = append(r.offset, len(r.tks))
 }
 
-func (m *MacroVal) decl()     {}
-func (m *MacroFunc) decl()    {}
-func (m *MacroHandler) decl() {}
-
-type Token struct {
-	Pos    token.Position
-	Typ    token.Type
-	Lit    string
-	Expand token.Token // 父级展开
-}
-
-func (t *Token) Position() token.Position {
-	return t.Pos
-}
-
-func (t *Token) Type() token.Type {
-	return t.Typ
-}
-func (t *Token) Literal() string {
-	return t.Lit
-}
-
-func (t *Token) ExpandFrom(tok token.Token) bool {
-	var exp token.Token
-	// 获取展开历史
-	if t, ok := tok.(*Token); ok && t.Expand != nil {
-		exp = t.Expand
-	} else {
-		return false
+func (r *Recorder) EndGet() []token.Token {
+	lof := len(r.offset)
+	if lof > 0 {
+		idx := lof - 1
+		start := r.offset[idx]
+		r.offset = r.offset[:idx]
+		return r.tks[start:]
 	}
-	// 不递归展开
-	for {
-		if exp.Literal() == tok.Literal() {
-			return true
-		}
-		if t, ok := exp.(*Token); ok && t.Expand != nil {
-			exp = t.Expand
-		} else {
-			return false
-		}
+	r.tks = r.tks[0:0]
+	return r.tks
+}
+
+func NewRecorder() *Recorder {
+	return &Recorder{
+		offset: []int{},
+		tks:    []token.Token{},
 	}
-}
-
-// 解析环境
-type Context struct {
-	Val     map[string]MacroDecl // 宏定义
-	Inc     []string             // 文件目录
-	counter int                  // __COUNTER__
-	once    map[string]struct{}  // #pragma once
-	cdt     *ConditionStack      // 条件栈
-	err     c11.ErrorList
-}
-
-func NewContext() *Context {
-	c := &Context{}
-	c.err.Reset()
-	c.Val = map[string]MacroDecl{}
-	c.cdt = NewConditionStack()
-	c.once = map[string]struct{}{}
-	return c
-}
-
-// 测试 once
-func (c *Context) onceContain(p string) bool {
-	pp, _ := filepath.Abs(p)
-	_, ok := c.once[pp]
-	return ok
-}
-
-// 写入 pragma once
-func (c *Context) pragmaOnce(p string) {
-	c.once[p] = struct{}{}
-}
-
-func (c *Context) DefineVal(name, value string) error {
-	if tok, err := scanner.ScanString("<build-in>", value); err != nil {
-		return err
-	} else {
-		c.Define(name, &MacroVal{
-			Name: name,
-			Body: tok,
-		})
-	}
-	return nil
-}
-
-func (c *Context) Define(name string, val MacroDecl) {
-	c.Val[name] = val
-}
-
-func (c *Context) DefineHandler(name string, val HandlerFn) {
-	c.Define(name, &MacroHandler{
-		Name:    name,
-		Handler: val,
-	})
-	return
-}
-
-func (c *Context) IsDefined(name string) bool {
-	_, ok := c.Val[name]
-	return ok
-}
-
-func (c *Context) Init() {
-	c.DefineHandler("__FILE__", c.fileFn)
-	c.DefineHandler("__LINE__", c.lineFn)
-	c.DefineHandler("__COUNTER__", c.counterFn)
-	_ = c.DefineVal("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
-	_ = c.DefineVal("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
-}
-
-func (c *Context) counterFn(tok token.Token) []token.Token {
-	val := &Token{
-		Pos: tok.Position(),
-		Typ: token.INT,
-		Lit: strconv.Itoa(c.counter),
-	}
-	c.counter++
-	return []token.Token{val}
-}
-
-func (c *Context) fileFn(tok token.Token) []token.Token {
-	val := &Token{
-		Pos: tok.Position(),
-		Typ: token.STRING,
-		Lit: strconv.QuoteToGraphic(tok.Position().Filename),
-	}
-	return []token.Token{val}
-}
-
-func (c *Context) lineFn(tok token.Token) []token.Token {
-	val := &Token{
-		Pos: tok.Position(),
-		Typ: token.STRING,
-		Lit: strconv.Itoa(tok.Position().Line),
-	}
-	return []token.Token{val}
-}
-
-func (c *Context) Error() *c11.ErrorList {
-	return &c.err
-}
-
-// 添加错误
-func (c *Context) AddError(pos token.Position, msg string, args ...interface{}) {
-	c.err.Add(pos, msg, args...)
-}
-
-// 栈顶
-func (c *Context) Top() Condition {
-	return c.cdt.Top()
-}
-
-// 压入栈
-func (c *Context) Push(cdt Condition) {
-	c.cdt.Push(cdt)
-}
-
-// 弹出栈
-func (c *Context) Pop() Condition {
-	return c.cdt.Pop()
-}
-
-// 查找文件
-func (c *Context) SearchFile(name string, cur string) (string, bool) {
-	if p := path.Join(cur, name); c11.Exists(p) {
-		return p, true
-	}
-	for _, rp := range c.Inc {
-		if p := path.Join(rp, name); c11.Exists(p) {
-			return p, true
-		}
-	}
-	return "", false
 }
 
 type Expander struct {
 	ctx *Context
 	cur token.Token
 	in  scanner.MultiScanner
-	rcd bool
-	tks []token.Token
+	rcd *Recorder
 	err c11.ErrorList
 }
 
@@ -228,6 +61,7 @@ func NewExpander(ctx *Context, s scanner.Scanner) *Expander {
 	e := &Expander{}
 	e.in = scanner.NewMultiScan(s)
 	e.ctx = ctx
+	e.rcd = NewRecorder()
 	e.next()
 	return e
 }
@@ -266,21 +100,20 @@ func tokIsMacro(tok token.Token) bool {
 
 // 获取下一个
 func (e *Expander) next() token.Token {
-	if e.rcd && e.cur != nil {
-		e.tks = append(e.tks, e.cur)
+	if e.rcd.Enable() && e.cur != nil {
+		e.rcd.Push(e.cur)
 	}
 	e.cur = e.in.Scan()
 	return e.cur
 }
 
-func (e *Expander) record() {
-	e.rcd = true
-	e.tks = e.tks[0:0]
+func (e *Expander) startRecord() {
+	e.rcd.Start()
 }
 
-func (e *Expander) arr() []token.Token {
+func (e *Expander) endRecord() []token.Token {
 	var pp []token.Token
-	pp = append(pp, e.tks...)
+	pp = append(pp, e.rcd.EndGet()...)
 	return pp
 }
 
@@ -398,17 +231,20 @@ func (e *Expander) Expand(tok token.Token) bool {
 
 	name := tok.Literal()
 	if v, ok := e.ctx.Val[name]; ok {
-
 		switch val := v.(type) {
 		case *MacroVal:
 			tks := e.ExpandVal(tok, val.Body, nil)
-			e.deltaLine(tok, tks)
+			d := calcDelta([]token.Token{tok}, tks)
+			e.next() // 跳到当前token之后
+			e.deltaLine(d)
 			e.push(tks)
 			e.next()
 			return true
 		case *MacroHandler:
 			tks := e.ExpandVal(tok, val.Handler(tok), nil)
-			e.deltaLine(tok, tks)
+			d := calcDelta([]token.Token{tok}, tks)
+			e.next() // 跳到当前token之后
+			e.deltaLine(d)
 			e.push(tks)
 			e.next()
 			return true
@@ -418,9 +254,9 @@ func (e *Expander) Expand(tok token.Token) bool {
 				return false
 			}
 			// 处理
-			if tks, ok := e.ExpandFunc(tok, val); ok {
-				tks = append(tks, e.cur)
-				e.deltaLine(tok, tks)
+			if total, tks, ok := e.ExpandFunc(tok, val); ok {
+				d := calcDelta(total, tks)
+				e.deltaLine(d)
 				e.push(tks)
 				e.next()
 				return true
@@ -432,92 +268,131 @@ func (e *Expander) Expand(tok token.Token) bool {
 	return false
 }
 
-// 重新计算行内偏移量
-func (e *Expander) deltaLine(tok token.Token, tks []token.Token) {
-	d := 0
-	lt := len(tks)
-	rcl := utf8.RuneCountInString(tok.Literal())
-	old := tok.Position().Column + utf8.RuneCountInString(tok.Literal())
-	if lt > 0 {
-		t := tks[lt-1]
-		d = t.Position().Column + utf8.RuneCountInString(t.Literal()) - old
-	} else {
-		d = -rcl
+// 后续修改偏移
+func columnDelta(tks []token.Token, delta int) []token.Token {
+	for i := range tks {
+		tks[i] = newDeltaToken(tks[i], delta)
 	}
-	e.next()
-	e.record()
+	return tks
+}
+
+func tokenLen(tks []token.Token) int {
+	size := len(tks)
+	if size == 0 {
+		return 0
+	}
+	t := tks[size-1]
+	start := tks[0].Position().Column
+	end := t.Position().Column + utf8.RuneCountInString(t.Literal())
+	return end - start
+}
+
+// 计算展开偏移
+func calcDelta(before, after []token.Token) (delta int) {
+	return tokenLen(after) - tokenLen(before)
+}
+
+// 重新计算行内偏移量
+func (e *Expander) deltaLine(delta int) {
+	e.startRecord()
 	e.skipEndMacro()
 	end := e.cur
-	arr := e.arr()
+	arr := e.endRecord()
 	arr = append(arr, end)
-	for i := range arr {
-		t := &scanner.Token{
-			Pos: arr[i].Position(),
-			Typ: arr[i].Type(),
-			Lit: arr[i].Literal(),
-		}
-		t.Pos.Column += d
-		arr[i] = t
-	}
+	columnDelta(arr, delta)
 	e.push(arr)
+}
+
+func newTokenPos(t token.Token, pos token.Position) token.Token {
+	switch v := t.(type) {
+	case *Token:
+		v.Pos = pos
+		return v
+	case *scanner.Token:
+		v.Pos = pos
+		return v
+	default:
+		return &scanner.Token{
+			Pos: pos,
+			Typ: t.Type(),
+			Lit: t.Literal(),
+		}
+	}
+}
+
+func newDeltaToken(t token.Token, d int) token.Token {
+	p := t.Position()
+	p.Column += d
+	return newTokenPos(t, p)
 }
 
 // 展开宏
 func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
 	var ex []token.Token
-	col := 0
+	lt := len(tks)
+	if lt < 0 {
+		return ex
+	}
+	col := tks[0].Position().Column
 	pos := v.Position()
-	ps := scanner.NewPeekScan(scanner.NewTokenScan(scanner.NewArrayScan(tks)))
-	f := true
-
-	for tok := ps.Scan(); tok.Type() != token.EOF; tok = ps.Scan() {
-		if f {
-			col = tok.Position().Column
-			f = false
+	// 展开处理
+	for i := 0; i < lt; i++ {
+		// 展开参数
+		if tks[i].Type() == token.IDENT && params != nil {
+			if v, ok := params[tks[i].Literal()]; ok {
+				t := newTokenPos(tks[i], token.Position{
+					Filename: pos.Filename,
+					Line:     pos.Line,
+					Column:   pos.Column + tks[i].Position().Column - col,
+				})
+				extAt := e.ExpandVal(t, v, nil)
+				vv := scanner.NewArrayScan(extAt)
+				exp := NewExpander(e.ctx, vv)
+				expTks := scanner.ScanToken(exp)
+				d := calcDelta([]token.Token{tks[i]}, expTks)
+				columnDelta(tks[i+1:], d)
+				ex = append(ex, expTks...)
+				continue
+			}
 		}
-
-		typ := tok.Type()
-		lit := tok.Literal()
-
-		// ## 操作
-		if ps.PeekOne().Literal() == "##" {
-			ps.Scan() //##
-			nxt := ps.Scan()
-			lit = tok.Literal() + nxt.Literal()
+		// # ## 操作
+		typ := tks[i].Type()
+		lit := tks[i].Literal()
+		offset := tks[i].Position().Column - col
+		if i+1 < lt && tks[i+1].Literal() == "##" {
+			// ## 操作
+			i += 2
+			nxt := tks[i]
+			lit = tks[i].Literal() + nxt.Literal()
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
 				e.err.Add(e.cur.Position(), "invalid ## operator between %s and %s", lit, nxt.Literal())
 			}
-		}
-
-		if tok.Literal() == "#" &&
-			params != nil && ps.PeekOne().Type() == token.IDENT {
-			name := ps.PeekOne().Literal()
+			before := tks[i-2 : i+1]
+			beforeLen := tokenLen(before)
+			afterLen := len(lit)
+			columnDelta(tks[i+1:], afterLen-beforeLen)
+		} else if tks[i].Literal() == "#" &&
+			params != nil && i+1 < lt && tks[i+1].Type() == token.IDENT {
+			// # 操作
+			name := tks[i+1].Literal()
 			typ = token.STRING
 			if v, ok := params[name]; ok {
-				ps.Scan()
+				i++
 				lit = strconv.QuoteToGraphic(token.RelativeString(v))
+				before := tks[i-1 : i+1]
+				beforeLen := tokenLen(before)
+				afterLen := len(lit)
+				columnDelta(tks[i+1:], afterLen-beforeLen)
 			}
 		}
-
-		if tok.Type() == token.IDENT && params != nil {
-			if v, ok := params[tok.Literal()]; ok {
-				vv := scanner.NewArrayScan(v)
-				exp := NewExpander(e.ctx, vv)
-				tks := scanner.ScanToken(exp)
-				ex = append(ex, tks...)
-				if exp.err.Len() > 0 {
-					e.err.Merge(exp.err)
-				}
-				continue
-			}
-		}
-
 		t := &Token{
 			Pos: token.Position{
 				Filename: pos.Filename,
 				Line:     pos.Line,
-				Column:   pos.Column + tok.Position().Column - col,
+				// 展开后的位置
+				// 初始位置 + 相对偏移
+				Column: pos.Column + offset,
 			},
 			Typ:    typ,
 			Lit:    lit,
@@ -796,19 +671,19 @@ func (e *Expander) doDefineFunc(ident string) {
 }
 
 // 展开函数
-func (e *Expander) ExpandFunc(tok token.Token, val *MacroFunc) ([]token.Token, bool) {
-	e.record()
+func (e *Expander) ExpandFunc(tok token.Token, val *MacroFunc) ([]token.Token, []token.Token, bool) {
+	e.startRecord()
 	e.nextToken()
 	params, ok := e.readParameters(val)
-	scan := e.arr()
+	total := e.endRecord()
 	// 参数错误不解析
 	if !ok {
-		scan = append(scan, e.cur)
-		e.push(scan)
+		total = append(total, e.cur)
+		e.push(total)
 		e.next()
-		return nil, false
+		return nil, nil, false
 	}
-	return e.ExpandVal(tok, val.Body, params), true
+	return total, e.ExpandVal(tok, val.Body, params), true
 }
 
 func (e *Expander) readParameters(val *MacroFunc) (map[string][]token.Token, bool) {
@@ -838,7 +713,7 @@ func (e *Expander) readParameters(val *MacroFunc) (map[string][]token.Token, boo
 
 // 读取参数
 func (e *Expander) readParameter() []token.Token {
-	e.record()
+	e.startRecord()
 	paren := 0
 	for !e.isMacroEnd() && e.cur.Literal() != "," && e.cur.Literal() != ")" {
 		if e.cur.Literal() == "(" {
@@ -850,12 +725,12 @@ func (e *Expander) readParameter() []token.Token {
 		}
 		e.nextToken()
 	}
-	return e.arr()
+	return e.endRecord()
 }
 
 // 读取参数
 func (e *Expander) readEllipsisParameter() []token.Token {
-	e.record()
+	e.startRecord()
 	paren := 0
 	for !e.isMacroEnd() && e.cur.Literal() != ")" {
 		if e.cur.Literal() == "(" {
@@ -867,7 +742,7 @@ func (e *Expander) readEllipsisParameter() []token.Token {
 		}
 		e.nextToken()
 	}
-	return e.arr()
+	return e.endRecord()
 }
 
 func (e *Expander) doInclude() {
@@ -905,9 +780,9 @@ func (e *Expander) doInclude() {
 	}
 
 	// 展开include后重新处理
-	e.record()
+	e.startRecord()
 	e.skipEndMacro()
-	p := e.arr()
+	p := e.endRecord()
 	exp := NewExpander(e.ctx, scanner.NewArrayScan(p))
 	expand := scanner.ScanToken(exp)
 	e.push(expand)
@@ -937,9 +812,9 @@ func (e *Expander) includeFile(s string) {
 }
 
 func (e *Expander) doPragma() {
-	e.record()
+	e.startRecord()
 	e.skipEndMacro()
-	p := e.arr()
+	p := e.endRecord()
 	for _, v := range p {
 		// 支持 pragma once 指令
 		if v.Literal() == "once" {
@@ -951,11 +826,11 @@ func (e *Expander) doPragma() {
 }
 
 func (e *Expander) doLine() {
-	e.record()
+	e.startRecord()
 	file := e.cur.Position().Filename
 	line := e.cur.Position().Line
 	e.skipEndMacro()
-	v := e.arr()
+	v := e.endRecord()
 	enable := false
 	for _, item := range v {
 		if item.Type() == token.INT {
@@ -977,9 +852,9 @@ func (e *Expander) doError() {
 	pos := e.cur.Position()
 	e.next() // error
 	e.skipWhitespace()
-	e.record()
+	e.startRecord()
 	e.skipEndMacro()
-	msg := e.arr()
+	msg := e.endRecord()
 	e.expectEndMacro()
 	e.err.Add(pos, token.InlineString(msg))
 }

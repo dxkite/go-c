@@ -354,7 +354,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 47
+            "Column": 41
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -390,7 +390,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 49
+            "Column": 43
         },
         "Typ": "IDENT",
         "Lit": "B",
@@ -426,7 +426,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 35
+            "Column": 45
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -453,7 +453,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 37
+            "Column": 47
         },
         "Typ": "IDENT",
         "Lit": "C",
@@ -480,7 +480,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 24
+            "Column": 48
         },
         "Typ": "PUNCTUATOR",
         "Lit": ","
@@ -489,7 +489,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 25
+            "Column": 49
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -498,7 +498,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 26
+            "Column": 50
         },
         "Typ": "CHAR",
         "Lit": "'E'",
@@ -506,7 +506,7 @@
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
                 "Line": 10,
-                "Column": 26
+                "Column": 50
             },
             "Typ": "IDENT",
             "Lit": "E"
@@ -516,7 +516,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 30
+            "Column": 54
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -524,7 +524,7 @@
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
                 "Line": 10,
-                "Column": 26
+                "Column": 50
             },
             "Typ": "IDENT",
             "Lit": "E"
@@ -534,7 +534,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 32
+            "Column": 56
         },
         "Typ": "CHAR",
         "Lit": "'F'",
@@ -542,7 +542,7 @@
             "Pos": {
                 "Filename": "testdata\\valdef-2.c",
                 "Line": 10,
-                "Column": 32
+                "Column": 56
             },
             "Typ": "IDENT",
             "Lit": "F",
@@ -550,7 +550,7 @@
                 "Pos": {
                     "Filename": "testdata\\valdef-2.c",
                     "Line": 10,
-                    "Column": 26
+                    "Column": 50
                 },
                 "Typ": "IDENT",
                 "Lit": "E"
@@ -561,7 +561,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 27
+            "Column": 59
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")"
@@ -570,7 +570,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 28
+            "Column": 60
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -579,7 +579,7 @@
         "Pos": {
             "Filename": "testdata\\valdef-2.c",
             "Line": 10,
-            "Column": 29
+            "Column": 61
         },
         "Typ": "NEWLINE",
         "Lit": "\n"

@@ -138,7 +138,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 7,
-            "Column": 4
+            "Column": 9
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -147,7 +147,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 7,
-            "Column": 5
+            "Column": 10
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -354,42 +354,6 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 5
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "+",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 8,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "B"
-        }
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 8,
-            "Column": 7
-        },
-        "Typ": "INT",
-        "Lit": "10",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 8,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "B"
-        }
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 8,
             "Column": 10
         },
         "Typ": "PUNCTUATOR",
@@ -410,13 +374,49 @@
             "Line": 8,
             "Column": 12
         },
+        "Typ": "INT",
+        "Lit": "10",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 8,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "B"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 8,
+            "Column": 15
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "+",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 8,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "B"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 8,
+            "Column": 17
+        },
         "Typ": "STRING",
         "Lit": "8",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 8,
-                "Column": 12
+                "Column": 17
             },
             "Typ": "IDENT",
             "Lit": "__LINE__",
@@ -435,7 +435,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 21
+            "Column": 19
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -453,7 +453,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 23
+            "Column": 21
         },
         "Typ": "STRING",
         "Lit": "\"19\"",
@@ -507,7 +507,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 31
+            "Column": 33
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -525,7 +525,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 33
+            "Column": 35
         },
         "Typ": "STRING",
         "Lit": "\"1,2,3\"",
@@ -533,7 +533,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 8,
-                "Column": 33
+                "Column": 35
             },
             "Typ": "IDENT",
             "Lit": "C",
@@ -552,7 +552,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 10
+            "Column": 42
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -561,7 +561,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 8,
-            "Column": 11
+            "Column": 43
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -768,42 +768,6 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 5
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "+",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 9,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "B"
-        }
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 9,
-            "Column": 7
-        },
-        "Typ": "INT",
-        "Lit": "10",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\deffunc.c",
-                "Line": 9,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "B"
-        }
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 9,
             "Column": 10
         },
         "Typ": "PUNCTUATOR",
@@ -824,13 +788,49 @@
             "Line": 9,
             "Column": 12
         },
+        "Typ": "INT",
+        "Lit": "10",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 9,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "B"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 9,
+            "Column": 15
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "+",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 9,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "B"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 9,
+            "Column": 17
+        },
         "Typ": "STRING",
         "Lit": "9",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 9,
-                "Column": 12
+                "Column": 17
             },
             "Typ": "IDENT",
             "Lit": "__LINE__",
@@ -849,7 +849,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 21
+            "Column": 19
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -867,7 +867,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 23
+            "Column": 21
         },
         "Typ": "STRING",
         "Lit": "\"\"",
@@ -921,7 +921,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 31
+            "Column": 35
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -939,7 +939,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 33
+            "Column": 37
         },
         "Typ": "STRING",
         "Lit": "\"1,2,3\"",
@@ -947,7 +947,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 9,
-                "Column": 33
+                "Column": 37
             },
             "Typ": "IDENT",
             "Lit": "C",
@@ -966,7 +966,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 7
+            "Column": 44
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -975,7 +975,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 8
+            "Column": 45
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -1002,7 +1002,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 10,
-            "Column": 11
+            "Column": 10
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -1011,7 +1011,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 10,
-            "Column": 12
+            "Column": 11
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -1020,10 +1020,19 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 3
+            "Column": 1
         },
         "Typ": "INT",
-        "Lit": "1"
+        "Lit": "1",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "a"
+        }
     },
     {
         "Pos": {
@@ -1047,10 +1056,19 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 5
+            "Column": 3
         },
         "Typ": "INT",
-        "Lit": "2"
+        "Lit": "2",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 3
+            },
+            "Typ": "IDENT",
+            "Lit": "b"
+        }
     },
     {
         "Pos": {
@@ -1074,10 +1092,19 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 7
+            "Column": 5
         },
         "Typ": "INT",
-        "Lit": "3"
+        "Lit": "3",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 5
+            },
+            "Typ": "IDENT",
+            "Lit": "C"
+        }
     },
     {
         "Pos": {
@@ -1101,10 +1128,73 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 10
+            "Column": 7
         },
         "Typ": "IDENT",
-        "Lit": "A"
+        "Lit": "A",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 8
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ",",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 9
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 10
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ",",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
     },
     {
         "Pos": {
@@ -1112,8 +1202,17 @@
             "Line": 11,
             "Column": 11
         },
-        "Typ": "PUNCTUATOR",
-        "Lit": ","
+        "Typ": "WHITESPACE",
+        "Lit": " ",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
     },
     {
         "Pos": {
@@ -1121,88 +1220,106 @@
             "Line": 11,
             "Column": 12
         },
-        "Typ": "IDENT",
-        "Lit": "B"
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 13
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ","
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 14
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 15
-        },
         "Typ": "STRING",
         "Lit": "\"a, b, c\"",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 15
+                "Column": 12
             },
             "Typ": "IDENT",
-            "Lit": "C"
+            "Lit": "C",
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\deffunc.c",
+                    "Line": 11,
+                    "Column": 7
+                },
+                "Typ": "IDENT",
+                "Lit": "__VA_ARGS__"
+            }
         }
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 26
+            "Column": 21
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ","
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 27
-        },
-        "Typ": "IDENT",
-        "Lit": "D"
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 28
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ","
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 29
-        },
-        "Typ": "ILLEGAL",
-        "Lit": "123abc",
+        "Lit": ",",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 29
+                "Column": 7
             },
             "Typ": "IDENT",
-            "Lit": "E"
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 22
+        },
+        "Typ": "IDENT",
+        "Lit": "D",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 23
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ",",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\deffunc.c",
+            "Line": 11,
+            "Column": 24
+        },
+        "Typ": "INT",
+        "Lit": "abcabc",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 24
+            },
+            "Typ": "IDENT",
+            "Lit": "E",
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\deffunc.c",
+                    "Line": 11,
+                    "Column": 7
+                },
+                "Typ": "IDENT",
+                "Lit": "__VA_ARGS__"
+            }
         }
     },
     {
@@ -1212,7 +1329,16 @@
             "Column": 30
         },
         "Typ": "PUNCTUATOR",
-        "Lit": ","
+        "Lit": ",",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
     },
     {
         "Pos": {
@@ -1221,7 +1347,16 @@
             "Column": 31
         },
         "Typ": "WHITESPACE",
-        "Lit": " "
+        "Lit": " ",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\deffunc.c",
+                "Line": 11,
+                "Column": 7
+            },
+            "Typ": "IDENT",
+            "Lit": "__VA_ARGS__"
+        }
     },
     {
         "Pos": {
@@ -1238,14 +1373,23 @@
                 "Column": 32
             },
             "Typ": "IDENT",
-            "Lit": "__LINE__"
+            "Lit": "__LINE__",
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\deffunc.c",
+                    "Line": 11,
+                    "Column": 7
+                },
+                "Typ": "IDENT",
+                "Lit": "__VA_ARGS__"
+            }
         }
     },
     {
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 18
+            "Column": 34
         },
         "Typ": "PUNCTUATOR",
         "Lit": ",",
@@ -1263,7 +1407,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 20
+            "Column": 36
         },
         "Typ": "STRING",
         "Lit": "11",
@@ -1271,7 +1415,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 20
+                "Column": 36
             },
             "Typ": "IDENT",
             "Lit": "__LINE__",
@@ -1290,7 +1434,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 28
+            "Column": 38
         },
         "Typ": "PUNCTUATOR",
         "Lit": ")",
@@ -1308,7 +1452,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 29
+            "Column": 39
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1326,7 +1470,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 30
+            "Column": 40
         },
         "Typ": "IDENT",
         "Lit": "A",
@@ -1334,7 +1478,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1342,7 +1486,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1362,7 +1506,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 31
+            "Column": 41
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1370,7 +1514,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1378,7 +1522,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1398,7 +1542,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 32
+            "Column": 42
         },
         "Typ": "INT",
         "Lit": "10",
@@ -1406,7 +1550,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1414,7 +1558,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1434,7 +1578,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 34
+            "Column": 44
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1442,7 +1586,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1450,7 +1594,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1470,7 +1614,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 35
+            "Column": 45
         },
         "Typ": "IDENT",
         "Lit": "B",
@@ -1478,7 +1622,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1486,7 +1630,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1506,7 +1650,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 36
+            "Column": 46
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1514,7 +1658,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "A",
@@ -1522,7 +1666,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1542,7 +1686,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 37
+            "Column": 47
         },
         "Typ": "INT",
         "Lit": "3",
@@ -1550,7 +1694,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 37
+                "Column": 47
             },
             "Typ": "IDENT",
             "Lit": "__COUNTER__",
@@ -1558,7 +1702,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "A",
@@ -1566,7 +1710,7 @@
                     "Pos": {
                         "Filename": "testdata\\deffunc.c",
                         "Line": 11,
-                        "Column": 30
+                        "Column": 40
                     },
                     "Typ": "IDENT",
                     "Lit": "B",
@@ -1587,7 +1731,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 34
+            "Column": 49
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1595,7 +1739,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1614,7 +1758,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 36
+            "Column": 51
         },
         "Typ": "INT",
         "Lit": "10",
@@ -1622,7 +1766,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1641,7 +1785,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 39
+            "Column": 54
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1649,7 +1793,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1668,7 +1812,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 41
+            "Column": 56
         },
         "Typ": "STRING",
         "Lit": "11",
@@ -1676,7 +1820,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 41
+                "Column": 56
             },
             "Typ": "IDENT",
             "Lit": "__LINE__",
@@ -1684,7 +1828,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1704,7 +1848,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 50
+            "Column": 59
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1712,7 +1856,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1731,7 +1875,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 52
+            "Column": 61
         },
         "Typ": "STRING",
         "Lit": "\"__LINE__\"",
@@ -1739,7 +1883,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1758,7 +1902,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 55
+            "Column": 74
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1766,7 +1910,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1785,7 +1929,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 57
+            "Column": 76
         },
         "Typ": "STRING",
         "Lit": "\"bb\"",
@@ -1793,7 +1937,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1812,7 +1956,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 60
+            "Column": 85
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1820,7 +1964,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 30
+                "Column": 40
             },
             "Typ": "IDENT",
             "Lit": "B",
@@ -1839,7 +1983,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 62
+            "Column": 87
         },
         "Typ": "STRING",
         "Lit": "\"1,2,3\"",
@@ -1847,7 +1991,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 62
+                "Column": 87
             },
             "Typ": "IDENT",
             "Lit": "C",
@@ -1855,7 +1999,7 @@
                 "Pos": {
                     "Filename": "testdata\\deffunc.c",
                     "Line": 11,
-                    "Column": 30
+                    "Column": 40
                 },
                 "Typ": "IDENT",
                 "Lit": "B",
@@ -1875,7 +2019,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 41
+            "Column": 94
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -1884,7 +2028,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 42
+            "Column": 95
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -1895,8 +2039,8 @@
             "Line": 12,
             "Column": 1
         },
-        "Typ": "ILLEGAL",
-        "Lit": "123abc",
+        "Typ": "INT",
+        "Lit": "abcabc",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
@@ -1911,7 +2055,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 12,
-            "Column": 2
+            "Column": 7
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -1956,7 +2100,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 13,
-            "Column": 6
+            "Column": 5
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -2058,7 +2202,7 @@
             "Column": 12
         },
         "Typ": "STRING",
-        "Lit": "\"x       ##y\"",
+        "Lit": "\"x ## y\"",
         "Expand": {
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
@@ -2091,7 +2235,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 20,
-            "Column": 22
+            "Column": 20
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -2100,7 +2244,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 20,
-            "Column": 23
+            "Column": 21
         },
         "Typ": "WHITESPACE",
         "Lit": " "
@@ -2109,7 +2253,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 20,
-            "Column": 40
+            "Column": 38
         },
         "Typ": "NEWLINE",
         "Lit": "\n"

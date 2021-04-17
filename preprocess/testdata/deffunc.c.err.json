@@ -1,18 +1,1 @@
-[
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 11,
-            "Column": 29
-        },
-        "Msg": "invalid ## operator between 123abc and abc"
-    },
-    {
-        "Pos": {
-            "Filename": "testdata\\deffunc.c",
-            "Line": 12,
-            "Column": 1
-        },
-        "Msg": "invalid ## operator between 123abc and abc"
-    }
-]
+null

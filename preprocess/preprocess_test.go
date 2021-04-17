@@ -99,3 +99,11 @@ func TestScanFile(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func Test_columnDelta(t *testing.T) {
+	tks, _ := scanner.ScanString("", "abc + 1234")
+	columnDelta(tks[2:], 10)
+	if token.RelativeString(tks) != "abc           + 1234" {
+		t.Error("delta error")
+	}
+}
