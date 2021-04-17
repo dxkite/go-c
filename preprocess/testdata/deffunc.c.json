@@ -885,7 +885,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 26
+            "Column": 24
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -903,7 +903,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 28
+            "Column": 26
         },
         "Typ": "STRING",
         "Lit": "\"20\"",
@@ -921,7 +921,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 35
+            "Column": 31
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -939,7 +939,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 37
+            "Column": 33
         },
         "Typ": "STRING",
         "Lit": "\"1,2,3\"",
@@ -947,7 +947,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 9,
-                "Column": 37
+                "Column": 33
             },
             "Typ": "IDENT",
             "Lit": "C",
@@ -966,7 +966,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 44
+            "Column": 40
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -975,7 +975,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 9,
-            "Column": 45
+            "Column": 41
         },
         "Typ": "NEWLINE",
         "Lit": "\n"
@@ -1902,7 +1902,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 74
+            "Column": 72
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1929,7 +1929,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 76
+            "Column": 74
         },
         "Typ": "STRING",
         "Lit": "\"bb\"",
@@ -1956,7 +1956,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 85
+            "Column": 79
         },
         "Typ": "PUNCTUATOR",
         "Lit": "+",
@@ -1983,7 +1983,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 87
+            "Column": 81
         },
         "Typ": "STRING",
         "Lit": "\"1,2,3\"",
@@ -1991,7 +1991,7 @@
             "Pos": {
                 "Filename": "testdata\\deffunc.c",
                 "Line": 11,
-                "Column": 87
+                "Column": 81
             },
             "Typ": "IDENT",
             "Lit": "C",
@@ -2019,7 +2019,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 94
+            "Column": 88
         },
         "Typ": "PUNCTUATOR",
         "Lit": ";"
@@ -2028,7 +2028,7 @@
         "Pos": {
             "Filename": "testdata\\deffunc.c",
             "Line": 11,
-            "Column": 95
+            "Column": 89
         },
         "Typ": "NEWLINE",
         "Lit": "\n"

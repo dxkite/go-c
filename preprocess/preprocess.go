@@ -35,7 +35,7 @@ func (r *Recorder) EndGet() []token.Token {
 		idx := lof - 1
 		start := r.offset[idx]
 		r.offset = r.offset[:idx]
-		return r.tks[start:]
+		return copyTokenSlice(r.tks[start:])
 	}
 	r.tks = r.tks[0:0]
 	return r.tks
@@ -112,9 +112,7 @@ func (e *Expander) startRecord() {
 }
 
 func (e *Expander) endRecord() []token.Token {
-	var pp []token.Token
-	pp = append(pp, e.rcd.EndGet()...)
-	return pp
+	return e.rcd.EndGet()
 }
 
 // 获取下一个非空token
@@ -326,13 +324,50 @@ func newDeltaToken(t token.Token, d int) token.Token {
 	return newTokenPos(t, p)
 }
 
+func copyToken(t token.Token) token.Token {
+	if t == nil {
+		return t
+	}
+	switch v := t.(type) {
+	case *Token:
+		return &Token{
+			Pos: token.Position{
+				Filename: t.Position().Filename,
+				Line:     t.Position().Line,
+				Column:   t.Position().Column,
+			},
+			Typ:    t.Type(),
+			Lit:    t.Literal(),
+			Expand: copyToken(v.Expand),
+		}
+	default:
+		return &scanner.Token{
+			Pos: token.Position{
+				Filename: t.Position().Filename,
+				Line:     t.Position().Line,
+				Column:   t.Position().Column,
+			},
+			Typ: t.Type(),
+			Lit: t.Literal(),
+		}
+	}
+}
+
+func copyTokenSlice(tks []token.Token) (cpy []token.Token) {
+	for i := range tks {
+		cpy = append(cpy, copyToken(tks[i]))
+	}
+	return
+}
+
 // 展开宏
-func (e *Expander) ExpandVal(v token.Token, tks []token.Token, params map[string][]token.Token) []token.Token {
+func (e *Expander) ExpandVal(v token.Token, body []token.Token, params map[string][]token.Token) []token.Token {
 	var ex []token.Token
-	lt := len(tks)
+	lt := len(body)
 	if lt < 0 {
 		return ex
 	}
+	tks := copyTokenSlice(body)
 	col := tks[0].Position().Column
 	pos := v.Position()
 	// 展开处理

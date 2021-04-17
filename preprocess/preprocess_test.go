@@ -40,6 +40,9 @@ func timeOut(t *testing.T, f func(t *testing.T)) {
 func TestScanFile(t *testing.T) {
 	if err := filepath.Walk("testdata/", func(p string, info os.FileInfo, err error) error {
 		ext := filepath.Ext(p)
+		//if strings.Index(p, "deffunc") < 0 {
+		//	return nil;
+		//}
 		if ext == ".c" {
 			t.Run(p, func(t *testing.T) {
 				timeOut(t, func(t *testing.T) {
