@@ -1,0 +1,48 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\simple-error.c",
+      "Line": 1,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "#"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\simple-error.c",
+      "Line": 1,
+      "Column": 2
+    },
+    "Typ": "CHAR",
+    "Lit": "'1'"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\simple-error.c",
+      "Line": 1,
+      "Column": 5
+    },
+    "Typ": "STRING",
+    "Lit": "\"1234\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\simple-error.c",
+      "Line": 1,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\simple-error.c",
+      "Line": 1,
+      "Column": 12
+    },
+    "Typ": "CHAR",
+    "Lit": "'1",
+    "Err": "unclosed char lit '"
+  }
+]
