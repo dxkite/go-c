@@ -1,0 +1,218 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 1
+        },
+        "Typ": "KEYWORD",
+        "Lit": "int"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 4
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 5
+        },
+        "Typ": "IDENT",
+        "Lit": "main"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 9
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "("
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 10
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ")"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 11
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 12
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "{"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 4,
+            "Column": 13
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 1
+        },
+        "Typ": "WHITESPACE",
+        "Lit": " "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 5
+        },
+        "Typ": "IDENT",
+        "Lit": "printf"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 11
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "("
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 12
+        },
+        "Typ": "STRING",
+        "Lit": "\"main\\n\""
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 20
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ")"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 21
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": ";"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 5,
+            "Column": 22
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 6,
+            "Column": 1
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "}"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata/include-cond.h",
+            "Line": 6,
+            "Column": 2
+        },
+        "Typ": "NEWLINE",
+        "Lit": "\n"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 1
+        },
+        "Typ": "INT",
+        "Lit": "10086",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "INCLUDE"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 7
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "+",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "INCLUDE"
+        }
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\include-cond.c",
+            "Line": 6,
+            "Column": 9
+        },
+        "Typ": "INT",
+        "Lit": "0",
+        "Expand": {
+            "Pos": {
+                "Filename": "testdata\\include-cond.c",
+                "Line": 6,
+                "Column": 9
+            },
+            "Typ": "IDENT",
+            "Lit": "__COUNTER__",
+            "Expand": {
+                "Pos": {
+                    "Filename": "testdata\\include-cond.c",
+                    "Line": 6,
+                    "Column": 1
+                },
+                "Typ": "IDENT",
+                "Lit": "INCLUDE"
+            }
+        }
+    }
+]

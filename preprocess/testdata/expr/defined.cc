@@ -1,0 +1,1 @@
+(((defined (a)) && (defined (b))) && ((defined (c)) && (defined (e))))

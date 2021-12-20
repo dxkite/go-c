@@ -1,0 +1,121 @@
+{
+  "X": {
+    "X": {
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\expr\\defined.c",
+          "Line": 1,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "defined"
+      },
+      "X": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\expr\\defined.c",
+            "Line": 1,
+            "Column": 9
+          },
+          "Typ": "IDENT",
+          "Lit": "a"
+        }
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\expr\\defined.c",
+        "Line": 1,
+        "Column": 12
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "&&"
+    },
+    "Y": {
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\expr\\defined.c",
+          "Line": 1,
+          "Column": 15
+        },
+        "Typ": "IDENT",
+        "Lit": "defined"
+      },
+      "X": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\expr\\defined.c",
+            "Line": 1,
+            "Column": 23
+          },
+          "Typ": "IDENT",
+          "Lit": "b"
+        }
+      }
+    }
+  },
+  "Op": {
+    "Pos": {
+      "Filename": "testdata\\expr\\defined.c",
+      "Line": 1,
+      "Column": 25
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "&&"
+  },
+  "Y": {
+    "X": {
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\expr\\defined.c",
+          "Line": 1,
+          "Column": 28
+        },
+        "Typ": "IDENT",
+        "Lit": "defined"
+      },
+      "X": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\expr\\defined.c",
+            "Line": 1,
+            "Column": 40
+          },
+          "Typ": "IDENT",
+          "Lit": "c"
+        }
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\expr\\defined.c",
+        "Line": 1,
+        "Column": 46
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "&&"
+    },
+    "Y": {
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\expr\\defined.c",
+          "Line": 1,
+          "Column": 49
+        },
+        "Typ": "IDENT",
+        "Lit": "defined"
+      },
+      "X": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\expr\\defined.c",
+            "Line": 1,
+            "Column": 59
+          },
+          "Typ": "IDENT",
+          "Lit": "e"
+        }
+      }
+    }
+  }
+}
