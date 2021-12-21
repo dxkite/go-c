@@ -107,20 +107,77 @@ func (c *Context) pragmaOnce(p string) {
 	c.once[p] = struct{}{}
 }
 
-func (c *Context) DefineVal(name, value string) error {
+func (c *Context) DefineVal(name string, body []token.Token) error {
+	if err := checkValidHashHashExpr(body); err != nil {
+		return err
+	}
+	c.Define(name, &MacroVal{
+		Name: name,
+		Body: body,
+	})
+	return nil
+}
+
+func (c *Context) DefineValStr(name, value string) error {
 	if tok, err := scanner.ScanString("<build-in>", value); err != nil {
 		return err
 	} else {
-		c.Define(name, &MacroVal{
-			Name: name,
-			Body: tok,
-		})
+		return c.DefineVal(name, tok)
 	}
-	return nil
 }
 
 func (c *Context) Define(name string, val MacroDecl) {
 	c.Val[name] = val
+}
+
+// 检查是否可用
+func checkValidHashHashExpr(tks []token.Token) error {
+	if len(tks) > 0 {
+		beg := 0
+		end := len(tks) - 1
+		err := "'##' cannot appear at either end of a macro expansion"
+		if tks[beg].Literal() == "##" {
+			return &Error{tks[beg].Position(), err}
+		}
+		if tks[end].Literal() == "##" {
+			return &Error{tks[end].Position(), err}
+		}
+	}
+	return nil
+}
+
+// 检查是否可用
+func checkValidHashExpr(params []string, tks []token.Token) error {
+	err := "'#' must follow a macro parameter"
+	m := map[string]bool{}
+	for _, v := range params {
+		m[v] = true
+	}
+	n := len(tks)
+	for i := 0; i < n; i++ {
+		if tks[i].Literal() == "#" {
+			if !(i+1 < n && tks[i+1].Type() == token.IDENT && m[tks[i+1].Literal()]) {
+				return &Error{tks[i].Position(), err}
+			}
+		}
+	}
+	return nil
+}
+
+func (c *Context) DefineFunc(name string, params []string, ellipsis bool, body []token.Token) error {
+	if err := checkValidHashExpr(params, body); err != nil {
+		return err
+	}
+	if err := checkValidHashHashExpr(body); err != nil {
+		return err
+	}
+	c.Define(name, &MacroFunc{
+		Name:     name,
+		Params:   params,
+		Ellipsis: ellipsis,
+		Body:     body,
+	})
+	return nil
 }
 
 func (c *Context) DefineHandler(name string, val HandlerFn) {
@@ -140,8 +197,8 @@ func (c *Context) Init() {
 	c.DefineHandler("__FILE__", c.fileFn)
 	c.DefineHandler("__LINE__", c.lineFn)
 	c.DefineHandler("__COUNTER__", c.counterFn)
-	_ = c.DefineVal("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
-	_ = c.DefineVal("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
+	_ = c.DefineValStr("__DATE__", strconv.QuoteToGraphic(time.Now().Format("Jan 02 2006")))
+	_ = c.DefineValStr("__TIME__", strconv.QuoteToGraphic(time.Now().Format("15:04:05")))
 }
 
 func (c *Context) counterFn(tok token.Token) []token.Token {
