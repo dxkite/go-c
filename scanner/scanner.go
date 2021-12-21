@@ -184,6 +184,58 @@ func (ts *tokenScanner) Scan() (t token.Token) {
 	return t
 }
 
+type CachedScanner interface {
+	Scanner
+	Start()
+	Clear()
+	GetClear() (v []token.Token)
+	Restore()
+}
+
+type cachedScanner struct {
+	enable bool
+	cached []token.Token
+	r      Scanner
+}
+
+func NewCachedScanner(r Scanner) CachedScanner {
+	c := &cachedScanner{r: r}
+	c.cached = []token.Token{}
+	return c
+}
+
+func (r *cachedScanner) Scan() (t token.Token) {
+	t = r.r.Scan()
+	if r.enable && t.Type() != token.EOF {
+		r.cached = append(r.cached, t)
+	}
+	return
+}
+
+func (r *cachedScanner) Start() {
+	r.enable = true
+}
+
+// 清空缓存
+func (r *cachedScanner) Clear() {
+	r.enable = false
+	r.cached = r.cached[0:0]
+}
+
+// 清空缓并获取内容
+func (r *cachedScanner) GetClear() (v []token.Token) {
+	r.enable = false
+	v = append(v, r.cached...)
+	r.cached = r.cached[0:0]
+	return
+}
+
+// 重置指针位置
+func (r *cachedScanner) Restore() {
+	r.enable = false
+	r.r = NewMultiScan(NewArrayScan(r.cached), r.r)
+}
+
 type fileScanner struct {
 	Scanner
 	closed bool
