@@ -5,7 +5,7 @@
       "Line": 6,
       "Column": 1
     },
-    "Typ": "INT",
+    "Typ": "PUNCTUATOR",
     "Lit": "1020",
     "Expand": {
       "Pos": {
@@ -15,7 +15,8 @@
       },
       "Typ": "IDENT",
       "Lit": "A"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -39,9 +40,9 @@
     "Pos": {
       "Filename": "testdata\\macro\\concat.c",
       "Line": 7,
-      "Column": 1
+      "Column": 11
     },
-    "Typ": "IDENT",
+    "Typ": "PUNCTUATOR",
     "Lit": "A123",
     "Expand": {
       "Pos": {
@@ -51,7 +52,8 @@
       },
       "Typ": "IDENT",
       "Lit": "B"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -141,7 +143,8 @@
       },
       "Typ": "IDENT",
       "Lit": "E"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {

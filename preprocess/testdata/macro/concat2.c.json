@@ -75,7 +75,7 @@
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
       "Line": 5,
-      "Column": 12
+      "Column": 23
     },
     "Typ": "STRING",
     "Lit": "\"x ## y\"",
@@ -83,35 +83,18 @@
       "Pos": {
         "Filename": "testdata\\macro\\concat2.c",
         "Line": 5,
-        "Column": 12
+        "Column": 23
       },
       "Typ": "IDENT",
-      "Lit": "mkstr",
-      "Expand": {
-        "Pos": {
-          "Filename": "testdata\\macro\\concat2.c",
-          "Line": 5,
-          "Column": 12
-        },
-        "Typ": "IDENT",
-        "Lit": "in_between",
-        "Expand": {
-          "Pos": {
-            "Filename": "testdata\\macro\\concat2.c",
-            "Line": 5,
-            "Column": 12
-          },
-          "Typ": "IDENT",
-          "Lit": "join"
-        }
-      }
-    }
+      "Lit": "mkstr"
+    },
+    "Space": false
   },
   {
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
       "Line": 5,
-      "Column": 20
+      "Column": 32
     },
     "Typ": "PUNCTUATOR",
     "Lit": ";"
@@ -120,7 +103,7 @@
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
       "Line": 5,
-      "Column": 21
+      "Column": 33
     },
     "Typ": "WHITESPACE",
     "Lit": " "
@@ -129,7 +112,7 @@
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
       "Line": 5,
-      "Column": 38
+      "Column": 50
     },
     "Typ": "NEWLINE",
     "Lit": "\n"
@@ -155,62 +138,27 @@
   {
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
-      "Line": 8,
-      "Column": 1
-    },
-    "Typ": "IDENT",
-    "Lit": "Object",
-    "Expand": {
-      "Pos": {
-        "Filename": "testdata\\macro\\concat2.c",
-        "Line": 8,
-        "Column": 1
-      },
-      "Typ": "IDENT",
-      "Lit": "a"
-    }
-  },
-  {
-    "Pos": {
-      "Filename": "testdata\\macro\\concat2.c",
-      "Line": 8,
-      "Column": 7
+      "Line": 10,
+      "Column": 23
     },
     "Typ": "PUNCTUATOR",
-    "Lit": "##",
+    "Lit": "Objectaccc",
     "Expand": {
       "Pos": {
         "Filename": "testdata\\macro\\concat2.c",
-        "Line": 8,
+        "Line": 10,
         "Column": 1
       },
       "Typ": "IDENT",
       "Lit": "concat"
-    }
-  },
-  {
-    "Pos": {
-      "Filename": "testdata\\macro\\concat2.c",
-      "Line": 8,
-      "Column": 9
     },
-    "Typ": "IDENT",
-    "Lit": "a",
-    "Expand": {
-      "Pos": {
-        "Filename": "testdata\\macro\\concat2.c",
-        "Line": 8,
-        "Column": 9
-      },
-      "Typ": "IDENT",
-      "Lit": "b"
-    }
+    "Space": false
   },
   {
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
-      "Line": 8,
-      "Column": 10
+      "Line": 10,
+      "Column": 23
     },
     "Typ": "NEWLINE",
     "Lit": "\n"
@@ -218,64 +166,170 @@
   {
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
-      "Line": 9,
-      "Column": 1
-    },
-    "Typ": "IDENT",
-    "Lit": "Object",
-    "Expand": {
-      "Pos": {
-        "Filename": "testdata\\macro\\concat2.c",
-        "Line": 9,
-        "Column": 1
-      },
-      "Typ": "IDENT",
-      "Lit": "a"
-    }
-  },
-  {
-    "Pos": {
-      "Filename": "testdata\\macro\\concat2.c",
-      "Line": 9,
-      "Column": 7
+      "Line": 11,
+      "Column": 23
     },
     "Typ": "PUNCTUATOR",
-    "Lit": "##",
+    "Lit": "Object__LINE__c",
     "Expand": {
       "Pos": {
         "Filename": "testdata\\macro\\concat2.c",
-        "Line": 9,
+        "Line": 11,
         "Column": 1
       },
       "Typ": "IDENT",
       "Lit": "concat"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
       "Filename": "testdata\\macro\\concat2.c",
-      "Line": 9,
-      "Column": 9
+      "Line": 11,
+      "Column": 28
     },
-    "Typ": "STRING",
-    "Lit": "9",
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 23
+    },
+    "Typ": "INT",
+    "Lit": "10086",
     "Expand": {
       "Pos": {
         "Filename": "testdata\\macro\\concat2.c",
-        "Line": 9,
-        "Column": 9
+        "Line": 12,
+        "Column": 1
       },
       "Typ": "IDENT",
-      "Lit": "__LINE__",
-      "Expand": {
-        "Pos": {
-          "Filename": "testdata\\macro\\concat2.c",
-          "Line": 9,
-          "Column": 9
-        },
-        "Typ": "IDENT",
-        "Lit": "b"
-      }
-    }
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 28
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 26
+    },
+    "Typ": "IDENT",
+    "Lit": "BBBB"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 33
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 34
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "Objectab",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 44
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 27
+    },
+    "Typ": "IDENT",
+    "Lit": "BBBB"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 49
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 32
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
   }
 ]

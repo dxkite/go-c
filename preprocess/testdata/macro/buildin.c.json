@@ -141,7 +141,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__FILE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -177,7 +178,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__LINE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -213,7 +215,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__COUNTER__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -312,7 +315,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__FILE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -348,7 +352,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__LINE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -384,7 +389,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__COUNTER__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -483,7 +489,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__FILE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -519,7 +526,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__LINE__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {
@@ -555,7 +563,8 @@
       },
       "Typ": "IDENT",
       "Lit": "__COUNTER__"
-    }
+    },
+    "Space": false
   },
   {
     "Pos": {

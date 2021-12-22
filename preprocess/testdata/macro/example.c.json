@@ -1,0 +1,129 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "char"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 5
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 6
+    },
+    "Typ": "IDENT",
+    "Lit": "p"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 7
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "["
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 8
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "]"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 9
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "="
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 23
+    },
+    "Typ": "STRING",
+    "Lit": "\"x ## y\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\example.c",
+        "Line": 5,
+        "Column": 23
+      },
+      "Typ": "IDENT",
+      "Lit": "mkstr"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 32
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 33
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 5,
+      "Column": 50
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\example.c",
+      "Line": 6,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  }
+]

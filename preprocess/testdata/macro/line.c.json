@@ -1,108 +1,119 @@
 [
-    {
-        "Pos": {
-            "Filename": "demo.c",
-            "Line": 11,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "\"demo.c\"",
-        "Expand": {
-            "Pos": {
-                "Filename": "demo.c",
-                "Line": 11,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "__FILE__",
-            "Expand": null
-        }
+  {
+    "Pos": {
+      "Filename": "demo.c",
+      "Line": 11,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "demo.c",
-            "Line": 11,
-            "Column": 9
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n",
-        "Expand": null
+    "Typ": "STRING",
+    "Lit": "\"demo.c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "demo.c",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "__FILE__",
+      "Expand": null,
+      "Space": false
     },
-    {
-        "Pos": {
-            "Filename": "demo.c",
-            "Line": 12,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "12",
-        "Expand": {
-            "Pos": {
-                "Filename": "demo.c",
-                "Line": 12,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "__LINE__",
-            "Expand": null
-        }
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "demo.c",
+      "Line": 11,
+      "Column": 9
     },
-    {
-        "Pos": {
-            "Filename": "demo.c",
-            "Line": 12,
-            "Column": 9
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n",
-        "Expand": null
+    "Typ": "NEWLINE",
+    "Lit": "\n",
+    "Expand": null,
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "demo.c",
+      "Line": 12,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "test.c",
-            "Line": 21,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "\"test.c\"",
-        "Expand": {
-            "Pos": {
-                "Filename": "test.c",
-                "Line": 21,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "__FILE__",
-            "Expand": null
-        }
+    "Typ": "STRING",
+    "Lit": "12",
+    "Expand": {
+      "Pos": {
+        "Filename": "demo.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": null,
+      "Space": false
     },
-    {
-        "Pos": {
-            "Filename": "test.c",
-            "Line": 21,
-            "Column": 9
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n",
-        "Expand": null
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "demo.c",
+      "Line": 12,
+      "Column": 3
     },
-    {
-        "Pos": {
-            "Filename": "test.c",
-            "Line": 22,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "22",
-        "Expand": {
-            "Pos": {
-                "Filename": "test.c",
-                "Line": 22,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "__LINE__",
-            "Expand": null
-        }
-    }
+    "Typ": "NEWLINE",
+    "Lit": "\n",
+    "Expand": null,
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "test.c",
+      "Line": 21,
+      "Column": 1
+    },
+    "Typ": "STRING",
+    "Lit": "\"test.c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "test.c",
+        "Line": 21,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "__FILE__",
+      "Expand": null,
+      "Space": false
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "test.c",
+      "Line": 21,
+      "Column": 9
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n",
+    "Expand": null,
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "test.c",
+      "Line": 22,
+      "Column": 1
+    },
+    "Typ": "STRING",
+    "Lit": "22",
+    "Expand": {
+      "Pos": {
+        "Filename": "test.c",
+        "Line": 22,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": null,
+      "Space": false
+    },
+    "Space": false
+  }
 ]

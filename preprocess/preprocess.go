@@ -181,14 +181,7 @@ func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[stri
 		return
 	}
 
-	if afterHashHash || followHashHash {
-		return []token.Token{ident}
-	}
-
-	// 普通展开
-	exp, _ = scanner.ScanToken(newProcessor(p.ctx, newExpandMock(tok, scanner.NewArrayScan([]token.Token{ident})), p.ignoreErr))
-	expandTokAt(ident, exp)
-	return
+	return []token.Token{ident}
 }
 
 func expandTokAt(tok token.Token, tks []token.Token) {

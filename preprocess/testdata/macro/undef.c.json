@@ -1,290 +1,274 @@
 [
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 8,
-            "Column": 1
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 8,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 1
-        },
-        "Typ": "KEYWORD",
-        "Lit": "int"
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 4
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 4
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 5
-        },
-        "Typ": "IDENT",
-        "Lit": "main"
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 5
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 9
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "("
+    "Typ": "IDENT",
+    "Lit": "main"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 9
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 10
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ")"
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 10
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 11
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 11
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 12
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "{"
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 12
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 9,
-            "Column": 13
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+    "Typ": "PUNCTUATOR",
+    "Lit": "{"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 9,
+      "Column": 13
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 10,
-            "Column": 1
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 10,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 10,
-            "Column": 5
-        },
-        "Typ": "IDENT",
-        "Lit": "E"
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 10,
+      "Column": 5
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 10,
-            "Column": 6
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+    "Typ": "IDENT",
+    "Lit": "E"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 10,
+      "Column": 6
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 1
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 5
-        },
-        "Typ": "IDENT",
-        "Lit": "printf"
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 5
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 11
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "("
+    "Typ": "IDENT",
+    "Lit": "printf"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 11
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 12
-        },
-        "Typ": "STRING",
-        "Lit": "\"%d %d %d\\n\""
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 12
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 24
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ","
+    "Typ": "STRING",
+    "Lit": "\"%d %d %d\\n\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 24
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 25
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 25
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 26
-        },
-        "Typ": "IDENT",
-        "Lit": "B",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\undef.c",
-                "Line": 11,
-                "Column": 26
-            },
-            "Typ": "IDENT",
-            "Lit": "D"
-        }
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 11
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 27
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ","
+    "Typ": "IDENT",
+    "Lit": "B"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 27
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 28
-        },
-        "Typ": "WHITESPACE",
-        "Lit": " "
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 28
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 29
-        },
-        "Typ": "INT",
-        "Lit": "30",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\undef.c",
-                "Line": 11,
-                "Column": 29
-            },
-            "Typ": "IDENT",
-            "Lit": "C"
-        }
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 29
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 32
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "+",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\undef.c",
-                "Line": 11,
-                "Column": 29
-            },
-            "Typ": "IDENT",
-            "Lit": "C"
-        }
+    "Typ": "INT",
+    "Lit": "30",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\undef.c",
+        "Line": 11,
+        "Column": 29
+      },
+      "Typ": "IDENT",
+      "Lit": "C"
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 34
-        },
-        "Typ": "IDENT",
-        "Lit": "B",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\undef.c",
-                "Line": 11,
-                "Column": 29
-            },
-            "Typ": "IDENT",
-            "Lit": "C"
-        }
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 32
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 30
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ")"
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\undef.c",
+        "Line": 11,
+        "Column": 29
+      },
+      "Typ": "IDENT",
+      "Lit": "C"
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 31
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": ";"
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 16
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 11,
-            "Column": 32
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+    "Typ": "IDENT",
+    "Lit": "B"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 17
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\undef.c",
-            "Line": 12,
-            "Column": 1
-        },
-        "Typ": "PUNCTUATOR",
-        "Lit": "}"
-    }
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 18
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 11,
+      "Column": 19
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\undef.c",
+      "Line": 12,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "}"
+  }
 ]

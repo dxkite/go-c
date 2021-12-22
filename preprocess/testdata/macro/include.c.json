@@ -1,74 +1,86 @@
 [
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 6,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "\"Include1\"",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\include.c",
-                "Line": 6,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "INCLUDE_1"
-        }
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 5,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 6,
-            "Column": 10
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 6,
+      "Column": 1
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 7,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "\"Include2\"",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\include.c",
-                "Line": 7,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "INCLUDE_2"
-        }
+    "Typ": "STRING",
+    "Lit": "\"Include1\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\include.c",
+        "Line": 6,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "INCLUDE_1"
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 7,
-            "Column": 10
-        },
-        "Typ": "NEWLINE",
-        "Lit": "\n"
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 6,
+      "Column": 11
     },
-    {
-        "Pos": {
-            "Filename": "testdata\\include.c",
-            "Line": 8,
-            "Column": 1
-        },
-        "Typ": "STRING",
-        "Lit": "\"Include3\"",
-        "Expand": {
-            "Pos": {
-                "Filename": "testdata\\include.c",
-                "Line": 8,
-                "Column": 1
-            },
-            "Typ": "IDENT",
-            "Lit": "INCLUDE_3"
-        }
-    }
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 7,
+      "Column": 1
+    },
+    "Typ": "STRING",
+    "Lit": "\"Include2\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\include.c",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "INCLUDE_2"
+    },
+    "Space": false
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 7,
+      "Column": 11
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\include.c",
+      "Line": 8,
+      "Column": 1
+    },
+    "Typ": "STRING",
+    "Lit": "\"Include3\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\include.c",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "INCLUDE_3"
+    },
+    "Space": false
+  }
 ]

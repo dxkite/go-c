@@ -4,18 +4,21 @@
 #define D(a,b, C, ...) a+b+C(__VA_ARGS__, __LINE__)+B(__LINE__, bb)
 #define E 123 ## abc
 #define S_INT # 10
-A();
-B(19, 29);
-B(,20);
-C(a, b, c);
+//A();
+//B(19, 29);
+//B(,20);
+//C(a, b, c);
 D(1,2,3, A,B, C(a, b, c) ,D,E, __LINE__);
-E
-S_INT
+// => 1+2+3(A,B, C(a, b, c) ,D,E, __LINE__, __LINE__)+B(__LINE__, bb)
+// => 1+2+3(A,B, "a, b, c" ,D,123abc, 11, 11)
+
+//E
+//S_INT
 
 
-#define hash_hash # ## #
-#define mkstr(a) # a
-#define in_between(a) mkstr(a)
-#define join(c, d) in_between(c hash_hash d)
-char p[] = join(x, y); // equivalent to
+//#define hash_hash # ## #
+//#define mkstr(a) # a
+//#define in_between(a) mkstr(a)
+//#define join(c, d) in_between(c hash_hash d)
+//char p[] = join(x, y); // equivalent to
 // char p[] = "x ## y";
