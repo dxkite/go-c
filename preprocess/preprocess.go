@@ -133,6 +133,13 @@ func (p *processor) expandFunc(tok token.Token, val *MacroFunc) ([]token.Token, 
 }
 
 func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[string][]token.Token, afterHashHash, followHashHash bool) (exp []token.Token) {
+	// 调整展开位置
+	ident = newTokenPos(ident, token.Position{
+		Filename: tok.Position().Filename,
+		Line:     tok.Position().Line,
+		Column:   ident.Position().Column,
+	})
+
 	if ident.Type() != token.IDENT {
 		return []token.Token{ident}
 	}
@@ -205,7 +212,6 @@ func (p *processor) expandMacroBody(tok token.Token, body []token.Token, params 
 		return exp
 	}
 
-	//
 	tks := copyTokenSlice(body)
 	col := tks[0].Position().Column
 	pos := tok.Position()

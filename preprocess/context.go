@@ -42,6 +42,7 @@ type Token struct {
 	Typ    token.Type
 	Lit    string
 	Expand token.Token // 父级展开
+	Space  bool        // token后跟着空白符号
 }
 
 func (t *Token) Position() token.Position {

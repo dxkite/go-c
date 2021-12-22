@@ -34,6 +34,9 @@ func (t *Token) Type() token.Type {
 func (t *Token) Literal() string {
 	return t.Lit
 }
+func (t *Token) String() string {
+	return fmt.Sprintf("%s<%s>@%s", t.Type(), t.Literal(), t.Position())
+}
 
 func NewScan(filename string, r io.Reader) Scanner {
 	s := &scanner{}

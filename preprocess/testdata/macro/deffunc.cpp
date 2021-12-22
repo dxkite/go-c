@@ -9,6 +9,9 @@
 //B(,20);
 //C(a, b, c);
 D(1,2,3, A,B, C(a, b, c) ,D,E, __LINE__);
+// => 1+2+3(A,B, C(a, b, c) ,D,E, __LINE__, __LINE__)+B(__LINE__, bb)
+// => 1+2+3(A,B, "a, b, c" ,D,123abc, 11, 11)
+
 //E
 //S_INT
 

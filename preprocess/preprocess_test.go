@@ -51,57 +51,57 @@ func TestScanFile(t *testing.T) {
 		ext := filepath.Ext(p)
 		if ext == ".cpp" {
 			t.Run(p, func(t *testing.T) {
-				timeOut(t, func(t *testing.T) {
-					f, err := os.OpenFile(p, os.O_RDONLY, os.ModePerm)
-					if err != nil {
-						t.Errorf("read file error = %v", err)
-						return
-					}
-					defer func() { _ = f.Close() }()
-					ctx := NewContext()
-					ctx.Init()
+				//timeOut(t, func(t *testing.T) {
+				f, err := os.OpenFile(p, os.O_RDONLY, os.ModePerm)
+				if err != nil {
+					t.Errorf("read file error = %v", err)
+					return
+				}
+				defer func() { _ = f.Close() }()
+				ctx := NewContext()
+				ctx.Init()
 
-					exp := newProcessor(ctx, scanner.NewScan(p, f), true)
+				exp := newProcessor(ctx, scanner.NewScan(p, f), true)
 
-					tks, _ := scanner.ScanToken(exp)
+				tks, _ := scanner.ScanToken(exp)
 
-					expectToken := p + ".json"
-					expectCode := p + "c"
-					expectErr := p + ".err.json"
+				expectToken := p + ".json"
+				expectCode := p + ".txt"
+				expectErr := p + ".err.json"
 
-					if !exists(expectToken) || !exists(expectCode) || !exists(expectErr) {
+				if !exists(expectToken) || !exists(expectCode) || !exists(expectErr) {
 
-						if err := saveJson(expectToken, tks); err != nil {
-							t.Errorf("SaveJson error = %v", err)
-						}
-
-						if err := ioutil.WriteFile(expectCode, []byte(tokenString(tks)), os.ModePerm); err != nil {
-							t.Errorf("SaveResult error = %v", err)
-						}
-
-						if err := exp.Error().SaveFile(expectErr); err != nil {
-							t.Errorf("SaveError error = %v", err)
-						}
-						return
+					if err := saveJson(expectToken, tks); err != nil {
+						t.Errorf("SaveJson error = %v", err)
 					}
 
-					if data, err := ioutil.ReadFile(expectCode); err != nil {
-						t.Errorf("LoadResult error = %v", err)
-					} else {
-						got := tokenString(tks)
-						if !bytes.Equal(data, []byte(got)) {
-							t.Errorf("result error:want:\t%s\ngot:\t%s\n", string(data), got)
-						}
+					if err := ioutil.WriteFile(expectCode, []byte(tokenString(tks)), os.ModePerm); err != nil {
+						t.Errorf("SaveResult error = %v", err)
 					}
 
-					var loadError ErrorList
-					if err := loadError.LoadFromFile(expectErr); err != nil {
-						t.Errorf("LoadFromFile error = %v", err)
-					} else if !reflect.DeepEqual(loadError, exp.Error()) {
-						t.Errorf("ScanFile() want = %v, got %v", loadError, exp.Error())
+					if err := exp.Error().SaveFile(expectErr); err != nil {
+						t.Errorf("SaveError error = %v", err)
 					}
-				})
+					return
+				}
+
+				if data, err := ioutil.ReadFile(expectCode); err != nil {
+					t.Errorf("LoadResult error = %v", err)
+				} else {
+					got := tokenString(tks)
+					if !bytes.Equal(data, []byte(got)) {
+						t.Errorf("result error:want:\t%s\ngot:\t%s\n", string(data), got)
+					}
+				}
+
+				var loadError ErrorList
+				if err := loadError.LoadFromFile(expectErr); err != nil {
+					t.Errorf("LoadFromFile error = %v", err)
+				} else if !reflect.DeepEqual(loadError, exp.Error()) {
+					t.Errorf("ScanFile() want = %v, got %v", loadError, exp.Error())
+				}
 			})
+			//})
 		}
 		return nil
 	}); err != nil {
