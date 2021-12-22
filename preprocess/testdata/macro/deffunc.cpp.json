@@ -1,0 +1,1235 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 7,
+      "Column": 7
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 8,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 8,
+      "Column": 13
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 9,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 9,
+      "Column": 10
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 10,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 10,
+      "Column": 14
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 24
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 2
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 26
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 4
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 28
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 6
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 30
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 31
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 32
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 33
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 34
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 35
+    },
+    "Typ": "STRING",
+    "Lit": "\"a, b, c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 15
+      },
+      "Typ": "IDENT",
+      "Lit": "C",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 44
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 45
+    },
+    "Typ": "IDENT",
+    "Lit": "D",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 46
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 47
+    },
+    "Typ": "ILLEGAL",
+    "Lit": "123abc",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 27
+      },
+      "Typ": "IDENT",
+      "Lit": "E",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 53
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 54
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 55
+    },
+    "Typ": "STRING",
+    "Lit": "11",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 35
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 34
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 59
+    },
+    "Typ": "STRING",
+    "Lit": "4",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 59
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 37
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 38
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 17
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 18
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 20
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 1,
+      "Column": 18
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 22
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 1,
+      "Column": 20
+    },
+    "Typ": "INT",
+    "Lit": "0",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 1,
+        "Column": 20
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 2,
+          "Column": 16
+        },
+        "Typ": "IDENT",
+        "Lit": "A",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 4,
+            "Column": 62
+          },
+          "Typ": "IDENT",
+          "Lit": "B",
+          "Expand": {
+            "Pos": {
+              "Filename": "testdata\\macro\\deffunc.cpp",
+              "Line": 11,
+              "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "D"
+          }
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 70
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 72
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 75
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 31
+    },
+    "Typ": "STRING",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 27
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 79
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 81
+    },
+    "Typ": "STRING",
+    "Lit": "\"4\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 85
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 87
+    },
+    "Typ": "STRING",
+    "Lit": "\"bb\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 4,
+      "Column": 92
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 4,
+        "Column": 62
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 2,
+      "Column": 48
+    },
+    "Typ": "STRING",
+    "Lit": "\"1,2,3\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.cpp",
+        "Line": 2,
+        "Column": 48
+      },
+      "Typ": "IDENT",
+      "Lit": "C",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.cpp",
+          "Line": 4,
+          "Column": 62
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.cpp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 101
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 11,
+      "Column": 102
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 12,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 12,
+      "Column": 4
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 13,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 13,
+      "Column": 8
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 14,
+      "Column": 1
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 15,
+      "Column": 1
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 16,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 16,
+      "Column": 27
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 17,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 17,
+      "Column": 23
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 18,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 18,
+      "Column": 33
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 19,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 19,
+      "Column": 47
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 20,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 20,
+      "Column": 42
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.cpp",
+      "Line": 21,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  }
+]

@@ -1,0 +1,2927 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 2
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 3
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 5
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 18
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 7
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 7,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "A"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 20
+    },
+    "Typ": "INT",
+    "Lit": "0",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 1,
+        "Column": 20
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 7,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "A"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 7,
+      "Column": 10
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 17
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 18
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 20
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 18
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 22
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 20
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 1,
+        "Column": 20
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 2,
+          "Column": 16
+        },
+        "Typ": "IDENT",
+        "Lit": "A",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 8,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "B"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 11
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 14
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 31
+    },
+    "Typ": "STRING",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 27
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 8,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 18
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 20
+    },
+    "Typ": "STRING",
+    "Lit": "\"19\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 25
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 27
+    },
+    "Typ": "STRING",
+    "Lit": "\"29\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 32
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 49
+    },
+    "Typ": "IDENT",
+    "Lit": "C",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 35
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 36
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 37
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 38
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 39
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 40
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 41
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 8,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 27
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 8,
+      "Column": 28
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 17
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 18
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 20
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 18
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 22
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 20
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 1,
+        "Column": 20
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 2,
+          "Column": 16
+        },
+        "Typ": "IDENT",
+        "Lit": "A",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 9,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "B"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 11
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 14
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 31
+    },
+    "Typ": "STRING",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 27
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 9,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "B"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 18
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 20
+    },
+    "Typ": "STRING",
+    "Lit": "\"\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 23
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 25
+    },
+    "Typ": "STRING",
+    "Lit": "\"20\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 30
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 47
+    },
+    "Typ": "IDENT",
+    "Lit": "C",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 33
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 34
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 35
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 36
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 37
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 38
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 39
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 9,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "B"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 25
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 9,
+      "Column": 26
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 1
+    },
+    "Typ": "IDENT",
+    "Lit": "C"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 2
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 3
+    },
+    "Typ": "IDENT",
+    "Lit": "a"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 4
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 5
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 6
+    },
+    "Typ": "IDENT",
+    "Lit": "b"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 7
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 8
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 9
+    },
+    "Typ": "IDENT",
+    "Lit": "c"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 10,
+      "Column": 12
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 24
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 2
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 26
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 4
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 28
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 6
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 30
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 31
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 32
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 33
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 34
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 35
+    },
+    "Typ": "IDENT",
+    "Lit": "C",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 36
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 37
+    },
+    "Typ": "IDENT",
+    "Lit": "a",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 38
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 39
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 40
+    },
+    "Typ": "IDENT",
+    "Lit": "b",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 41
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 42
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 43
+    },
+    "Typ": "IDENT",
+    "Lit": "c",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 44
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 45
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 46
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 47
+    },
+    "Typ": "IDENT",
+    "Lit": "D",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 48
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 49
+    },
+    "Typ": "ILLEGAL",
+    "Lit": "123abc",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 29
+      },
+      "Typ": "IDENT",
+      "Lit": "E",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 55
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 56
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 57
+    },
+    "Typ": "STRING",
+    "Lit": "11",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 37
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 36
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 61
+    },
+    "Typ": "STRING",
+    "Lit": "4",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 61
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 39
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 40
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "D"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "IDENT",
+    "Lit": "A",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 17
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 18
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 20
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 18
+    },
+    "Typ": "IDENT",
+    "Lit": "B",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 22
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 16
+      },
+      "Typ": "IDENT",
+      "Lit": "A",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 1,
+      "Column": 20
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 1,
+        "Column": 20
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 2,
+          "Column": 16
+        },
+        "Typ": "IDENT",
+        "Lit": "A",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 4,
+            "Column": 64
+          },
+          "Typ": "IDENT",
+          "Lit": "B",
+          "Expand": {
+            "Pos": {
+              "Filename": "testdata\\macro\\deffunc.chp",
+              "Line": 11,
+              "Column": 1
+            },
+            "Typ": "IDENT",
+            "Lit": "D"
+          }
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 72
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 74
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 77
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 31
+    },
+    "Typ": "STRING",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 2,
+        "Column": 27
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 4,
+          "Column": 64
+        },
+        "Typ": "IDENT",
+        "Lit": "B",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 11,
+            "Column": 1
+          },
+          "Typ": "IDENT",
+          "Lit": "D"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 81
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 83
+    },
+    "Typ": "STRING",
+    "Lit": "\"4\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 87
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 89
+    },
+    "Typ": "STRING",
+    "Lit": "\"bb\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 94
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 2,
+      "Column": 48
+    },
+    "Typ": "IDENT",
+    "Lit": "C",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 97
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "(",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 98
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 99
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 100
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 101
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ",",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 102
+    },
+    "Typ": "INT",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 4,
+      "Column": 103
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 4,
+        "Column": 64
+      },
+      "Typ": "IDENT",
+      "Lit": "B",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 11,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "D"
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 129
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 11,
+      "Column": 130
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 12,
+      "Column": 1
+    },
+    "Typ": "ILLEGAL",
+    "Lit": "123abc",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "E"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 12,
+      "Column": 7
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 13,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "#",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 13,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "S_INT"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 13,
+      "Column": 3
+    },
+    "Typ": "INT",
+    "Lit": "10",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 13,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "S_INT"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 13,
+      "Column": 5
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 14,
+      "Column": 1
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 15,
+      "Column": 1
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "char"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 5
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 6
+    },
+    "Typ": "IDENT",
+    "Lit": "p"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 7
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "["
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 8
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "]"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 9
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "="
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 18,
+      "Column": 23
+    },
+    "Typ": "STRING",
+    "Lit": "\"x ## y\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\macro\\deffunc.chp",
+        "Line": 18,
+        "Column": 23
+      },
+      "Typ": "IDENT",
+      "Lit": "mkstr",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\macro\\deffunc.chp",
+          "Line": 19,
+          "Column": 20
+        },
+        "Typ": "IDENT",
+        "Lit": "in_between",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 20,
+            "Column": 12
+          },
+          "Typ": "IDENT",
+          "Lit": "join"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 32
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 33
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 20,
+      "Column": 50
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\macro\\deffunc.chp",
+      "Line": 21,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  }
+]

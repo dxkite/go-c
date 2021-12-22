@@ -1,0 +1,10 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\macro\\deffunc.c",
+            "Line": 12,
+            "Column": 1
+        },
+        "Msg": "invalid ## operator between 123 and abc"
+    }
+]

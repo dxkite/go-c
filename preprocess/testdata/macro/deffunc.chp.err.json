@@ -1,0 +1,18 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 3,
+            "Column": 16
+        },
+        "Msg": "'#' must follow a macro parameter"
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\macro\\deffunc.chp",
+            "Line": 12,
+            "Column": 1
+        },
+        "Msg": "invalid ## operator between 123 and abc"
+    }
+]
