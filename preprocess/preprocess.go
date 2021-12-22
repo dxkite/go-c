@@ -134,11 +134,16 @@ func (p *processor) expandFunc(tok token.Token, val *MacroFunc) ([]token.Token, 
 
 func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[string][]token.Token, afterHashHash, followHashHash bool) (exp []token.Token) {
 	// 调整展开位置
-	ident = newTokenPos(ident, token.Position{
-		Filename: tok.Position().Filename,
-		Line:     tok.Position().Line,
-		Column:   ident.Position().Column,
-	})
+	ident = &Token{
+		Pos: token.Position{
+			Filename: tok.Position().Filename,
+			Line:     tok.Position().Line,
+			Column:   ident.Position().Column,
+		},
+		Typ:    ident.Type(),
+		Lit:    ident.Literal(),
+		Expand: tok,
+	}
 
 	if ident.Type() != token.IDENT {
 		return []token.Token{ident}

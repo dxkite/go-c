@@ -49,7 +49,7 @@ func timeOut(t *testing.T, f func(t *testing.T)) {
 func TestScanFile(t *testing.T) {
 	if err := filepath.Walk("testdata/macro", func(p string, info os.FileInfo, err error) error {
 		ext := filepath.Ext(p)
-		if ext == ".c" {
+		if ext == ".cpp" {
 			t.Run(p, func(t *testing.T) {
 				timeOut(t, func(t *testing.T) {
 					f, err := os.OpenFile(p, os.O_RDONLY, os.ModePerm)
