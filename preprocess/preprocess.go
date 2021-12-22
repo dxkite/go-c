@@ -20,7 +20,7 @@ type processor struct {
 // 设置输入
 func newProcessor(ctx *Context, s scanner.Scanner, ignoreErr bool) *processor {
 	e := &processor{}
-	e.r = s
+	e.r = NewScan(s)
 	e.ctx = ctx
 	e.next()
 	e.ignoreErr = ignoreErr
@@ -133,6 +133,10 @@ func (p *processor) expandFunc(tok token.Token, val *MacroFunc) ([]token.Token, 
 }
 
 func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[string][]token.Token, afterHashHash, followHashHash bool) (exp []token.Token) {
+	space := false
+	if v, ok := ident.(*Token); ok && v.Space {
+		space = true
+	}
 	// 调整展开位置
 	ident = &Token{
 		Pos: token.Position{
@@ -143,6 +147,7 @@ func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[stri
 		Typ:    ident.Type(),
 		Lit:    ident.Literal(),
 		Expand: tok,
+		Space:  space,
 	}
 
 	if ident.Type() != token.IDENT {

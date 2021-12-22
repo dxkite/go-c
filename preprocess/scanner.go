@@ -3,6 +3,7 @@ package preprocess
 import (
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
+	"fmt"
 )
 
 // 扫描器
@@ -23,6 +24,9 @@ func (ts *noSpaceScanner) Scan() (t token.Token) {
 	for ts.r.PeekOne().Type() == token.WHITESPACE {
 		space = true
 		ts.r.Scan() // whitespace
+	}
+	if t.Literal() == "10086" {
+		fmt.Println("read ", t, space)
 	}
 	return &Token{
 		Pos:   t.Position(),

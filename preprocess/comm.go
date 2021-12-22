@@ -13,13 +13,13 @@ const MacroParameterVarArgs = "__VA_ARGS__"
 
 func tokenString(tks []token.Token) string {
 	str := ""
-	col := 1
+	//col := 1
 	line := 1
 	for _, tok := range tks {
 		// 换行
 		if tok.Type() == token.NEWLINE {
 			line++
-			col = 1
+			//col = 1
 			str += "\n"
 			continue
 		}
@@ -29,20 +29,23 @@ func tokenString(tks []token.Token) string {
 			if d := tok.Position().Line - line; d > 0 {
 				str += strings.Repeat("\n", d)
 				line = tok.Position().Line
-				col = 1
+				//col = 1
 			}
 		}
 
 		// 列
-		if tok.Position().Column != col {
-			if d := tok.Position().Column - col; d > 0 {
-				str += strings.Repeat(" ", d)
-				col = tok.Position().Column
-			}
-		}
+		//if tok.Position().Column != col {
+		//	if d := tok.Position().Column - col; d > 0 {
+		//		str += strings.Repeat(" ", d)
+		//		col = tok.Position().Column
+		//	}
+		//}
 
-		col = col + utf8.RuneCountInString(tok.Literal())
+		//col = col + utf8.RuneCountInString(tok.Literal())
 		str += tok.Literal()
+		if v, ok := tok.(*Token); ok && v.Space {
+			str += " "
+		}
 	}
 	return str
 }
@@ -101,6 +104,7 @@ func copyToken(t token.Token) token.Token {
 			Typ:    t.Type(),
 			Lit:    t.Literal(),
 			Expand: copyToken(v.Expand),
+			Space:  v.Space,
 		}
 	default:
 		return &scanner.Token{
