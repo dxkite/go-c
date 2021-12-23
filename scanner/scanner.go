@@ -150,6 +150,7 @@ func (ms *multiScanner) Scan() (t token.Token) {
 			break
 		}
 		if ms.cur > 0 {
+			ms.s[ms.cur] = nil
 			ms.cur--
 		} else if ms.cur == 0 {
 			return t

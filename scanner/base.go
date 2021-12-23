@@ -35,6 +35,10 @@ func (t *Token) Literal() string {
 	return t.Lit
 }
 
+func (t *Token) String() string {
+	return token.String(t)
+}
+
 func NewScan(filename string, r io.Reader) Scanner {
 	s := &scanner{}
 	s.new(filename, r)
