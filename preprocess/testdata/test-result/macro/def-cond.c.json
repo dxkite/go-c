@@ -1,0 +1,227 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 4
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "main"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "{"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 2,
+      "Column": 13
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 5,
+      "Column": 6
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 1
+    },
+    "Typ": "IDENT",
+    "Lit": "print"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 6
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 7
+    },
+    "Typ": "STRING",
+    "Lit": "\"not 10+20\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\def-cond.c",
+        "Line": 6,
+        "Column": 7
+      },
+      "Typ": "IDENT",
+      "Lit": "mkstr"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 18
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 19
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 6,
+      "Column": 20
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 1
+    },
+    "Typ": "IDENT",
+    "Lit": "print"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 6
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 7
+    },
+    "Typ": "STRING",
+    "Lit": "\"'a'\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\def-cond.c",
+        "Line": 8,
+        "Column": 7
+      },
+      "Typ": "IDENT",
+      "Lit": "mkstr"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 13
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 8,
+      "Column": 14
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 11,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "}"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\def-cond.c",
+      "Line": 11,
+      "Column": 2
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  }
+]

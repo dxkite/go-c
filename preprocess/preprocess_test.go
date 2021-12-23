@@ -95,8 +95,10 @@ func TestScanFile(t *testing.T) {
 						t.Errorf("LoadResult error = %v", err)
 					} else {
 						got := tokenString(tks)
-						if !bytes.Equal(data, []byte(got)) {
-							t.Errorf("result error:want:\t%s\ngot:\t%s\n", string(data), got)
+						want, _ := scanner.ScanString(p, string(data))
+						wantStr := tokenString(want)
+						if !reflect.DeepEqual(got, wantStr) {
+							t.Errorf("result error:want:\t%s\ngot:\t%s\n", wantStr, got)
 						}
 					}
 

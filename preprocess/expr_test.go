@@ -32,6 +32,18 @@ func saveExprJson(filename string, expr Expr) error {
 	}
 }
 
+func jsonEqual(a, b []byte) bool {
+	aj := map[string]interface{}{}
+	bj := map[string]interface{}{}
+	if err := json.Unmarshal(a, &aj); err != nil {
+		fmt.Println(err)
+	}
+	if err := json.Unmarshal(b, &bj); err != nil {
+		fmt.Println(err)
+	}
+	return reflect.DeepEqual(aj, bj)
+}
+
 func TestParser_ParseExpr(t *testing.T) {
 	_ = os.MkdirAll(result+"/expr", os.ModePerm)
 	if err := filepath.Walk(source+"/expr", func(p string, info os.FileInfo, err error) error {
@@ -86,7 +98,7 @@ func TestParser_ParseExpr(t *testing.T) {
 							t.Errorf("LoadResult error = %v", err)
 							return
 						}
-						if !bytes.Equal(data, got) {
+						if !jsonEqual(data, got) {
 							t.Errorf("result error:want:\t%s\ngot:\t%s\n", string(data), got)
 						}
 					}
