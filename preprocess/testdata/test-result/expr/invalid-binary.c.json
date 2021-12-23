@@ -1,0 +1,11 @@
+{
+  "Token": {
+    "Pos": {
+      "Filename": "testdata\\test-case\\expr\\invalid-binary.c",
+      "Line": 1,
+      "Column": 1
+    },
+    "Typ": "INT",
+    "Lit": "1"
+  }
+}

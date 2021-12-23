@@ -1,0 +1,10 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\test-case\\expr\\test-binary.c",
+            "Line": 1,
+            "Column": 10
+        },
+        "Msg": "preprocess expr: unexpect token ++"
+    }
+]

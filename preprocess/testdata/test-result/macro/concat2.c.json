@@ -1,0 +1,362 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "char"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 5
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 6
+    },
+    "Typ": "IDENT",
+    "Lit": "p"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 7
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "["
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 8
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "]"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 9
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "="
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 12
+    },
+    "Typ": "STRING",
+    "Lit": "\"x ## y\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 5,
+        "Column": 12
+      },
+      "Typ": "IDENT",
+      "Lit": "mkstr",
+      "Expand": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\macro\\concat2.c",
+          "Line": 5,
+          "Column": 12
+        },
+        "Typ": "IDENT",
+        "Lit": "in_between",
+        "Expand": {
+          "Pos": {
+            "Filename": "testdata\\test-case\\macro\\concat2.c",
+            "Line": 5,
+            "Column": 12
+          },
+          "Typ": "IDENT",
+          "Lit": "join"
+        }
+      }
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 20
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 21
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 5,
+      "Column": 38
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 6,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 6,
+      "Column": 24
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 10,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "Objectaccc",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 10,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 10,
+      "Column": 23
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 11,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "Object__LINE__c",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 11,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 11,
+      "Column": 28
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 1
+    },
+    "Typ": "INT",
+    "Lit": "10086",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 6
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 7
+    },
+    "Typ": "IDENT",
+    "Lit": "BBBB",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "Objectab",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 22
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 23
+    },
+    "Typ": "IDENT",
+    "Lit": "BBBB",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 27
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " ",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\concat2.c",
+        "Line": 12,
+        "Column": 1
+      },
+      "Typ": "IDENT",
+      "Lit": "concat"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\concat2.c",
+      "Line": 12,
+      "Column": 32
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  }
+]

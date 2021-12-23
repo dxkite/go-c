@@ -1,0 +1,55 @@
+{
+  "X": {
+    "X": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\invalid-token.c",
+          "Line": 1,
+          "Column": 1
+        },
+        "Typ": "STRING",
+        "Lit": "\"19\""
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\invalid-token.c",
+        "Line": 1,
+        "Column": 5
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "+"
+    },
+    "Y": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\invalid-token.c",
+          "Line": 1,
+          "Column": 6
+        },
+        "Typ": "CHAR",
+        "Lit": "'2'"
+      }
+    }
+  },
+  "Op": {
+    "Pos": {
+      "Filename": "testdata\\test-case\\expr\\invalid-token.c",
+      "Line": 1,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "-"
+  },
+  "Y": {
+    "Token": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\invalid-token.c",
+        "Line": 1,
+        "Column": 10
+      },
+      "Typ": "FLOAT",
+      "Lit": "1.2"
+    }
+  }
+}

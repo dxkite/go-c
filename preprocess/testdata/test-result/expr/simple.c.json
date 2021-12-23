@@ -1,0 +1,187 @@
+{
+  "X": {
+    "X": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "a"
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\simple.c",
+        "Line": 1,
+        "Column": 2
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "+"
+    },
+    "Y": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 3
+        },
+        "Typ": "IDENT",
+        "Lit": "b"
+      }
+    }
+  },
+  "Op": {
+    "Pos": {
+      "Filename": "testdata\\test-case\\expr\\simple.c",
+      "Line": 1,
+      "Column": 4
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "?"
+  },
+  "Then": {
+    "X": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 5
+        },
+        "Typ": "INT",
+        "Lit": "10"
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\simple.c",
+        "Line": 1,
+        "Column": 7
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "?"
+    },
+    "Then": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 8
+        },
+        "Typ": "INT",
+        "Lit": "1"
+      }
+    },
+    "Else": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 10
+        },
+        "Typ": "INT",
+        "Lit": "2"
+      }
+    }
+  },
+  "Else": {
+    "X": {
+      "X": {
+        "X": {
+          "Token": {
+            "Pos": {
+              "Filename": "testdata\\test-case\\expr\\simple.c",
+              "Line": 1,
+              "Column": 12
+            },
+            "Typ": "INT",
+            "Lit": "11"
+          }
+        },
+        "Op": {
+          "Pos": {
+            "Filename": "testdata\\test-case\\expr\\simple.c",
+            "Line": 1,
+            "Column": 14
+          },
+          "Typ": "PUNCTUATOR",
+          "Lit": "+"
+        },
+        "Y": {
+          "X": {
+            "Token": {
+              "Pos": {
+                "Filename": "testdata\\test-case\\expr\\simple.c",
+                "Line": 1,
+                "Column": 15
+              },
+              "Typ": "INT",
+              "Lit": "10"
+            }
+          },
+          "Op": {
+            "Pos": {
+              "Filename": "testdata\\test-case\\expr\\simple.c",
+              "Line": 1,
+              "Column": 17
+            },
+            "Typ": "PUNCTUATOR",
+            "Lit": "*"
+          },
+          "Y": {
+            "Token": {
+              "Pos": {
+                "Filename": "testdata\\test-case\\expr\\simple.c",
+                "Line": 1,
+                "Column": 18
+              },
+              "Typ": "INT",
+              "Lit": "20"
+            }
+          }
+        }
+      },
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 20
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "/"
+      },
+      "Y": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\test-case\\expr\\simple.c",
+            "Line": 1,
+            "Column": 21
+          },
+          "Typ": "INT",
+          "Lit": "230"
+        }
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\simple.c",
+        "Line": 1,
+        "Column": 24
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "<<"
+    },
+    "Y": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\simple.c",
+          "Line": 1,
+          "Column": 26
+        },
+        "Typ": "INT",
+        "Lit": "10"
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "X": {
+    "X": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\test-binary.c",
+          "Line": 1,
+          "Column": 1
+        },
+        "Typ": "IDENT",
+        "Lit": "a"
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\test-binary.c",
+        "Line": 1,
+        "Column": 2
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "+"
+    },
+    "Y": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\test-binary.c",
+          "Line": 1,
+          "Column": 3
+        },
+        "Typ": "IDENT",
+        "Lit": "b"
+      }
+    }
+  },
+  "Op": {
+    "Pos": {
+      "Filename": "testdata\\test-case\\expr\\test-binary.c",
+      "Line": 1,
+      "Column": 4
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "+"
+  },
+  "Y": {
+    "X": {
+      "X": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\test-case\\expr\\test-binary.c",
+            "Line": 1,
+            "Column": 5
+          },
+          "Typ": "IDENT",
+          "Lit": "c"
+        }
+      },
+      "Op": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\test-binary.c",
+          "Line": 1,
+          "Column": 6
+        },
+        "Typ": "PUNCTUATOR",
+        "Lit": "*"
+      },
+      "Y": {
+        "Token": {
+          "Pos": {
+            "Filename": "testdata\\test-case\\expr\\test-binary.c",
+            "Line": 1,
+            "Column": 7
+          },
+          "Typ": "IDENT",
+          "Lit": "d"
+        }
+      }
+    },
+    "Op": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\expr\\test-binary.c",
+        "Line": 1,
+        "Column": 8
+      },
+      "Typ": "PUNCTUATOR",
+      "Lit": "/"
+    },
+    "Y": {
+      "Token": {
+        "Pos": {
+          "Filename": "testdata\\test-case\\expr\\test-binary.c",
+          "Line": 1,
+          "Column": 9
+        },
+        "Typ": "IDENT",
+        "Lit": "e"
+      }
+    }
+  }
+}

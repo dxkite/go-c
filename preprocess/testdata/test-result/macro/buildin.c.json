@@ -1,0 +1,596 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 4
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "main"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "{"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "printf"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 12
+    },
+    "Typ": "STRING",
+    "Lit": "\"file %s:%d count %d\\n\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 35
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 36
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 37
+    },
+    "Typ": "STRING",
+    "Lit": "\"testdata\\\\test-case\\\\macro\\\\buildin.c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 2,
+        "Column": 37
+      },
+      "Typ": "IDENT",
+      "Lit": "__FILE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 76
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 77
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 78
+    },
+    "Typ": "STRING",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 2,
+        "Column": 78
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 79
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 80
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 81
+    },
+    "Typ": "INT",
+    "Lit": "0",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 2,
+        "Column": 81
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 82
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 83
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 2,
+      "Column": 84
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "printf"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 12
+    },
+    "Typ": "STRING",
+    "Lit": "\"file %s:%d count %d\\n\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 35
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 36
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 37
+    },
+    "Typ": "STRING",
+    "Lit": "\"testdata\\\\test-case\\\\macro\\\\buildin.c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 3,
+        "Column": 37
+      },
+      "Typ": "IDENT",
+      "Lit": "__FILE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 76
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 77
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 78
+    },
+    "Typ": "STRING",
+    "Lit": "3",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 3,
+        "Column": 78
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 79
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 80
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 81
+    },
+    "Typ": "INT",
+    "Lit": "1",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 3,
+        "Column": 81
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 82
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 83
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 3,
+      "Column": 84
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "printf"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 12
+    },
+    "Typ": "STRING",
+    "Lit": "\"file %s:%d count %d\\n\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 35
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 36
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 37
+    },
+    "Typ": "STRING",
+    "Lit": "\"testdata\\\\test-case\\\\macro\\\\buildin.c\"",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 4,
+        "Column": 37
+      },
+      "Typ": "IDENT",
+      "Lit": "__FILE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 76
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 77
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 78
+    },
+    "Typ": "STRING",
+    "Lit": "4",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 4,
+        "Column": 78
+      },
+      "Typ": "IDENT",
+      "Lit": "__LINE__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 79
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ","
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 80
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 81
+    },
+    "Typ": "INT",
+    "Lit": "2",
+    "Expand": {
+      "Pos": {
+        "Filename": "testdata\\test-case\\macro\\buildin.c",
+        "Line": 4,
+        "Column": 81
+      },
+      "Typ": "IDENT",
+      "Lit": "__COUNTER__"
+    }
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 82
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 83
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 4,
+      "Column": 84
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\buildin.c",
+      "Line": 5,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "}"
+  }
+]

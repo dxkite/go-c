@@ -1,0 +1,18 @@
+[
+    {
+        "Pos": {
+            "Filename": "testdata\\test-case\\expr\\defined.c",
+            "Line": 1,
+            "Column": 61
+        },
+        "Msg": "preprocess expr: expect ) got "
+    },
+    {
+        "Pos": {
+            "Filename": "testdata\\test-case\\expr\\defined.c",
+            "Line": 1,
+            "Column": 61
+        },
+        "Msg": "preprocess expr: expect ) got "
+    }
+]

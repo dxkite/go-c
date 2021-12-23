@@ -1,0 +1,362 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 4
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "main"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "{"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 1,
+      "Column": 13
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 2,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 2,
+      "Column": 5
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 2,
+      "Column": 8
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 2,
+      "Column": 9
+    },
+    "Typ": "IDENT",
+    "Lit": "ab"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 2
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 3
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "="
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 4
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 5
+    },
+    "Typ": "INT",
+    "Lit": "100"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 8
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 3,
+      "Column": 9
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 5
+    },
+    "Typ": "KEYWORD",
+    "Lit": "char"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 9
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 10
+    },
+    "Typ": "IDENT",
+    "Lit": "p"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "["
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 12
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "]"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 13
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 14
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "="
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 15
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 34
+    },
+    "Typ": "INT",
+    "Lit": "10"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 36
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 4,
+      "Column": 37
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 5,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 5,
+      "Column": 15
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "printf"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 12
+    },
+    "Typ": "STRING",
+    "Lit": "\"hello world\\n\""
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 27
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 28
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 6,
+      "Column": 29
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\test-case\\macro\\simple.c",
+      "Line": 7,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "}"
+  }
+]
