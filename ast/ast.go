@@ -21,6 +21,26 @@ type (
 		token.Token
 	}
 
+	// 匿名字面量
+	CompoundLit struct {
+		Type     TypeName
+		InitList *InitializerExpr
+	}
+
+	InitializerExpr []Expr
+
+	// 数组编号
+	ArrayDesignatorExpr struct {
+		Index Expr
+		X     Expr
+	}
+
+	// struct/union
+	RecordDesignatorExpr struct {
+		Field *Ident
+		X     Expr
+	}
+
 	// 函数调用
 	CallExpr struct {
 		Fun  Expr
@@ -89,21 +109,25 @@ type (
 	}
 )
 
-func (*BadExpr) expr()      {}
-func (*Ident) expr()        {}
-func (*BasicLit) expr()     {}
-func (*IndexExpr) expr()    {}
-func (*SelectorExpr) expr() {}
-func (*CallExpr) expr()     {}
-func (*ParenExpr) expr()    {}
-func (*UnaryExpr) expr()    {}
-func (*TypeCastExpr) expr() {}
-func (*BinaryExpr) expr()   {}
-func (*CondExpr) expr()     {}
-func (*ConstantExpr) expr() {}
-func (*AssignExpr) expr()   {}
-func (*CommaExpr) expr()    {}
-func (*SizeOfExpr) expr()   {}
+func (*BadExpr) expr()              {}
+func (*Ident) expr()                {}
+func (*BasicLit) expr()             {}
+func (*CompoundLit) expr()          {}
+func (*InitializerExpr) expr()      {}
+func (*RecordDesignatorExpr) expr() {}
+func (*ArrayDesignatorExpr) expr()  {}
+func (*IndexExpr) expr()            {}
+func (*SelectorExpr) expr()         {}
+func (*CallExpr) expr()             {}
+func (*ParenExpr) expr()            {}
+func (*UnaryExpr) expr()            {}
+func (*TypeCastExpr) expr()         {}
+func (*BinaryExpr) expr()           {}
+func (*CondExpr) expr()             {}
+func (*ConstantExpr) expr()         {}
+func (*AssignExpr) expr()           {}
+func (*CommaExpr) expr()            {}
+func (*SizeOfExpr) expr()           {}
 
 type Declarable interface {
 	declarable()
@@ -128,6 +152,7 @@ type (
 
 	RecordField struct {
 		Type TypeName
+		Name *Ident
 		Bit  Expr
 	}
 
@@ -159,24 +184,24 @@ type (
 	// const/restrict/volatile
 	TypeQualifier struct {
 		Qualifier *Qualifier
-		Inner     Declarable
+		Inner     TypeName
 	}
 
 	// type/extern/static/auto/register
 	TypeSpecifier struct {
 		Specifier *Specifier
-		Inner     Declarable
+		Inner     TypeName
 	}
 
 	// 指针类型
 	PointerType struct {
 		Qualifier *Qualifier
-		Inner     Declarable
+		Inner     TypeName
 	}
 
 	// 数组类型
 	ArrayType struct {
-		Inner     Declarable
+		Inner     TypeName
 		Qualifier *Qualifier
 		Static    bool
 		Size      Expr
@@ -184,14 +209,14 @@ type (
 
 	// 常量数组
 	ConstArrayType struct {
-		Inner Declarable
+		Inner TypeName
 		Size  Expr
 	}
 
 	// T [*]
 	// T []
 	IncompleteArrayType struct {
-		Inner Declarable
+		Inner TypeName
 	}
 
 	// 函数类型

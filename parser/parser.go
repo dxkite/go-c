@@ -97,9 +97,10 @@ func (p *Parser) parsePrimaryExpr() ast.Expr {
 }
 
 func (p *Parser) parsePostfixExpr() ast.Expr {
+	// ( typename ) { init-list }
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "(" {
 		if t := p.peekOne(); p.isTypeNameTok(t) {
-			return p.parseInitListExpr()
+			return p.parseCompoundLitExpr()
 		}
 	}
 	expr := p.parsePrimaryExpr()
@@ -178,6 +179,13 @@ func (p *Parser) parseCastExpr() ast.Expr {
 		p.next()                  // (
 		name := p.parseTypeName() // type-name
 		p.exceptPunctuator(")")   // )
+		if p.cur.Literal() == "{" {
+			expr := p.parseInitializerList()
+			return &ast.CompoundLit{
+				Type:     name,
+				InitList: expr,
+			}
+		}
 		expr := p.parseCastExpr()
 		return &ast.TypeCastExpr{
 			X:    expr,
@@ -242,7 +250,7 @@ func (p *Parser) parseAssignExpr() ast.Expr {
 		return &ast.AssignExpr{
 			X:  x,
 			Op: op,
-			Y:  p.parseArgsExpr(),
+			Y:  p.parseAssignExpr(),
 		}
 	}
 	return x
@@ -263,11 +271,93 @@ func (p *Parser) parseExpr() ast.Expr {
 }
 
 // TODO
-func (p *Parser) parseInitListExpr() ast.Expr {
+func (p *Parser) parseCompoundLitExpr() ast.Expr {
 	p.next() // (
 	typeName := p.parseTypeName()
 	p.exceptPunctuator(")")
-	fmt.Println(typeName)
+	expr := p.parseInitializerList()
+	return &ast.CompoundLit{
+		Type:     typeName,
+		InitList: expr,
+	}
+}
+
+func (p *Parser) parseInitializerList() *ast.InitializerExpr {
+	p.exceptPunctuator("{")
+	list := ast.InitializerExpr{}
+	for p.cur.Literal() != "}" {
+		item := p.parseInitializer()
+		list = append(list, item)
+		if t := p.peekOne(); p.cur.Literal() != "}" && t.Literal() != "}" {
+			p.exceptPunctuator(",")
+		} else {
+			if p.cur.Literal() == "," {
+				p.next() //,
+			}
+		}
+	}
+	p.exceptPunctuator("}")
+	return &list
+}
+
+func (p *Parser) parseInitializer() ast.Expr {
+	if p.cur.Literal() == "{" {
+		return p.parseInitializerList()
+	}
+	if l := p.cur.Literal(); l == "." || l == "[" {
+		return p.parseDesignationInitExpr()
+	}
+	return p.parseAssignExpr()
+}
+
+func (p *Parser) parseDesignationInitExpr() ast.Expr {
+	designator := p.parseDesignator()
+	if designator != nil {
+		p.exceptPunctuator("=")
+		expr := p.parseAssignExpr()
+		applyDesignator(designator, expr)
+		return designator
+	}
+	return p.parseAssignExpr()
+}
+
+func applyDesignator(des ast.Expr, assign ast.Expr) {
+	switch t := des.(type) {
+	case *ast.ArrayDesignatorExpr:
+		if t.X != nil {
+			applyDesignator(t.X, assign)
+			return
+		}
+		t.X = assign
+	case *ast.RecordDesignatorExpr:
+		if t.X != nil {
+			applyDesignator(t.X, assign)
+			return
+		}
+		t.X = assign
+	}
+}
+
+func (p *Parser) parseDesignator() ast.Expr {
+	if p.cur.Literal() == "." {
+		p.next()
+		ident := p.expectIdent()
+		x := p.parseDesignator()
+		return &ast.RecordDesignatorExpr{
+			Field: &ast.Ident{ident},
+			X:     x,
+		}
+	}
+	if p.cur.Literal() == "[" {
+		p.next()
+		expr := p.parseConstantExpr()
+		p.exceptPunctuator("]")
+		x := p.parseDesignator()
+		return &ast.ArrayDesignatorExpr{
+			Index: expr,
+			X:     x,
+		}
+	}
 	return nil
 }
 
@@ -438,18 +528,18 @@ func (p *Parser) parseDirectDeclarator(inner ast.TypeName) (ast.TypeName, *ast.I
 		typ, ident := p.parseDeclarator(inner)
 		p.exceptPunctuator(")")
 		typ = &ast.ParenType{Inner: typ}
-		typ = p.parseTypeSuffix(typ)
+		typ = p.parseDirectDeclaratorInner(typ)
 		return typ, ident
 	}
 	if p.cur.Type() == token.IDENT {
 		tok := p.expectIdent()
 		ident = &ast.Ident{Token: tok}
 	}
-	inner = p.parseTypeSuffix(inner)
+	inner = p.parseDirectDeclaratorInner(inner)
 	return inner, ident
 }
 
-func (p *Parser) parseTypeSuffix(typ ast.TypeName) ast.TypeName {
+func (p *Parser) parseDirectDeclaratorInner(typ ast.TypeName) ast.TypeName {
 	switch p.cur.Literal() {
 	case "(":
 		typ = p.parseFuncType(typ)
@@ -458,7 +548,7 @@ func (p *Parser) parseTypeSuffix(typ ast.TypeName) ast.TypeName {
 	default:
 		return typ
 	}
-	return p.parseTypeSuffix(typ)
+	return p.parseDirectDeclaratorInner(typ)
 }
 
 func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
@@ -670,22 +760,60 @@ func (p *Parser) parseRecordType() *ast.RecordType {
 	t := p.cur
 	p.next() // struct union
 	r := &ast.RecordType{Type: t}
-	if p.cur.Type() == token.IDENT {
-		r.Name = &ast.Ident{Token: p.cur}
-		p.next()
+
+	if p.cur.Literal() != "{" {
+		tok := p.expectIdent()
+		r.Name = &ast.Ident{Token: tok}
 	}
+
 	if p.cur.Literal() != "{" {
 		return r
 	}
+
 	p.next() // {
 	for p.cur.Literal() != "}" {
 		typ := p.parseTypeQualifierSpecifierList()
-		f := &ast.RecordField{}
-		f.Type = typ
-
+		for {
+			f := &ast.RecordField{}
+			typ, ident := p.parseDeclarator(typ)
+			f.Type = typ
+			f.Name = ident
+			// bit-field
+			if p.cur.Literal() == ":" {
+				p.next() // :
+				expr := p.parseConstantExpr()
+				f.Bit = expr
+			}
+			// bit field
+			// TODO 递归类型引用检查
+			if f.Bit == nil && f.Name == nil && !isRecordType(typ) {
+				p.addErr(p.cur, "expected member name after declaration specifiers")
+				break
+			}
+			r.Fields = append(r.Fields, f)
+			if p.cur.Literal() != "," {
+				break
+			}
+			p.exceptPunctuator(",")
+		}
+		p.exceptPunctuator(";")
 	}
 	p.exceptPunctuator("}") // }
 	return r
+}
+
+func isRecordType(typ ast.TypeName) bool {
+	switch v := typ.(type) {
+	case *ast.RecordType:
+		return true
+	case *ast.PointerType:
+		return isRecordType(v.Inner)
+	case *ast.TypeQualifier:
+		return isRecordType(v.Inner)
+	case *ast.TypeSpecifier:
+		return isRecordType(v.Inner)
+	}
+	return false
 }
 
 func (p *Parser) parseEnumType() *ast.EnumType {
@@ -744,11 +872,6 @@ func (p *Parser) parseBuildInType1(qualifier bool) (ast.TypeName, []token.Token)
 	return &ast.BuildInType{
 		Type: spec,
 	}, qua
-}
-
-// TODO
-func (p *Parser) parseTypeDecl() ast.Expr {
-	return nil
 }
 
 func (p *Parser) isTypeNameTok(tok token.Token) bool {
