@@ -119,13 +119,14 @@ func (p *Parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 		}
 	case "++", "--":
 		op := p.cur
+		p.next()
 		expr = &ast.UnaryExpr{
 			Op: op,
 			X:  expr,
 		}
 	case "->", ".":
 		op := p.cur
-		p.next()
+		p.next() // .
 		name := p.expectIdent()
 		expr = &ast.SelectorExpr{
 			X:    expr,
@@ -270,7 +271,6 @@ func (p *Parser) parseExpr() ast.Expr {
 	return comma[0]
 }
 
-// TODO
 func (p *Parser) parseCompoundLitExpr() ast.Expr {
 	p.next() // (
 	typeName := p.parseTypeName()
@@ -361,11 +361,22 @@ func (p *Parser) parseDesignator() ast.Expr {
 	return nil
 }
 
-// TODO
-func (p *Parser) parseArgsExpr() ast.Expr {
+func (p *Parser) parseArgsExpr() []ast.Expr {
 	p.next() // (
+	list := []ast.Expr{}
+	for p.cur.Literal() != ")" {
+		item := p.parseAssignExpr()
+		list = append(list, item)
+		if t := p.peekOne(); p.cur.Literal() != "}" && t.Literal() != "}" {
+			p.exceptPunctuator(",")
+		} else {
+			if p.cur.Literal() == "," {
+				p.next() //,
+			}
+		}
+	}
 	p.exceptPunctuator(")")
-	return nil
+	return list
 }
 
 var typeQualifier = []string{"const", "restrict", "volatile"}

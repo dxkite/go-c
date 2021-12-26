@@ -44,7 +44,7 @@ type (
 	// 函数调用
 	CallExpr struct {
 		Fun  Expr
-		Args Expr
+		Args []Expr
 	}
 
 	// 数组下标表达式
