@@ -147,7 +147,7 @@ func (p *Parser) parseCondExpr() Expr {
 		p.next()
 		then := p.parseExpr()
 		p.exceptPunctuator(":")
-		el := p.parseExpr()
+		el := p.parseCondExpr()
 		return &CondExpr{
 			X:    x,
 			Op:   op,
