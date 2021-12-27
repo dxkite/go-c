@@ -107,6 +107,13 @@ type (
 	SizeOfExpr struct {
 		Type TypeName
 	}
+
+	// 变量定义
+	VarDecl struct {
+		Type  TypeName
+		Ident *Ident
+		Init  Expr
+	}
 )
 
 func (*BadExpr) expr()              {}
@@ -129,12 +136,7 @@ func (*AssignExpr) expr()           {}
 func (*CommaExpr) expr()            {}
 func (*SizeOfExpr) expr()           {}
 
-type Declarable interface {
-	declarable()
-}
-
 type TypeName interface {
-	Declarable
 	typeName()
 }
 
@@ -187,8 +189,8 @@ type (
 		Inner     TypeName
 	}
 
-	// type/extern/static/auto/register
-	TypeSpecifier struct {
+	// extern/static/auto/register
+	TypeStorageSpecifier struct {
 		Specifier *Specifier
 		Inner     TypeName
 	}
@@ -226,41 +228,38 @@ type (
 	}
 	ParamList []*ParamVarDecl
 	FuncType  struct {
-		Inner    Declarable
+		Inner    TypeName
 		Params   ParamList
 		Ellipsis bool // ...
 	}
 
 	// 括号 (abstract)
 	ParenType struct {
-		Inner Declarable
+		Inner TypeName
 	}
 )
 
-func (*BadType) typeName()               {}
-func (*BadType) declarable()             {}
-func (*RecordType) typeName()            {}
-func (*RecordType) declarable()          {}
-func (*UserType) typeName()              {}
-func (*UserType) declarable()            {}
-func (*EnumType) typeName()              {}
-func (*EnumType) declarable()            {}
-func (*BuildInType) typeName()           {}
-func (*BuildInType) declarable()         {}
-func (*TypeQualifier) typeName()         {}
-func (*TypeQualifier) declarable()       {}
-func (*TypeSpecifier) typeName()         {}
-func (*TypeSpecifier) declarable()       {}
-func (*PointerType) typeName()           {}
-func (*PointerType) declarable()         {}
-func (*ArrayType) typeName()             {}
-func (*ArrayType) declarable()           {}
-func (*IncompleteArrayType) typeName()   {}
-func (*IncompleteArrayType) declarable() {}
-func (*ConstArrayType) typeName()        {}
-func (*ConstArrayType) declarable()      {}
-func (*FuncType) typeName()              {}
-func (*FuncType) declarable()            {}
-func (*ParenType) typeName()             {}
-func (*ParenType) declarable()           {}
-func (*ParamVarDecl) declarable()        {}
+func (*BadType) typeName()              {}
+func (*RecordType) typeName()           {}
+func (*UserType) typeName()             {}
+func (*EnumType) typeName()             {}
+func (*BuildInType) typeName()          {}
+func (*TypeQualifier) typeName()        {}
+func (*TypeStorageSpecifier) typeName() {}
+func (*PointerType) typeName()          {}
+func (*ArrayType) typeName()            {}
+func (*IncompleteArrayType) typeName()  {}
+func (*ConstArrayType) typeName()       {}
+func (*FuncType) typeName()             {}
+func (*ParenType) typeName()            {}
+
+type Stmt interface {
+	stmt()
+}
+
+type (
+	// 定义语句
+	DeclStmt []*VarDecl
+)
+
+func (*DeclStmt) stmt() {}

@@ -593,7 +593,7 @@ func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
 		}
 		t.Qualifier = &ast.Qualifier{}
 		p.markQualifier(t.Qualifier, qua)
-		return t
+		typ = t
 	}
 	return typ
 }
@@ -617,10 +617,16 @@ func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 	var qua []token.Token
 	var typ ast.TypeName
 	var buildIn *ast.BuildInType
+	var spec []token.Token
 
 	for typeSpecifierMap[p.cur.Literal()] || typeQualifierMap[p.cur.Literal()] {
 		if typeQualifierMap[p.cur.Literal()] {
 			qua = append(qua, p.cur)
+			p.next()
+			continue
+		}
+		if storageClassSpecifierMap[p.cur.Literal()] {
+			spec = append(spec, p.cur)
 			p.next()
 			continue
 		}
@@ -642,22 +648,18 @@ func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 			Qualifier: &ast.Qualifier{},
 			Inner:     typ,
 		}
-		t.Qualifier = &ast.Qualifier{}
 		p.markQualifier(t.Qualifier, qua)
-		return t
+		typ = t
 	}
-	return typ
-}
 
-func (p *Parser) parseTypeQualifierSpecifierList1() ast.TypeName {
-	qua := p.scanTypeQualifierTok()
-	typ, q := p.parseBuildInType1(true)
-	qua = append(qua, q...)
-	return p.markTypeQualifier(qua, typ)
-}
-
-func (p *Parser) parseTypeSpecifier1() ast.TypeName {
-	typ, _ := p.parseBuildInType1(false)
+	if len(spec) > 0 {
+		st := &ast.TypeStorageSpecifier{
+			Specifier: &ast.Specifier{},
+			Inner:     typ,
+		}
+		p.markSpecifier(st.Specifier, spec)
+		typ = st
+	}
 	return typ
 }
 
@@ -688,65 +690,6 @@ func (p *Parser) parseBuildInType() ast.TypeName {
 	return &ast.BuildInType{
 		Type: spec,
 	}
-}
-
-func (p *Parser) parseTypeQualifierSpecifier(qualifier bool) (ast.TypeName, []token.Token) {
-	switch p.cur.Literal() {
-	case "struct", "union":
-		t := p.parseRecordType()
-		var qua []token.Token
-		if qualifier {
-			qua = p.scanTypeQualifierTok()
-		}
-		return t, qua
-	case "enum":
-		t := p.parseEnumType()
-		var qua []token.Token
-		if qualifier {
-			qua = p.scanTypeQualifierTok()
-		}
-		return t, qua
-	default:
-		// 用户定义的类型
-		if p.cur.Type() == token.IDENT && p.isTypedefName(p.cur) {
-			var qua []token.Token
-			if qualifier {
-				qua = p.scanTypeQualifierTok()
-			}
-			return p.typeName[p.cur.Literal()], qua
-		}
-	}
-	return p.parseBuildInType1(qualifier)
-}
-
-func (p *Parser) markTypeQualifier(qua []token.Token, typ ast.TypeName) ast.TypeName {
-	if len(qua) == 0 {
-		return typ
-	}
-	st := &ast.TypeQualifier{}
-	st.Qualifier = &ast.Qualifier{}
-	p.markQualifier(st.Qualifier, qua)
-	st.Inner = typ
-	return st
-}
-
-// 特殊限定符
-func (p *Parser) scanStorageSpecifierTok() (qua []token.Token) {
-	for p.cur.Type() == token.KEYWORD && storageClassSpecifierMap[p.cur.Literal()] {
-		qua = append(qua, p.cur)
-		p.next()
-	}
-	return
-}
-
-func (p *Parser) makeStorageSpecifier(qua []token.Token, typ ast.TypeName) ast.TypeName {
-	if len(qua) == 0 {
-		return typ
-	}
-	st := &ast.TypeSpecifier{}
-	p.markSpecifier(st.Specifier, qua)
-	st.Inner = typ
-	return st
 }
 
 func (p *Parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
@@ -821,7 +764,7 @@ func isRecordType(typ ast.TypeName) bool {
 		return isRecordType(v.Inner)
 	case *ast.TypeQualifier:
 		return isRecordType(v.Inner)
-	case *ast.TypeSpecifier:
+	case *ast.TypeStorageSpecifier:
 		return isRecordType(v.Inner)
 	}
 	return false
@@ -865,24 +808,30 @@ func (p *Parser) scanTypeQualifierTok() (qua []token.Token) {
 	return
 }
 
-// 扫描内置类型
-func (p *Parser) parseBuildInType1(qualifier bool) (ast.TypeName, []token.Token) {
-	var spec []token.Token
-	var qua []token.Token
-	for p.cur.Type() == token.KEYWORD && (typeQualifierMap[p.cur.Literal()] || typeSpecifierMap[p.cur.Literal()]) {
-		if typeSpecifierMap[p.cur.Literal()] {
-			spec = append(spec, p.cur)
-		} else if qualifier && typeQualifierMap[p.cur.Literal()] {
-			qua = append(qua, p.cur)
-		} else {
-			p.addErr(p.cur, "unexpected token %s", p.cur.Literal())
-			break
-		}
-		p.next()
+func (p *Parser) parseDeclaration() *ast.DeclStmt {
+	typ := p.parseDeclarationSpecifiers()
+	stmt := ast.DeclStmt{}
+	for p.cur.Literal() != ";" {
+		decl := p.parserInitDeclarator(typ)
+		stmt = append(stmt, decl)
 	}
-	return &ast.BuildInType{
-		Type: spec,
-	}, qua
+	p.exceptPunctuator(";")
+	// TODO typedef
+	return &stmt
+}
+
+func (p *Parser) parserInitDeclarator(inner ast.TypeName) *ast.VarDecl {
+	typ, ident := p.parseDeclarator(inner)
+	decl := &ast.VarDecl{Type: typ, Ident: ident}
+	if p.cur.Literal() == "=" {
+		p.next()
+		decl.Init = p.parseInitializer()
+	}
+	return decl
+}
+
+func (p *Parser) parseStatement() ast.Stmt {
+	return nil
 }
 
 func (p *Parser) isTypeNameTok(tok token.Token) bool {
