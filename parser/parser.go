@@ -20,7 +20,7 @@ type ErrorHandler func(token token.Token, typ ErrorType, msg string)
 // 表达式解析
 type Parser struct {
 	// 定义的类型
-	typeName map[string]*ast.UserType
+	typeName map[string]*ast.TypedefDecl
 	// 错误处理
 	err ErrorHandler
 	// 当前token
@@ -396,26 +396,32 @@ var typeStructMap = map[string]bool{
 var typeSpecifierMap = map[string]bool{}
 
 // 声明
-var typeDeclSpecifierMap = map[string]bool{}
+var declarationSpecifierMap = map[string]bool{}
 
 // "const", "restrict", "volatile"
 var typeQualifierMap = map[string]bool{}
 var storageClassSpecifierMap = map[string]bool{}
+var typeSpecifierQualifierMap = map[string]bool{}
 
 func init() {
+	typeSpecifierQualifierMap = typeStructMap
 	for _, v := range typeQualifier {
 		typeQualifierMap[v] = true
+		typeSpecifierQualifierMap[v] = true
 	}
+
 	typeSpecifierMap = typeStructMap
 	for _, v := range typeSpecifier {
 		typeSpecifierMap[v] = true
+		typeSpecifierQualifierMap[v] = true
 	}
-	typeDeclSpecifierMap = typeSpecifierMap
+
+	declarationSpecifierMap = typeSpecifierMap
 	for _, v := range functionSpecifier {
-		typeDeclSpecifierMap[v] = true
+		declarationSpecifierMap[v] = true
 	}
 	for _, v := range storageClassSpecifier {
-		typeDeclSpecifierMap[v] = true
+		declarationSpecifierMap[v] = true
 		storageClassSpecifierMap[v] = true
 	}
 }
@@ -431,7 +437,7 @@ func (p *Parser) parseAbstractDeclarator(inner ast.TypeName) ast.TypeName {
 	case "*":
 		inner = p.parsePointer(inner)
 	case "(":
-		if p.peekOne().Type() != token.KEYWORD {
+		if t := p.peekOne().Literal(); t == "*" || t == "[" || t == "(" {
 			p.next() // (
 			inner = p.parseAbstractDeclarator(&ast.ParenType{Inner: inner})
 			p.exceptPunctuator(")")
@@ -562,12 +568,13 @@ func (p *Parser) parseDirectDeclaratorInner(typ ast.TypeName) ast.TypeName {
 	return p.parseDirectDeclaratorInner(typ)
 }
 
-func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
+// ( type-specifier | type-qualifier ) +
+func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 	var qua []token.Token
 	var typ ast.TypeName
 	var buildIn *ast.BuildInType
 
-	for typeDeclSpecifierMap[p.cur.Literal()] || typeQualifierMap[p.cur.Literal()] {
+	for typeSpecifierQualifierMap[p.cur.Literal()] {
 		if typeQualifierMap[p.cur.Literal()] {
 			qua = append(qua, p.cur)
 			p.next()
@@ -613,13 +620,13 @@ func (p *Parser) parsePointer(inner ast.TypeName) (t ast.TypeName) {
 }
 
 // 扫描类型
-func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
+func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
 	var qua []token.Token
 	var typ ast.TypeName
 	var buildIn *ast.BuildInType
 	var spec []token.Token
 
-	for typeSpecifierMap[p.cur.Literal()] || typeQualifierMap[p.cur.Literal()] {
+	for declarationSpecifierMap[p.cur.Literal()] {
 		if typeQualifierMap[p.cur.Literal()] {
 			qua = append(qua, p.cur)
 			p.next()
@@ -672,7 +679,7 @@ func (p *Parser) parseTypeSpecifier() ast.TypeName {
 	default:
 		// 用户定义的类型
 		if p.cur.Type() == token.IDENT && p.isTypedefName(p.cur) {
-			return p.typeName[p.cur.Literal()]
+			return p.typeName[p.cur.Literal()].Type
 		}
 	}
 	return p.parseBuildInType()
@@ -808,21 +815,45 @@ func (p *Parser) scanTypeQualifierTok() (qua []token.Token) {
 	return
 }
 
-func (p *Parser) parseDeclaration() *ast.DeclStmt {
-	typ := p.parseDeclarationSpecifiers()
-	stmt := ast.DeclStmt{}
-	for p.cur.Literal() != ";" {
-		decl := p.parserInitDeclarator(typ)
-		stmt = append(stmt, decl)
-	}
-	p.exceptPunctuator(";")
-	// TODO typedef
+func (p *Parser) parseDeclStmt() *ast.DeclStmt {
+	stmt := ast.DeclStmt(p.parseDeclaration())
 	return &stmt
 }
 
-func (p *Parser) parserInitDeclarator(inner ast.TypeName) *ast.VarDecl {
+func (p *Parser) parseDeclaration() []ast.Decl {
+	typ := p.parseDeclarationSpecifiers()
+	var decls []ast.Decl
+	for p.cur.Literal() != ";" {
+		decl := p.parserInitDeclarator(typ)
+		decls = append(decls, decl)
+		if p.cur.Literal() == "," {
+			p.next() //,
+		} else {
+			break
+		}
+	}
+	p.exceptPunctuator(";")
+	return decls
+}
+
+func (p *Parser) parserInitDeclarator(inner ast.TypeName) ast.Decl {
+	isTypedef := false
+	if v, ok := inner.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
+		isTypedef = true
+		if len(*v.Specifier) == 1 {
+			inner = v.Inner
+		}
+	}
 	typ, ident := p.parseDeclarator(inner)
-	decl := &ast.VarDecl{Type: typ, Ident: ident}
+	if isTypedef {
+		decl := &ast.TypedefDecl{
+			Type: typ,
+			Name: ident,
+		}
+		p.defineType(decl)
+		return decl
+	}
+	decl := &ast.VarDecl{Type: typ, Name: ident}
 	if p.cur.Literal() == "=" {
 		p.next()
 		decl.Init = p.parseInitializer()
@@ -830,16 +861,260 @@ func (p *Parser) parserInitDeclarator(inner ast.TypeName) *ast.VarDecl {
 	return decl
 }
 
-func (p *Parser) parseStatement() ast.Stmt {
-	return nil
+func (p *Parser) defineType(decl *ast.TypedefDecl) {
+	p.typeName[decl.Name.Literal()] = decl
+}
+
+func (p *Parser) parseStmt() ast.Stmt {
+	switch p.cur.Literal() {
+	case "case", "default":
+		return p.parseLabeledStmt()
+	case "if":
+		return p.parseIfStmt()
+	case "switch":
+		return p.parseSwitchStmt()
+	case "while":
+		return p.parseWhileStmt()
+	case "do":
+		return p.parseDoWhileStmt()
+	case "for":
+		return p.parseForStmt()
+	case "goto":
+		p.next() // goto
+		id := p.expectIdent()
+		p.exceptPunctuator(";")
+		return &ast.GotoStmt{Id: &ast.Ident{Token: id}}
+	case "break":
+		p.next() // break
+		p.exceptPunctuator(";")
+		return &ast.BreakStmt{}
+	case "continue":
+		p.next() // continue
+		p.exceptPunctuator(";")
+		return &ast.ContinueStmt{}
+	case "return":
+		p.next() // return
+		stmt := &ast.ReturnStmt{}
+		if p.cur.Literal() != ";" {
+			stmt.X = p.parseExpr()
+		}
+		p.exceptPunctuator(";")
+		return stmt
+	case "{":
+		return p.parseCompoundStmt()
+	}
+	if p.cur.Type() == token.IDENT && p.peekOne().Literal() == ":" {
+		return p.parseLabeledStmt()
+	}
+	return p.parseExprStmt()
+}
+
+func (p *Parser) parseLabeledStmt() ast.Stmt {
+	// case const-expr:
+	if p.cur.Literal() == "case" {
+		p.next() // case
+		expr := p.parseConstantExpr()
+		p.exceptPunctuator(":")
+		stmt := p.parseStmt()
+		return &ast.CaseStmt{
+			Expr: expr,
+			Stmt: stmt,
+		}
+	}
+
+	// default:
+	if p.cur.Literal() == "default" {
+		p.next() // default
+		p.exceptPunctuator(":")
+		stmt := p.parseStmt()
+		return &ast.DefaultStmt{
+			Stmt: stmt,
+		}
+	}
+
+	// id:
+	if p.cur.Type() == token.IDENT && p.peekOne().Literal() == ":" {
+		ident := p.expectIdent()
+		p.exceptPunctuator(":")
+		stmt := p.parseStmt()
+		return &ast.LabelStmt{
+			Id:   &ast.Ident{Token: ident},
+			Stmt: stmt,
+		}
+	}
+	return p.parseStmt()
+}
+
+func (p *Parser) parseSwitchStmt() ast.Stmt {
+	p.next() // switch
+	p.exceptPunctuator("(")
+	expr := p.parseExpr()
+	p.exceptPunctuator(")")
+	stmt := p.parseStmt()
+	return &ast.SwitchStmt{
+		X:    expr,
+		Stmt: stmt,
+	}
+}
+
+func (p *Parser) parseIfStmt() ast.Stmt {
+	p.next() // if
+	p.exceptPunctuator("(")
+	expr := p.parseExpr()
+	p.exceptPunctuator(")")
+	then := p.parseStmt()
+	var elseStmt ast.Stmt
+	if p.cur.Literal() == "else" {
+		elseStmt = p.parseStmt()
+	}
+	return &ast.IfStmt{
+		X:    expr,
+		Then: then,
+		Else: elseStmt,
+	}
+}
+
+func (p *Parser) parseWhileStmt() ast.Stmt {
+	p.next() // switch
+	p.exceptPunctuator("(")
+	expr := p.parseExpr()
+	p.exceptPunctuator(")")
+	stmt := p.parseStmt()
+	return &ast.WhileStmt{
+		X:    expr,
+		Stmt: stmt,
+	}
+}
+
+func (p *Parser) parseDoWhileStmt() ast.Stmt {
+	p.next() // do
+	stmt := p.parseStmt()
+	p.exceptKeyword("while")
+	p.exceptPunctuator("(")
+	expr := p.parseExpr()
+	p.exceptPunctuator(")")
+	p.exceptPunctuator(";")
+	return &ast.DoWhileStmt{
+		Stmt: stmt,
+		X:    expr,
+	}
+}
+
+func (p *Parser) parseForStmt() ast.Stmt {
+	p.next() // for
+	forStmt := &ast.ForStmt{}
+	if p.isTypeNameTok(p.cur) {
+		forStmt.Decl = p.parseDeclStmt()
+	} else {
+		forStmt.Init = p.parseExpr()
+		p.exceptPunctuator(";")
+	}
+	if p.cur.Literal() != ";" {
+		expr := p.parseExpr()
+		forStmt.Cond = expr
+	}
+	p.exceptPunctuator(";")
+	if p.cur.Literal() != ";" {
+		expr := p.parseExpr()
+		forStmt.Post = expr
+	}
+	p.exceptPunctuator(";")
+	stmt := p.parseStmt()
+	forStmt.Stmt = stmt
+	return forStmt
+}
+
+func (p *Parser) parseCompoundStmt() *ast.CompoundStmt {
+	stmts := ast.CompoundStmt{}
+	p.exceptPunctuator("{")
+	for p.cur.Literal() != "}" {
+		stmt := p.parseBlockItem()
+		stmts = append(stmts, stmt)
+	}
+	p.exceptPunctuator("}")
+	return &stmts
+}
+
+func (p *Parser) parseBlockItem() ast.Stmt {
+	if declarationSpecifierMap[p.cur.Literal()] {
+		return p.parseDeclStmt()
+	}
+	return p.parseStmt()
+}
+
+func (p *Parser) parseExprStmt() ast.Stmt {
+	expr := p.parseExpr()
+	p.exceptPunctuator(";")
+	return &ast.ExprStmt{Expr: expr}
+}
+
+func (p *Parser) parseExternalDecl() ast.Decl {
+	typ := p.parseDeclarationSpecifiers()
+	isTypedef := false
+	if v, ok := typ.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
+		isTypedef = true
+		if len(*v.Specifier) == 1 {
+			typ = v.Inner
+		}
+	}
+	typ, ident := p.parseDeclarator(typ)
+	if isTypedef {
+		decl := &ast.TypedefDecl{
+			Type: typ,
+			Name: ident,
+		}
+		p.defineType(decl)
+		return decl
+	}
+
+	if v, ok := typ.(*ast.FuncType); ok {
+		fn := &ast.FuncDecl{
+			Name:     ident,
+			Return:   v.Inner,
+			Params:   v.Params,
+			Ellipsis: v.Ellipsis,
+		}
+		if p.cur.Literal() == ";" {
+			p.exceptPunctuator(";")
+			return fn
+		}
+
+		// 如果函数中未定义参数类型 则在后续定义语句定义
+		if len(fn.Params) > 0 && fn.Params[0].Type == nil {
+			for declarationSpecifierMap[p.cur.Literal()] {
+				fn.Decl = append(fn.Decl, p.parseDeclaration()...)
+			}
+		}
+
+		if p.cur.Literal() == "{" {
+			fn.Body = p.parseCompoundStmt()
+		}
+		return fn
+	}
+
+	decl := &ast.VarDecl{Type: typ, Name: ident}
+	if p.cur.Literal() == "=" {
+		p.next()
+		decl.Init = p.parseInitializer()
+	}
+	return decl
+}
+
+func (p *Parser) parseUnit() *ast.TranslationUnitDecl {
+	decls := &ast.TranslationUnitDecl{}
+	for p.cur.Type() != token.EOF {
+		decls.Decl = append(decls.Decl, p.ParseDecl())
+	}
+	return decls
+}
+
+func (p *Parser) ParseDecl() ast.Decl {
+	return p.parseExternalDecl()
 }
 
 func (p *Parser) isTypeNameTok(tok token.Token) bool {
 	name := tok.Literal()
-	if typeSpecifierMap[name] {
-		return true
-	}
-	if typeQualifierMap[name] {
+	if typeSpecifierQualifierMap[name] {
 		return true
 	}
 	return p.isTypedefName(tok)
@@ -847,14 +1122,6 @@ func (p *Parser) isTypeNameTok(tok token.Token) bool {
 
 func (p *Parser) isTypedefName(tok token.Token) bool {
 	if _, ok := p.typeName[tok.Literal()]; ok {
-		return true
-	}
-	return false
-}
-
-func (p *Parser) isTypeDeclTok(tok token.Token) bool {
-	name := tok.Literal()
-	if typeDeclSpecifierMap[name] {
 		return true
 	}
 	return false
@@ -874,6 +1141,16 @@ func (p *Parser) expectIdent() token.Token {
 func (p *Parser) next() token.Token {
 	p.cur = p.r.Scan()
 	return p.cur
+}
+
+func (p *Parser) exceptKeyword(lit string) (t token.Token) {
+	t = p.cur
+	if p.cur.Type() == token.KEYWORD && p.cur.Literal() == lit {
+		p.next()
+		return
+	}
+	p.addErr(p.cur, "expect %s got %s", lit, p.cur.Literal())
+	return
 }
 
 func (p *Parser) exceptPunctuator(lit string) (t token.Token) {

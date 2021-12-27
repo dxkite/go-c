@@ -107,13 +107,6 @@ type (
 	SizeOfExpr struct {
 		Type TypeName
 	}
-
-	// 变量定义
-	VarDecl struct {
-		Type  TypeName
-		Ident *Ident
-		Init  Expr
-	}
 )
 
 func (*BadExpr) expr()              {}
@@ -259,7 +252,118 @@ type Stmt interface {
 
 type (
 	// 定义语句
-	DeclStmt []*VarDecl
+	DeclStmt []Decl
+
+	LabelStmt struct {
+		Id   *Ident
+		Stmt Stmt
+	}
+
+	CaseStmt struct {
+		Expr Expr
+		Stmt Stmt
+	}
+
+	DefaultStmt struct {
+		Stmt Stmt
+	}
+
+	CompoundStmt []Stmt
+
+	ExprStmt struct {
+		Expr Expr
+	}
+
+	IfStmt struct {
+		X    Expr
+		Then Stmt
+		Else Stmt
+	}
+
+	SwitchStmt struct {
+		X    Expr
+		Stmt Stmt
+	}
+
+	WhileStmt struct {
+		X    Expr
+		Stmt Stmt
+	}
+
+	DoWhileStmt struct {
+		Stmt Stmt
+		X    Expr
+	}
+
+	ForStmt struct {
+		Init Expr
+		Decl Stmt
+		Cond Expr
+		Post Expr
+		Stmt Stmt
+	}
+
+	GotoStmt struct {
+		Id *Ident
+	}
+
+	ContinueStmt struct{}
+	BreakStmt    struct{}
+	ReturnStmt   struct {
+		X Expr
+	}
 )
 
-func (*DeclStmt) stmt() {}
+func (*DeclStmt) stmt()     {}
+func (*LabelStmt) stmt()    {}
+func (*CaseStmt) stmt()     {}
+func (*DefaultStmt) stmt()  {}
+func (*CompoundStmt) stmt() {}
+func (*ExprStmt) stmt()     {}
+func (*IfStmt) stmt()       {}
+func (*SwitchStmt) stmt()   {}
+func (*WhileStmt) stmt()    {}
+func (*DoWhileStmt) stmt()  {}
+func (*ForStmt) stmt()      {}
+func (*GotoStmt) stmt()     {}
+func (*ContinueStmt) stmt() {}
+func (*BreakStmt) stmt()    {}
+func (*ReturnStmt) stmt()   {}
+
+type Decl interface {
+	decl()
+}
+
+type (
+	TranslationUnitDecl struct {
+		Decl []Decl
+	}
+
+	// 函数定义
+	FuncDecl struct {
+		Name     *Ident
+		Return   TypeName
+		Params   ParamList
+		Ellipsis bool // ...
+		Decl     []Decl
+		Body     *CompoundStmt
+	}
+
+	// 变量定义
+	VarDecl struct {
+		Type TypeName
+		Name *Ident
+		Init Expr
+	}
+
+	// 类型定义
+	TypedefDecl struct {
+		Type TypeName
+		Name *Ident
+	}
+)
+
+func (*FuncDecl) decl()            {}
+func (*VarDecl) decl()             {}
+func (*TypedefDecl) decl()         {}
+func (*TranslationUnitDecl) decl() {}
