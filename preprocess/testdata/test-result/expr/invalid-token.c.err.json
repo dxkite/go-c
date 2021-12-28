@@ -5,7 +5,11 @@
             "Line": 1,
             "Column": 1
         },
-        "Msg": "preprocess expr: unexpected STRING \"19\""
+        "Msg": "",
+        "Code": 2027,
+        "Params": [
+            "\"19\""
+        ]
     },
     {
         "Pos": {
@@ -13,6 +17,10 @@
             "Line": 1,
             "Column": 10
         },
-        "Msg": "preprocess expr: unexpected FLOAT 1.2"
+        "Msg": "",
+        "Code": 2027,
+        "Params": [
+            "1.2"
+        ]
     }
 ]

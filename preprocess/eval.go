@@ -1,18 +1,19 @@
 package preprocess
 
 import (
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/token"
 	"strconv"
 )
 
 func Eval(ctx *Context, expr Expr) bool {
-	e := &Evaluator{ctx: ctx, err: ErrorList{}}
+	e := &Evaluator{ctx: ctx, err: errors.ErrorList{}}
 	return e.eval(expr) > 0
 }
 
 type Evaluator struct {
 	ctx *Context
-	err ErrorList
+	err errors.ErrorList
 }
 
 // 获取数据类型

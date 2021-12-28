@@ -1,6 +1,7 @@
 package preprocess
 
 import (
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
 	"fmt"
@@ -164,24 +165,22 @@ func isValidToken(lit string) bool {
 }
 
 // 检查是否可用
-func checkValidHashHashExpr(tks []token.Token) error {
+func checkValidHashHashExpr(tks []token.Token) *errors.Error {
 	if len(tks) > 0 {
 		beg := 0
 		end := len(tks) - 1
-		err := "'##' cannot appear at either end of a macro expansion"
 		if tks[beg].Literal() == "##" {
-			return &Error{tks[beg].Position(), err}
+			return errors.New(tks[beg].Position(), errors.ErrMacroHashHashPos)
 		}
 		if tks[end].Literal() == "##" {
-			return &Error{tks[end].Position(), err}
+			return errors.New(tks[end].Position(), errors.ErrMacroHashHashPos)
 		}
 	}
 	return nil
 }
 
 // 检查是否可用
-func checkValidHashExpr(params []string, tks []token.Token) error {
-	err := "'#' must follow a macro parameter"
+func checkValidHashExpr(params []string, tks []token.Token) *errors.Error {
 	m := map[string]bool{}
 	m[MacroParameterVarArgs] = true
 	for _, v := range params {
@@ -191,7 +190,7 @@ func checkValidHashExpr(params []string, tks []token.Token) error {
 	for i := 0; i < n; i++ {
 		if tks[i].Literal() == "#" {
 			if !(i+1 < n && tks[i+1].Type() == token.IDENT && m[tks[i+1].Literal()]) {
-				return &Error{tks[i].Position(), err}
+				return errors.New(tks[i].Position(), errors.ErrMacroHashExpr)
 			}
 		}
 	}

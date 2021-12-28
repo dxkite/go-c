@@ -2,6 +2,7 @@ package preprocess
 
 import (
 	"bytes"
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
 	"encoding/json"
@@ -102,7 +103,7 @@ func TestScanFile(t *testing.T) {
 						}
 					}
 
-					var loadError ErrorList
+					var loadError errors.ErrorList
 					if err := loadError.LoadFromFile(expectErr); err != nil {
 						t.Errorf("LoadFromFile error = %v", err)
 					} else if !reflect.DeepEqual(loadError, ctx.Error()) {

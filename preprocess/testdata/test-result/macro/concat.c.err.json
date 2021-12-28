@@ -5,7 +5,9 @@
             "Line": 3,
             "Column": 11
         },
-        "Msg": "'##' cannot appear at either end of a macro expansion"
+        "StdError": null,
+        "Code": 2009,
+        "Params": null
     },
     {
         "Pos": {
@@ -13,7 +15,9 @@
             "Line": 4,
             "Column": 15
         },
-        "Msg": "'##' cannot appear at either end of a macro expansion"
+        "StdError": null,
+        "Code": 2009,
+        "Params": null
     },
     {
         "Pos": {
@@ -21,6 +25,11 @@
             "Line": 10,
             "Column": 1
         },
-        "Msg": "invalid ## operator between 123 and A"
+        "StdError": null,
+        "Code": 2010,
+        "Params": [
+            "123",
+            "A"
+        ]
     }
 ]

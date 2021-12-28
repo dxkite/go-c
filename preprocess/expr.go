@@ -1,6 +1,7 @@
 package preprocess
 
 import (
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
 	"fmt"
@@ -131,13 +132,13 @@ func NewParser(ctx *Context, r scanner.Scanner) *Parser {
 func (p *Parser) ParseExpr() (expr Expr) {
 	expr = p.parseExpr()
 	if p.cur.Type() != token.EOF {
-		p.addErr(p.cur.Position(), "unexpect token %s", p.cur.Literal())
+		p.addErr(p.cur.Position(), errors.ErrMacroExprUnexpectedToken, p.cur.Literal())
 	}
 	return
 }
 
-func (p *Parser) addErr(pos token.Position, msg string, args ...interface{}) {
-	p.ctx.AddError(pos, "preprocess expr: "+msg, args...)
+func (p *Parser) addErr(pos token.Position, code errors.ErrCode, args ...interface{}) {
+	p.ctx.AddErrorMsg(pos, code, args...)
 }
 
 func (p *Parser) parseCondExpr() Expr {
@@ -164,7 +165,7 @@ func (p *Parser) exceptPunctuator(lit string) (t token.Token) {
 		p.next()
 		return
 	}
-	p.addErr(p.cur.Position(), "expect %s got %s", lit, p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrExpectedMacroGot, lit, p.cur.Literal())
 	return
 }
 
@@ -220,7 +221,7 @@ func (p *Parser) parseDefined() (expr Expr) {
 		left++
 	}
 	if p.cur.Type() != token.IDENT {
-		p.addErr(p.cur.Position(), "expected ident got %s", p.cur.Type())
+		p.addErr(p.cur.Position(), errors.ErrExpectedMacroIdent, p.cur.Literal())
 	}
 	x := p.cur
 	p.next()
@@ -261,7 +262,7 @@ func (p *Parser) parseTermExpr() (expr Expr) {
 		return v
 	}
 
-	p.addErr(p.cur.Position(), "unexpected %s %s", p.cur.Type(), p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrMacroExprUnexpectedToken, p.cur.Literal())
 	expr = &BadExpr{p.cur}
 	p.next()
 	return

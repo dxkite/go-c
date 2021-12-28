@@ -43,6 +43,6 @@
     },
     "Typ": "CHAR",
     "Lit": "'1",
-    "Err": "unclosed char lit '"
+    "Err": "在 testdata\\simple-error.c 文件的第1行14列: 字符缺少关闭的 ' 符号"
   }
 ]

@@ -5,7 +5,12 @@
             "Line": 11,
             "Column": 71
         },
-        "Msg": "invalid ## operator between 123 and abc"
+        "StdError": null,
+        "Code": 2010,
+        "Params": [
+            "123",
+            "abc"
+        ]
     },
     {
         "Pos": {
@@ -13,6 +18,11 @@
             "Line": 12,
             "Column": 1
         },
-        "Msg": "invalid ## operator between 123 and abc"
+        "StdError": null,
+        "Code": 2010,
+        "Params": [
+            "123",
+            "abc"
+        ]
     }
 ]

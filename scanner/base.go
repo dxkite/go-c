@@ -3,9 +3,8 @@ package scanner
 import (
 	"bufio"
 	"bytes"
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/token"
-	"errors"
-	"fmt"
 	"io"
 	"unicode"
 	"unicode/utf8"
@@ -113,7 +112,7 @@ func (s *scanner) nextRune() {
 	ch, w, err := s.r.ReadRune()
 	if err != nil {
 		if err != io.EOF {
-			s.err = errors.New(fmt.Sprintf("reader error %s", err))
+			s.markErr(errors.ErrReadFile, err)
 		}
 		s.ch = -1
 		return
@@ -135,7 +134,7 @@ func (s *scanner) nextRune() {
 func (s *scanner) peek() byte {
 	buf, err := s.r.Peek(1)
 	if err != nil && err != io.EOF {
-		s.err = errors.New(fmt.Sprintf("reader error %s", err))
+		s.markErr(errors.ErrReadFile, err)
 		return 0
 	}
 	if err == io.EOF {
@@ -144,10 +143,14 @@ func (s *scanner) peek() byte {
 	return buf[0]
 }
 
+func (s *scanner) markErr(code errors.ErrCode, params ...interface{}) {
+	s.err = errors.New(s.curPos(), code, params...)
+}
+
 func (s *scanner) peekN(n int) string {
 	buf, err := s.r.Peek(n)
 	if err != nil && err != io.EOF {
-		s.err = errors.New(fmt.Sprintf("reader error %s", err))
+		s.markErr(errors.ErrReadFile, err)
 		return ""
 	}
 	return string(buf)
@@ -294,16 +297,16 @@ func (s *scanner) nextIsChar(ch rune) bool {
 
 // 扫描字符串
 func (s *scanner) scanChar() string {
-	return s.scanQuote("char", '\'')
+	return s.scanQuote(errors.ErrUncloseChar, '\'')
 }
 
 // 扫描字符串
 func (s *scanner) scanString() string {
-	return s.scanQuote("string", '"')
+	return s.scanQuote(errors.ErrUncloseString, '"')
 }
 
 // 扫描字符串
-func (s *scanner) scanQuote(name string, quote rune) string {
+func (s *scanner) scanQuote(err errors.ErrCode, quote rune) string {
 	s.record()
 	for s.ch != quote {
 		s.next()
@@ -321,7 +324,7 @@ func (s *scanner) scanQuote(name string, quote rune) string {
 		}
 	}
 	if s.ch != quote {
-		s.err = errors.New(fmt.Sprintf("unclosed %s lit %c", name, quote))
+		s.markErr(err)
 	} else {
 		s.next()
 	}
@@ -347,7 +350,7 @@ func (s *scanner) scanEscape() bool {
 		n := 2
 		for n > 0 {
 			if !isHex(s.ch) {
-				s.err = errors.New(fmt.Sprintf("unexpected %c in hex escape", s.ch))
+				s.markErr(errors.ErrHexFormat, s.ch)
 				return false
 			}
 			n--
@@ -367,7 +370,7 @@ func (s *scanner) scanUniversalEscape() bool {
 	s.next() // skip u
 	for n > 0 {
 		if !isHex(s.ch) {
-			s.err = errors.New(fmt.Sprintf("unexpected %c in unicode escape", s.ch))
+			s.markErr(errors.ErrUnicodeFormat, s.ch)
 			return false
 		}
 		n--
@@ -390,7 +393,7 @@ func (s *scanner) skipComment() {
 		s.next()
 		for {
 			if s.ch < 0 {
-				s.err = errors.New("comment not terminated")
+				s.markErr(errors.ErrUncloseComment)
 				return
 			}
 			s.next()

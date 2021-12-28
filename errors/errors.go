@@ -1,4 +1,4 @@
-package preprocess
+package errors
 
 import (
 	"dxkite.cn/c/token"
@@ -10,13 +10,23 @@ import (
 
 // 扫描错误
 type Error struct {
-	Pos token.Position
-	Msg string
+	Pos    token.Position
+	Msg    string
+	Code   ErrCode
+	Params []interface{}
 }
 
 // 错误信息
 func (e Error) Error() string {
-	return e.Msg
+	t := fmt.Sprintf("在 %s 文件的第%d行%d列: ", e.Pos.Filename, e.Pos.Line, e.Pos.Column)
+	if e.Code != ErrUnKnown {
+		s := t + e.Code.String()
+		if len(e.Params) > 0 {
+			return fmt.Sprintf(s, e.Params...)
+		}
+		return s
+	}
+	return t + e.Msg
 }
 
 // 错误列表
@@ -25,7 +35,36 @@ type ErrorList []*Error
 // 添加一个错误
 func (p *ErrorList) Add(pos token.Position, msg string, args ...interface{}) {
 	msg = fmt.Sprintf(msg, args...)
-	*p = append(*p, &Error{pos, msg})
+	*p = append(*p, &Error{Pos: pos, Msg: msg})
+}
+
+func (p *ErrorList) AddErr(err *Error) {
+	*p = append(*p, err)
+}
+
+func (p *ErrorList) AddErrMsg(pos token.Position, code ErrCode, params ...interface{}) {
+	*p = append(*p, New(pos, code, params...))
+}
+
+func (p *ErrorList) AddStdErr(pos token.Position, err error) {
+	if v, ok := err.(*Error); ok {
+		*p = append(*p, v)
+	} else {
+		p.Add(pos, err.Error())
+	}
+}
+
+func New(pos token.Position, code ErrCode, params ...interface{}) *Error {
+	return &Error{Pos: pos, Code: code, Params: params}
+}
+
+func NewStd(pos token.Position, err error) *Error {
+	return &Error{Pos: pos, Msg: err.Error()}
+}
+
+func NewMsg(pos token.Position, msg string, args ...interface{}) *Error {
+	msg = fmt.Sprintf(msg, args...)
+	return &Error{Pos: pos, Msg: msg}
 }
 
 // 合并错误
@@ -55,11 +94,11 @@ func (p ErrorList) Sort() {
 func (p ErrorList) Error() string {
 	switch len(p) {
 	case 0:
-		return "no errors"
+		return "无错误"
 	case 1:
 		return p[0].Error()
 	}
-	return fmt.Sprintf("%s (and %d more errors)", p[0], len(p)-1)
+	return fmt.Sprintf("%s (共 %d 个错误)", p[0], len(p)-1)
 }
 
 func (p ErrorList) SaveFile(filename string) error {
@@ -93,3 +132,13 @@ func (p *ErrorList) LoadFromFile(filename string) error {
 		return f.Close()
 	}
 }
+
+type ErrorType int
+
+const (
+	ErrTypeError ErrorType = iota
+	ErrTypeWarning
+)
+
+// 错误回调
+type ErrorHandler func(pos token.Position, typ ErrorType, code ErrCode, params ...interface{})

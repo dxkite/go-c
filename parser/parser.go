@@ -2,34 +2,24 @@ package parser
 
 import (
 	"dxkite.cn/c/ast"
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
-	"fmt"
 )
-
-type ErrorType int
-
-const (
-	ErrTypeError ErrorType = iota
-	ErrTypeWarning
-)
-
-// 错误回调
-type ErrorHandler func(token token.Token, typ ErrorType, msg string)
 
 // 表达式解析
 type Parser struct {
 	// 定义的类型
 	typeName map[string]*ast.TypedefDecl
 	// 错误处理
-	err ErrorHandler
+	err errors.ErrorHandler
 	// 当前token
 	cur token.Token
 	// 当前输入
 	r scanner.Scanner
 }
 
-func NewParser(r scanner.Scanner, err ErrorHandler) *Parser {
+func NewParser(r scanner.Scanner, err errors.ErrorHandler) *Parser {
 	p := &Parser{
 		err: err,
 		r:   scanner.NewTokenScan(r),
@@ -577,7 +567,7 @@ func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 			continue
 		}
 		if buildIn != nil && typeStructMap[p.cur.Literal()] {
-			p.addErr(p.cur, "unexpected type-specifier %s", p.cur.Literal())
+			p.addErr(p.cur, errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
 		typ = p.parseTypeSpecifier()
 		if v, ok := typ.(*ast.BuildInType); ok {
@@ -634,7 +624,7 @@ func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
 			continue
 		}
 		if buildIn != nil && typeStructMap[p.cur.Literal()] {
-			p.addErr(p.cur, "unexpected type-specifier %s", p.cur.Literal())
+			p.addErr(p.cur, errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
 		typ = p.parseTypeSpecifier()
 		if v, ok := typ.(*ast.BuildInType); ok {
@@ -698,7 +688,7 @@ func (p *Parser) parseBuildInType() ast.TypeName {
 func (p *Parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
 	for _, t := range qua {
 		if (*q)[t.Literal()] {
-			p.addWarn(t, "duplicate %s", t.Literal())
+			p.addWarn(t, errors.ErrSyntaxDuplicateTypeQualifier, t.Literal())
 		}
 		(*q)[t.Literal()] = true
 	}
@@ -707,7 +697,7 @@ func (p *Parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
 func (p *Parser) markSpecifier(q *ast.Specifier, qua []token.Token) {
 	for _, t := range qua {
 		if (*q)[t.Literal()] {
-			p.addWarn(t, "duplicate %s", t.Literal())
+			p.addWarn(t, errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
 		}
 		(*q)[t.Literal()] = true
 	}
@@ -744,7 +734,7 @@ func (p *Parser) parseRecordType() *ast.RecordType {
 			// bit field
 			// TODO 递归类型引用检查
 			if f.Bit == nil && f.Name == nil && !isRecordType(typ) {
-				p.addErr(p.cur, "expected member name after declaration specifiers")
+				p.addErr(p.cur, errors.ErrSyntaxExpectedRecordMemberName)
 				break
 			}
 			r.Fields = append(r.Fields, f)
@@ -1129,7 +1119,7 @@ func (p *Parser) expectIdent() token.Token {
 		p.next()
 		return tok
 	}
-	p.addErr(p.cur, fmt.Sprintf("expect token %s got %s", token.IDENT, p.cur.Type()))
+	p.addErr(p.cur, errors.ErrSyntaxExpectedIdentGot, p.cur.Literal())
 	return p.cur
 }
 
@@ -1145,7 +1135,7 @@ func (p *Parser) exceptKeyword(lit string) (t token.Token) {
 		p.next()
 		return
 	}
-	p.addErr(p.cur, "expect %s got %s", lit, p.cur.Literal())
+	p.addErr(p.cur, errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
 	return
 }
 
@@ -1155,16 +1145,16 @@ func (p *Parser) exceptPunctuator(lit string) (t token.Token) {
 		p.next()
 		return
 	}
-	p.addErr(p.cur, "expect %s got %s", lit, p.cur.Literal())
+	p.addErr(p.cur, errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
 	return
 }
 
-func (p *Parser) addErr(pos token.Token, msg string, args ...interface{}) {
-	p.err(pos, ErrTypeError, fmt.Sprintf(msg, args...))
+func (p *Parser) addErr(pos token.Token, code errors.ErrCode, args ...interface{}) {
+	p.err(pos.Position(), errors.ErrTypeError, code, args...)
 }
 
-func (p *Parser) addWarn(pos token.Token, msg string, args ...interface{}) {
-	p.err(pos, ErrTypeError, fmt.Sprintf(msg, args...))
+func (p *Parser) addWarn(pos token.Token, code errors.ErrCode, args ...interface{}) {
+	p.err(pos.Position(), errors.ErrTypeError, code, args...)
 }
 
 func (p *Parser) peekOne() token.Token {

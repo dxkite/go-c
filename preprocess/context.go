@@ -1,6 +1,7 @@
 package preprocess
 
 import (
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
 	"path"
@@ -83,7 +84,7 @@ type Context struct {
 	counter int                  // __COUNTER__
 	once    map[string]struct{}  // #pragma once
 	cdt     *ConditionStack      // 条件栈
-	err     ErrorList            // 错误信息
+	err     errors.ErrorList     // 错误信息
 }
 
 // NewContext 创建宏处理环境
@@ -92,7 +93,7 @@ func NewContext() *Context {
 	c.Val = map[string]MacroDecl{}
 	c.cdt = NewConditionStack()
 	c.once = map[string]struct{}{}
-	c.err = ErrorList{}
+	c.err = errors.ErrorList{}
 	return c
 }
 
@@ -108,7 +109,7 @@ func (c *Context) pragmaOnce(p string) {
 	c.once[p] = struct{}{}
 }
 
-func (c *Context) DefineVal(name string, body []token.Token) error {
+func (c *Context) DefineVal(name string, body []token.Token) *errors.Error {
 	if err := checkValidHashHashExpr(body); err != nil {
 		return err
 	}
@@ -119,9 +120,9 @@ func (c *Context) DefineVal(name string, body []token.Token) error {
 	return nil
 }
 
-func (c *Context) DefineValStr(name, value string) error {
+func (c *Context) DefineValStr(name, value string) *errors.Error {
 	if tok, err := scanner.ScanString("<build-in>", value); err != nil {
-		return err
+		return errors.NewStd(token.Position{}, err)
 	} else {
 		return c.DefineVal(name, tok)
 	}
@@ -131,7 +132,7 @@ func (c *Context) Define(name string, val MacroDecl) {
 	c.Val[name] = val
 }
 
-func (c *Context) DefineFunc(name string, params []string, ellipsis bool, body []token.Token) error {
+func (c *Context) DefineFunc(name string, params []string, ellipsis bool, body []token.Token) *errors.Error {
 	if err := checkValidHashExpr(params, body); err != nil {
 		return err
 	}
@@ -196,13 +197,17 @@ func (c *Context) lineFn(tok token.Token) []token.Token {
 	return []token.Token{val}
 }
 
-func (c *Context) Error() ErrorList {
+func (c *Context) Error() errors.ErrorList {
 	return c.err
 }
 
 // AddError 添加错误
-func (c *Context) AddError(pos token.Position, msg string, args ...interface{}) {
-	c.err.Add(pos, msg, args...)
+func (c *Context) AddError(err *errors.Error) {
+	c.err.AddErr(err)
+}
+
+func (c *Context) AddErrorMsg(pos token.Position, code errors.ErrCode, args ...interface{}) {
+	c.err.AddErrMsg(pos, code, args...)
 }
 
 // Top 栈顶

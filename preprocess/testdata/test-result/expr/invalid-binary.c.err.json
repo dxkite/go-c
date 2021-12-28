@@ -5,6 +5,10 @@
             "Line": 1,
             "Column": 2
         },
-        "Msg": "preprocess expr: unexpect token >>="
+        "Msg": "",
+        "Code": 2027,
+        "Params": [
+            ">>="
+        ]
     }
 ]

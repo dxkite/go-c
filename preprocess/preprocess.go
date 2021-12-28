@@ -1,9 +1,9 @@
 package preprocess
 
 import (
+	"dxkite.cn/c/errors"
 	"dxkite.cn/c/scanner"
 	"dxkite.cn/c/token"
-	"fmt"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -240,9 +240,10 @@ func (p *processor) expandMacroBody(tok token.Token, body []token.Token, params 
 			beforeTok := exp[tail]
 			afterTok := tokens[0]
 			lit = beforeTok.Literal() + afterTok.Literal()
+
 			if !isValidToken(lit) {
 				typ = token.ILLEGAL
-				p.addErr(p.cur.Position(), "invalid ## operator between %s and %s", beforeTok.Literal(), afterTok.Literal())
+				p.addErr(p.cur.Position(), errors.ErrMacroHashHashExpr, beforeTok.Literal(), afterTok.Literal())
 			}
 
 			exp[tail] = &Token{
@@ -303,13 +304,13 @@ func (p *processor) readParameters(val *MacroFunc) (map[string][]token.Token, bo
 		} else if val.Ellipsis {
 			params[MacroParameterVarArgs] = p.readEllipsisParameter()
 		} else {
-			p.addErr(p.cur.Position(), "expect params %d got %d", n, i)
+			p.addErr(p.cur.Position(), errors.ErrMacroCallParamCount, n, i)
 		}
 		i++
 	}
 	p.expectPunctuator(")")
 	if len(params) < n {
-		p.addErr(p.cur.Position(), "requires %d arguments, but only %d given", n, len(params))
+		p.addErr(p.cur.Position(), errors.ErrMacroCallParamCount, n, len(params))
 		return nil, false
 	}
 	return params, true
@@ -357,8 +358,12 @@ func (p *processor) next() token.Token {
 	return p.cur
 }
 
-func (p *processor) addErr(pos token.Position, msg string, args ...interface{}) {
-	p.ctx.AddError(pos, msg, args...)
+func (p *processor) addErr(pos token.Position, code errors.ErrCode, args ...interface{}) {
+	p.ctx.AddErrorMsg(pos, code, args...)
+}
+
+func (p *processor) err(err *errors.Error) {
+	p.ctx.AddError(err)
 }
 
 // 获取下一个非空token
@@ -419,7 +424,7 @@ func (p *processor) doMacro() {
 			p.next() // endif
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), "unexpected #else")
+			p.addErr(p.cur.Position(), errors.ErrUnexpectedElseIfMacro)
 		}
 	case "else":
 		p.next()
@@ -429,7 +434,7 @@ func (p *processor) doMacro() {
 			p.next()
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), "unexpected #else")
+			p.addErr(p.cur.Position(), errors.ErrUnexpectedElseMacro)
 		}
 	case "endif":
 		if p.ctx.Top() == IN_THEN || p.ctx.Top() == IN_ELSE {
@@ -437,7 +442,7 @@ func (p *processor) doMacro() {
 			p.next() // endif
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), "unexpected #endif")
+			p.addErr(p.cur.Position(), errors.ErrUnexpectedEndIfMacro)
 		}
 	case "define":
 		p.doDefine()
@@ -478,9 +483,7 @@ func (p *processor) deltaLine(delta int) {
 	c := p.startCache()
 	p.skipEndMacro()
 	arr := c.GetClear()
-	// fmt.Println("deltaLine=>before", delta, inlineTokenString(arr), "=>", printTokens(arr))
 	columnDelta(arr, delta)
-	// fmt.Println("deltaLine=>after", delta, inlineTokenString(arr), "=>", printTokens(arr))
 	p.push(arr)
 }
 
@@ -520,7 +523,7 @@ func (p *processor) expectIdent() string {
 		p.next()
 		return lit
 	}
-	p.addErr(p.cur.Position(), fmt.Sprintf("expect token %s got %s", token.IDENT, p.cur.Type()))
+	p.addErr(p.cur.Position(), errors.ErrExpectedMacroIdent, token.IDENT, p.cur.Type())
 	return ""
 }
 
@@ -535,7 +538,7 @@ func (p *processor) punctuator(lit string, require bool) {
 	}
 
 	if require {
-		p.addErr(p.cur.Position(), fmt.Sprintf("expect punctuator %s got %s", lit, p.cur.Literal()))
+		p.addErr(p.cur.Position(), errors.ErrExpectedMacroPunctuator, lit, p.cur.Literal())
 	}
 }
 
@@ -544,7 +547,7 @@ func (p *processor) expectEndMacro() {
 		p.nextToken()
 		return
 	}
-	p.addErr(p.cur.Position(), fmt.Sprintf("expect end macro got %s", p.cur.Type()))
+	p.addErr(p.cur.Position(), errors.ErrMacroEnd, p.cur.Literal())
 }
 
 // 宏结尾
@@ -559,7 +562,7 @@ func (p *processor) skipUtilCdt(names ...string) []token.Token {
 	for {
 		p.next()
 		if p.cur.Type() == token.EOF {
-			p.addErr(p.cur.Position(), fmt.Sprintf("expect %s, got EOF", strings.Join(names, ",")))
+			p.addErr(p.cur.Position(), errors.ErrMacroExpectedTokenGotEof, strings.Join(names, ","))
 			break
 		}
 		if isMacroTok(p.cur) {
@@ -628,7 +631,7 @@ func (p *processor) evalConstExpr() bool {
 	exp := New(p.ctx, scanner.NewArrayScan(tks), p.ignoreErr)
 	expand, err := scanner.ScanToken(exp)
 	if err != nil {
-		p.addErr(p.cur.Position(), "invalid const-expr %s", inlineTokenString(tks))
+		p.addErr(p.cur.Position(), errors.ErrMacroConstExpr, inlineTokenString(tks))
 	}
 	return EvalConstExpr(p.ctx, expand)
 }
@@ -638,7 +641,7 @@ func (p *processor) doDefine() {
 	ident := p.expectIdent()
 
 	if p.ctx.IsDefined(ident) {
-		p.addErr(p.cur.Position(), "duplicate define of %s", ident)
+		p.addErr(p.cur.Position(), errors.ErrDuplicateDefine, ident)
 		p.skipEndMacro()
 		return
 	}
@@ -675,7 +678,7 @@ func (p *processor) doDefineVal(ident string) {
 	}
 
 	if err := p.ctx.DefineVal(ident, tks); err != nil {
-		p.addErr(err.(*Error).Pos, err.(*Error).Msg)
+		p.err(err)
 	}
 }
 
@@ -696,7 +699,7 @@ func (p *processor) doDefineFunc(ident string) {
 			p.nextToken()
 			p.punctuator(",", false)
 		} else {
-			p.addErr(p.cur.Position(), fmt.Sprintf("expect ident, got %s <%s>", p.cur.Type(), p.cur.Literal()))
+			p.addErr(p.cur.Position(), errors.ErrExpectedMacroGot, p.cur.Type(), p.cur.Literal())
 			break
 		}
 	}
@@ -708,7 +711,7 @@ func (p *processor) doDefineFunc(ident string) {
 		p.nextToken()
 	}
 	if err := p.ctx.DefineFunc(ident, params, elp, tks); err != nil {
-		p.addErr(err.(*Error).Pos, err.(*Error).Msg)
+		p.err(err)
 	}
 }
 
@@ -718,7 +721,7 @@ func (p *processor) doInclude() {
 		p.nextToken()
 		f, err := strconv.Unquote(p.cur.Literal())
 		if err != nil {
-			p.addErr(p.cur.Position(), "invalid include string %s", p.cur.Literal())
+			p.addErr(p.cur.Position(), errors.ErrInvalidIncludeString, p.cur.Literal())
 		}
 		p.nextToken()
 		p.skipEndMacro() // 跳到换行
@@ -742,7 +745,7 @@ func (p *processor) doInclude() {
 
 	// 不进行多次展开
 	if _, ok := p.peekNext().(*Token); ok {
-		p.addErr(p.nextToken().Position(), "invalid #include")
+		p.addErr(p.nextToken().Position(), errors.ErrInvalidIncludeMacro)
 		return
 	}
 
@@ -754,7 +757,7 @@ func (p *processor) doInclude() {
 	exp := New(p.ctx, scanner.NewArrayScan(tks), p.ignoreErr)
 	expand, err := scanner.ScanToken(exp)
 	if err != nil {
-		p.addErr(p.cur.Position(), "invalid include string %s", inlineTokenString(tks))
+		p.addErr(p.cur.Position(), errors.ErrInvalidIncludeString, inlineTokenString(tks))
 	}
 	p.push(expand)
 	p.doInclude()
@@ -773,14 +776,14 @@ func (p *processor) includeFile(s string) {
 		}
 		sc, err := scanner.NewFileScan(fn)
 		if err != nil {
-			p.addErr(p.cur.Position(), "include %s: %s", fn, err.Error())
+			p.addErr(p.cur.Position(), errors.ErrIncludeFileRead, fn, err.Error())
 			return
 		}
 		p.push([]token.Token{p.cur})
 		p.pushScanner(sc)
 		p.next()
 	} else {
-		p.addErr(p.cur.Position(), "file not found %s", s)
+		p.addErr(p.cur.Position(), errors.ErrIncludeFileNoFound, s)
 	}
 }
 func (p *processor) startCache() scanner.CachedScanner {
@@ -834,7 +837,7 @@ func (p *processor) doError() {
 	p.skipEndMacro()
 	msg := c.GetClear()
 	p.expectEndMacro()
-	p.addErr(pos, inlineTokenString(msg))
+	p.err(errors.NewMsg(pos, inlineTokenString(msg)))
 }
 
 type lineDirective struct {

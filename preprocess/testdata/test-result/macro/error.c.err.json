@@ -5,6 +5,8 @@
             "Line": 3,
             "Column": 2
         },
-        "Msg": "this is something error at somewhere"
+        "Msg": "this is something error at somewhere",
+        "Code": 0,
+        "Params": null
     }
 ]
