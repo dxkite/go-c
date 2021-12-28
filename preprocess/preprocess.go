@@ -424,7 +424,7 @@ func (p *processor) doMacro() {
 			p.next() // endif
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), errors.ErrUnexpectedElseIfMacro)
+			p.addErr(p.cur.Position(), errors.ErrMacroUnexpectedElseIf)
 		}
 	case "else":
 		p.next()
@@ -434,7 +434,7 @@ func (p *processor) doMacro() {
 			p.next()
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), errors.ErrUnexpectedElseMacro)
+			p.addErr(p.cur.Position(), errors.ErrMacroUnexpectedElse)
 		}
 	case "endif":
 		if p.ctx.Top() == IN_THEN || p.ctx.Top() == IN_ELSE {
@@ -442,7 +442,7 @@ func (p *processor) doMacro() {
 			p.next() // endif
 			p.expectEndMacro()
 		} else {
-			p.addErr(p.cur.Position(), errors.ErrUnexpectedEndIfMacro)
+			p.addErr(p.cur.Position(), errors.ErrMacroUnexpectedEndIf)
 		}
 	case "define":
 		p.doDefine()
@@ -523,7 +523,7 @@ func (p *processor) expectIdent() string {
 		p.next()
 		return lit
 	}
-	p.addErr(p.cur.Position(), errors.ErrExpectedMacroIdent, token.IDENT, p.cur.Type())
+	p.addErr(p.cur.Position(), errors.ErrMacroExpectedIdent, token.IDENT, p.cur.Type())
 	return ""
 }
 
@@ -538,7 +538,7 @@ func (p *processor) punctuator(lit string, require bool) {
 	}
 
 	if require {
-		p.addErr(p.cur.Position(), errors.ErrExpectedMacroPunctuator, lit, p.cur.Literal())
+		p.addErr(p.cur.Position(), errors.ErrMacroExpectedPunctuator, lit, p.cur.Literal())
 	}
 }
 
@@ -641,7 +641,7 @@ func (p *processor) doDefine() {
 	ident := p.expectIdent()
 
 	if p.ctx.IsDefined(ident) {
-		p.addErr(p.cur.Position(), errors.ErrDuplicateDefine, ident)
+		p.addErr(p.cur.Position(), errors.ErrMacroDuplicateIdent, ident)
 		p.skipEndMacro()
 		return
 	}
@@ -699,7 +699,7 @@ func (p *processor) doDefineFunc(ident string) {
 			p.nextToken()
 			p.punctuator(",", false)
 		} else {
-			p.addErr(p.cur.Position(), errors.ErrExpectedMacroGot, p.cur.Type(), p.cur.Literal())
+			p.addErr(p.cur.Position(), errors.ErrMacroExpectedGot, p.cur.Type(), p.cur.Literal())
 			break
 		}
 	}
@@ -721,7 +721,7 @@ func (p *processor) doInclude() {
 		p.nextToken()
 		f, err := strconv.Unquote(p.cur.Literal())
 		if err != nil {
-			p.addErr(p.cur.Position(), errors.ErrInvalidIncludeString, p.cur.Literal())
+			p.addErr(p.cur.Position(), errors.ErrMacroInvalidIncludeString, p.cur.Literal())
 		}
 		p.nextToken()
 		p.skipEndMacro() // 跳到换行
@@ -745,7 +745,7 @@ func (p *processor) doInclude() {
 
 	// 不进行多次展开
 	if _, ok := p.peekNext().(*Token); ok {
-		p.addErr(p.nextToken().Position(), errors.ErrInvalidIncludeMacro)
+		p.addErr(p.nextToken().Position(), errors.ErrMacroInvalidIncludeMacro)
 		return
 	}
 
@@ -757,7 +757,7 @@ func (p *processor) doInclude() {
 	exp := New(p.ctx, scanner.NewArrayScan(tks), p.ignoreErr)
 	expand, err := scanner.ScanToken(exp)
 	if err != nil {
-		p.addErr(p.cur.Position(), errors.ErrInvalidIncludeString, inlineTokenString(tks))
+		p.addErr(p.cur.Position(), errors.ErrMacroInvalidIncludeString, inlineTokenString(tks))
 	}
 	p.push(expand)
 	p.doInclude()
@@ -776,14 +776,14 @@ func (p *processor) includeFile(s string) {
 		}
 		sc, err := scanner.NewFileScan(fn)
 		if err != nil {
-			p.addErr(p.cur.Position(), errors.ErrIncludeFileRead, fn, err.Error())
+			p.addErr(p.cur.Position(), errors.ErrMacroIncludeFileRead, fn, err.Error())
 			return
 		}
 		p.push([]token.Token{p.cur})
 		p.pushScanner(sc)
 		p.next()
 	} else {
-		p.addErr(p.cur.Position(), errors.ErrIncludeFileNoFound, s)
+		p.addErr(p.cur.Position(), errors.ErrMacroIncludeFileNoFound, s)
 	}
 }
 func (p *processor) startCache() scanner.CachedScanner {

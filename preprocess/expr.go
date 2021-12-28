@@ -165,7 +165,7 @@ func (p *Parser) exceptPunctuator(lit string) (t token.Token) {
 		p.next()
 		return
 	}
-	p.addErr(p.cur.Position(), errors.ErrExpectedMacroGot, lit, p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrMacroExpectedGot, lit, p.cur.Literal())
 	return
 }
 
@@ -221,7 +221,7 @@ func (p *Parser) parseDefined() (expr Expr) {
 		left++
 	}
 	if p.cur.Type() != token.IDENT {
-		p.addErr(p.cur.Position(), errors.ErrExpectedMacroIdent, p.cur.Literal())
+		p.addErr(p.cur.Position(), errors.ErrMacroExpectedIdent, p.cur.Literal())
 	}
 	x := p.cur
 	p.next()

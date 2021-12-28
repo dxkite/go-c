@@ -10,33 +10,33 @@ func _() {
 	var x [1]struct{}
 	_ = x[ErrUnKnown-0]
 	_ = x[ErrReadFile-1]
-	_ = x[scanErrBegin-1002]
-	_ = x[ErrUncloseChar-1003]
-	_ = x[ErrUncloseString-1004]
-	_ = x[ErrUncloseComment-1005]
-	_ = x[ErrHexFormat-1006]
-	_ = x[ErrUnicodeFormat-1007]
-	_ = x[preprocessErrBegin-2008]
+	_ = x[scanErr-1002]
+	_ = x[ErrScanUncloseChar-1003]
+	_ = x[ErrScanUncloseString-1004]
+	_ = x[ErrScanUncloseComment-1005]
+	_ = x[ErrScanHexFormat-1006]
+	_ = x[ErrScanUnicodeFormat-1007]
+	_ = x[macroErr-2008]
 	_ = x[ErrMacroHashHashPos-2009]
 	_ = x[ErrMacroHashHashExpr-2010]
 	_ = x[ErrMacroHashExpr-2011]
 	_ = x[ErrMacroCallParamCount-2012]
-	_ = x[ErrUnexpectedElseIfMacro-2013]
-	_ = x[ErrUnexpectedElseMacro-2014]
-	_ = x[ErrUnexpectedEndIfMacro-2015]
-	_ = x[ErrExpectedMacroIdent-2016]
-	_ = x[ErrExpectedMacroGot-2017]
-	_ = x[ErrExpectedMacroPunctuator-2018]
+	_ = x[ErrMacroUnexpectedElseIf-2013]
+	_ = x[ErrMacroUnexpectedElse-2014]
+	_ = x[ErrMacroUnexpectedEndIf-2015]
+	_ = x[ErrMacroExpectedIdent-2016]
+	_ = x[ErrMacroExpectedGot-2017]
+	_ = x[ErrMacroExpectedPunctuator-2018]
 	_ = x[ErrMacroEnd-2019]
 	_ = x[ErrMacroExpectedTokenGotEof-2020]
 	_ = x[ErrMacroConstExpr-2021]
-	_ = x[ErrDuplicateDefine-2022]
-	_ = x[ErrInvalidIncludeString-2023]
-	_ = x[ErrInvalidIncludeMacro-2024]
-	_ = x[ErrIncludeFileRead-2025]
-	_ = x[ErrIncludeFileNoFound-2026]
+	_ = x[ErrMacroDuplicateIdent-2022]
+	_ = x[ErrMacroInvalidIncludeString-2023]
+	_ = x[ErrMacroInvalidIncludeMacro-2024]
+	_ = x[ErrMacroIncludeFileRead-2025]
+	_ = x[ErrMacroIncludeFileNoFound-2026]
 	_ = x[ErrMacroExprUnexpectedToken-2027]
-	_ = x[parserError-3028]
+	_ = x[syntaxError-3028]
 	_ = x[ErrSyntaxExpectedGot-3029]
 	_ = x[ErrSyntaxExpectedIdentGot-3030]
 	_ = x[ErrSyntaxUnexpectedTypeSpecifier-3031]
@@ -47,15 +47,15 @@ func _() {
 
 const (
 	_ErrCode_name_0 = "未知错误代码文件读取失败"
-	_ErrCode_name_1 = "scanErrBegin字符缺少关闭的 ' 符号字符串缺少关闭的 \" 符号多行注释缺少对应的关闭 */ 符号符号 %c 不是一个16进制编码字符符号 %c 不是一个Unicode编码字符"
-	_ErrCode_name_2 = "preprocessErrBegin## 不能出现在宏表达式的起始或结束位置## 不能用来连接 %s 和 %s# 符号后面必须跟着一个宏参数宏调用参数数量错误，支持%d个参数，使用了%d个参数不应该出现的 #elif 宏不应该出现的 #else 宏不应该出现的 #endif 宏这里应该是一个名称，不应该出现 %s 符号这里应该是一个 %s ，不应该出现 %s这里应该是一个 %s 符号，不应该出现 %s 符号这里应该是宏结尾了，不应该出现 %s 符号需要符号为 %s，意外的遇到了文件尾错误的宏常量表达式 %s重复定义了符号 %s#include 包含错误的字符串 %s错误的 #include 宏#include的文件 %s 读取错误 %s#include的文件不存在 %s非预期的宏表达式符号%s"
-	_ErrCode_name_3 = "parserError这里应该是一个 %s ，不应该出现 %s这里应该是一个名称，不应该出现 %s 符号非预期的类型定义符号 %s重复的类型定义符号 %s重复的类型修饰符号 %s类型定义符号之后应该是成员变量的名称"
+	_ErrCode_name_1 = "scanErr字符缺少关闭的 ' 符号字符串缺少关闭的 \" 符号多行注释缺少对应的关闭 */ 符号符号 %c 不是一个16进制编码字符符号 %c 不是一个Unicode编码字符"
+	_ErrCode_name_2 = "macroErr## 不能出现在宏表达式的起始或结束位置## 不能用来连接 %s 和 %s# 符号后面必须跟着一个宏参数宏调用参数数量错误，支持%d个参数，使用了%d个参数不应该出现的 #elif 宏不应该出现的 #else 宏不应该出现的 #endif 宏这里应该是一个名称，不应该出现 %s 符号这里应该是一个 %s ，不应该出现 %s这里应该是一个 %s 符号，不应该出现 %s 符号这里应该是宏结尾了，不应该出现 %s 符号需要符号为 %s，意外的遇到了文件尾错误的宏常量表达式 %s重复定义了符号 %s#include 包含错误的字符串 %s错误的 #include 宏#include的文件 %s 读取错误 %s#include的文件不存在 %s非预期的宏表达式符号%s"
+	_ErrCode_name_3 = "syntaxError这里应该是一个 %s ，不应该出现 %s这里应该是一个名称，不应该出现 %s 符号非预期的类型定义符号 %s重复的类型定义符号 %s重复的类型修饰符号 %s类型定义符号之后应该是成员变量的名称"
 )
 
 var (
 	_ErrCode_index_0 = [...]uint8{0, 12, 36}
-	_ErrCode_index_1 = [...]uint8{0, 12, 42, 75, 118, 160, 201}
-	_ErrCode_index_2 = [...]uint16{0, 18, 72, 103, 144, 214, 242, 270, 299, 354, 400, 459, 514, 562, 592, 616, 652, 674, 710, 739, 771}
+	_ErrCode_index_1 = [...]uint8{0, 7, 37, 70, 113, 155, 196}
+	_ErrCode_index_2 = [...]uint16{0, 8, 62, 93, 134, 204, 232, 260, 289, 344, 390, 449, 504, 552, 582, 606, 642, 664, 700, 729, 761}
 	_ErrCode_index_3 = [...]uint16{0, 11, 57, 112, 145, 175, 205, 259}
 )
 

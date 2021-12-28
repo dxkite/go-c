@@ -297,12 +297,12 @@ func (s *scanner) nextIsChar(ch rune) bool {
 
 // 扫描字符串
 func (s *scanner) scanChar() string {
-	return s.scanQuote(errors.ErrUncloseChar, '\'')
+	return s.scanQuote(errors.ErrScanUncloseChar, '\'')
 }
 
 // 扫描字符串
 func (s *scanner) scanString() string {
-	return s.scanQuote(errors.ErrUncloseString, '"')
+	return s.scanQuote(errors.ErrScanUncloseString, '"')
 }
 
 // 扫描字符串
@@ -350,7 +350,7 @@ func (s *scanner) scanEscape() bool {
 		n := 2
 		for n > 0 {
 			if !isHex(s.ch) {
-				s.markErr(errors.ErrHexFormat, s.ch)
+				s.markErr(errors.ErrScanHexFormat, s.ch)
 				return false
 			}
 			n--
@@ -370,7 +370,7 @@ func (s *scanner) scanUniversalEscape() bool {
 	s.next() // skip u
 	for n > 0 {
 		if !isHex(s.ch) {
-			s.markErr(errors.ErrUnicodeFormat, s.ch)
+			s.markErr(errors.ErrScanUnicodeFormat, s.ch)
 			return false
 		}
 		n--
@@ -393,7 +393,7 @@ func (s *scanner) skipComment() {
 		s.next()
 		for {
 			if s.ch < 0 {
-				s.markErr(errors.ErrUncloseComment)
+				s.markErr(errors.ErrScanUncloseComment)
 				return
 			}
 			s.next()
