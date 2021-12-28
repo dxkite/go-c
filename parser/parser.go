@@ -363,17 +363,14 @@ func (p *Parser) parseDesignator() ast.Expr {
 
 func (p *Parser) parseArgsExpr() []ast.Expr {
 	p.next() // (
-	list := []ast.Expr{}
+	var list []ast.Expr
 	for p.cur.Literal() != ")" {
 		item := p.parseAssignExpr()
 		list = append(list, item)
-		if t := p.peekOne(); p.cur.Literal() != "}" && t.Literal() != "}" {
-			p.exceptPunctuator(",")
-		} else {
-			if p.cur.Literal() == "," {
-				p.next() //,
-			}
+		if p.cur.Literal() != "," {
+			break
 		}
+		p.exceptPunctuator(",")
 	}
 	p.exceptPunctuator(")")
 	return list
@@ -453,14 +450,7 @@ func (p *Parser) parseAbstractDeclarator(inner ast.TypeName) ast.TypeName {
 }
 
 func (p *Parser) parseFuncType(inner ast.TypeName) ast.TypeName {
-	p.next() // (
-	params := p.parseParameterList()
-	ellipsis := false
-	if p.cur.Literal() == "..." {
-		p.next() // ...
-		ellipsis = true
-	}
-	p.exceptPunctuator(")")
+	params, ellipsis := p.parseParameterList()
 	return &ast.FuncType{
 		Inner:    inner,
 		Params:   params,
@@ -512,16 +502,22 @@ func (p *Parser) parseArrayTypeExpr(inner ast.TypeName) ast.TypeName {
 	}
 }
 
-func (p *Parser) parseParameterList() ast.ParamList {
-	params := ast.ParamList{}
+func (p *Parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
+	p.exceptPunctuator("(")
 	for p.cur.Literal() != ")" && p.cur.Literal() != "..." {
 		param := p.parseParameterDecl()
 		params = append(params, param)
-		if t := p.peekOne(); t.Literal() != ")" {
-			p.exceptPunctuator(",")
+		if p.cur.Literal() != "," {
+			break
 		}
+		p.exceptPunctuator(",")
 	}
-	return params
+	if p.cur.Literal() == "..." {
+		ellipsis = true
+		p.next()
+	}
+	p.exceptPunctuator(")")
+	return
 }
 
 func (p *Parser) parseParameterDecl() *ast.ParamVarDecl {
@@ -1100,7 +1096,7 @@ func (p *Parser) parseExternalDecl() ast.Decl {
 	return decl
 }
 
-func (p *Parser) parseUnit() *ast.TranslationUnitDecl {
+func (p *Parser) ParseUnit() *ast.TranslationUnitDecl {
 	decls := &ast.TranslationUnitDecl{}
 	for p.cur.Type() != token.EOF {
 		decls.Decl = append(decls.Decl, p.ParseDecl())
