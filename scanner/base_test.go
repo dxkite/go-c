@@ -87,7 +87,7 @@ func TestScanFile(t *testing.T) {
 		ext := filepath.Ext(p)
 		if ext == ".c" {
 			t.Run(p, func(t *testing.T) {
-				tks, err := ScanFile(p)
+				tks, err := ScanFile(p, &Option{PunctuatorFullWidthToHalfWidth: true})
 
 				expect := p + ".expect.json"
 				if !exists(expect) {
@@ -136,7 +136,7 @@ func Test_scanner_scanQuote(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := ScanString("", tt.code)
+			_, err := ScanString("", tt.code, nil)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ScanString() error = %v, wantErr %v", err, tt.wantErr)
 				return

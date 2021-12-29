@@ -121,7 +121,7 @@ func (c *Context) DefineVal(name string, body []token.Token) *errors.Error {
 }
 
 func (c *Context) DefineValStr(name, value string) *errors.Error {
-	if tok, err := scanner.ScanString("<build-in>", value); err != nil {
+	if tok, err := scanner.ScanString("<build-in>", value, nil); err != nil {
 		return errors.NewStd(token.Position{}, err)
 	} else {
 		return c.DefineVal(name, tok)

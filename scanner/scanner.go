@@ -37,22 +37,22 @@ func ScanToken(s Scanner) ([]token.Token, error) {
 	return tks, nil
 }
 
-func Scan(filename string, r io.Reader) ([]token.Token, error) {
-	s := NewScan(filename, r)
+func Scan(filename string, r io.Reader, opt *Option) ([]token.Token, error) {
+	s := NewScan(filename, r, opt)
 	return ScanToken(s)
 }
 
-func ScanString(name, code string) ([]token.Token, error) {
-	return Scan(name, bytes.NewBufferString(code))
+func ScanString(name, code string, opt *Option) ([]token.Token, error) {
+	return Scan(name, bytes.NewBufferString(code), opt)
 }
 
-func ScanFile(filename string) ([]token.Token, error) {
+func ScanFile(filename string, opt *Option) ([]token.Token, error) {
 	f, er := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
 	if er != nil {
 		return nil, er
 	}
 	defer func() { _ = f.Close() }()
-	return Scan(filename, f)
+	return Scan(filename, f, opt)
 }
 
 type arrayScanner struct {
@@ -245,7 +245,7 @@ type fileScanner struct {
 	eof    token.Token
 }
 
-func NewFileScan(filename string) (Scanner, error) {
+func NewFileScan(filename string, opt *Option) (Scanner, error) {
 	s := &fileScanner{}
 	s.name = filename
 	f, er := os.OpenFile(filename, os.O_RDONLY, os.ModePerm)
@@ -253,7 +253,7 @@ func NewFileScan(filename string) (Scanner, error) {
 		return nil, er
 	}
 	s.f = f
-	s.Scanner = NewScan(filename, f)
+	s.Scanner = NewScan(filename, f, opt)
 	return s, nil
 }
 

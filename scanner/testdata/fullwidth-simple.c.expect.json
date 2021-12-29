@@ -1,0 +1,200 @@
+[
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "#"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 3
+    },
+    "Typ": "IDENT",
+    "Lit": "define"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 9
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 10
+    },
+    "Typ": "IDENT",
+    "Lit": "C"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 11
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 12
+    },
+    "Typ": "INT",
+    "Lit": "12345"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 1,
+      "Column": 17
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 1
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 4
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 5
+    },
+    "Typ": "IDENT",
+    "Lit": "main"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 9
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "("
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ")"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 11
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "{"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 2,
+      "Column": 13
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 1
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 5
+    },
+    "Typ": "KEYWORD",
+    "Lit": "int"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 8
+    },
+    "Typ": "WHITESPACE",
+    "Lit": " "
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 9
+    },
+    "Typ": "IDENT",
+    "Lit": "a"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 10
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": ";"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 3,
+      "Column": 11
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 4,
+      "Column": 1
+    },
+    "Typ": "PUNCTUATOR",
+    "Lit": "}"
+  },
+  {
+    "Pos": {
+      "Filename": "testdata\\fullwidth-simple.c",
+      "Line": 4,
+      "Column": 2
+    },
+    "Typ": "NEWLINE",
+    "Lit": "\n"
+  }
+]

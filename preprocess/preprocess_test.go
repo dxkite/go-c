@@ -68,7 +68,7 @@ func TestScanFile(t *testing.T) {
 					ctx := NewContext()
 					ctx.Init()
 
-					exp := New(ctx, scanner.NewScan(p, f), true)
+					exp := New(ctx, scanner.NewScan(p, f, nil), nil)
 
 					tks, _ := scanner.ScanToken(exp)
 
@@ -96,7 +96,7 @@ func TestScanFile(t *testing.T) {
 						t.Errorf("LoadResult error = %v", err)
 					} else {
 						got := tokenString(tks)
-						want, _ := scanner.ScanString(p, string(data))
+						want, _ := scanner.ScanString(p, string(data), nil)
 						wantStr := tokenString(want)
 						if !reflect.DeepEqual(got, wantStr) {
 							t.Errorf("result error:want:\t%s\ngot:\t%s\n", wantStr, got)
@@ -119,7 +119,7 @@ func TestScanFile(t *testing.T) {
 }
 
 func Test_columnDelta(t *testing.T) {
-	tks, _ := scanner.ScanString("", "abc + 1234")
+	tks, _ := scanner.ScanString("", "abc + 1234", nil)
 	columnDelta(tks[2:], 10)
 	if relativeTokenString(tks) != "abc           + 1234" {
 		t.Error("delta error")

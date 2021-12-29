@@ -17,10 +17,20 @@ type Token struct {
 	Lit string
 }
 
+type Option struct {
+	// 全角符号转半角符号
+	PunctuatorFullWidthToHalfWidth bool
+}
+
 // 非法token
 type IllegalToken struct {
 	*Token
 	Err error
+}
+
+// 全角符号转换的普通符号
+type FullWidthPunctuatorToken struct {
+	*Token
 }
 
 func (t *Token) Position() token.Position {
@@ -38,16 +48,18 @@ func (t *Token) String() string {
 	return token.String(t)
 }
 
-func NewScan(filename string, r io.Reader) Scanner {
+func NewScan(filename string, r io.Reader, option *Option) Scanner {
 	s := &scanner{}
+	if option == nil {
+		option = &Option{}
+	}
+	s.opt = option
 	s.new(filename, r)
 	return s
 }
 
-func NewStringScan(filename string, code string) Scanner {
-	s := &scanner{}
-	s.new(filename, bytes.NewBufferString(code))
-	return s
+func NewStringScan(filename string, code string, option *Option) Scanner {
+	return NewScan(filename, bytes.NewBufferString(code), option)
 }
 
 type scanner struct {
@@ -60,6 +72,7 @@ type scanner struct {
 	rcd       bool
 	lit       string
 	err       error
+	opt       *Option
 }
 
 // new
@@ -173,6 +186,7 @@ func (s *scanner) Scan() token.Token {
 	t.Pos = s.curPos()
 	t.Typ = token.ILLEGAL
 	s.err = nil
+	fullWidth := false
 	switch ch := s.ch; {
 	case isWhitespace(ch):
 		t.Typ = token.WHITESPACE
@@ -201,9 +215,10 @@ func (s *scanner) Scan() token.Token {
 	case s.nextIsNumber():
 		t.Typ, t.Lit = s.scanNumber()
 	default:
-		if lit, n, ok := s.nextIsPunctuator(); ok {
+		if lit, n, full, ok := s.nextIsPunctuator(); ok {
 			t.Lit = lit
 			t.Typ = token.PUNCTUATOR
+			fullWidth = full
 			for n > 0 {
 				n--
 				s.next()
@@ -227,6 +242,9 @@ func (s *scanner) Scan() token.Token {
 			Token: t,
 			Err:   s.err,
 		}
+	}
+	if fullWidth {
+		return &FullWidthPunctuatorToken{Token: t}
 	}
 	return t
 }
@@ -506,8 +524,28 @@ var mp = map[string]string{
 	"%:%:": "##",
 }
 
-func (s *scanner) nextIsPunctuator() (string, int, bool) {
+func toHalfWidthPunctuator(s string) (string, bool) {
+	r := make([]rune, len(s))
+	t := false
+	for i, v := range s {
+		if v >= 0xff01 && v <= 0xff5e {
+			v -= 0xff00 - 0x20
+			t = true
+		}
+		r[i] = v
+	}
+	return string(r), t
+}
+
+func (s *scanner) nextIsPunctuator() (string, int, bool, bool) {
 	tok := s.peekCN(string(s.ch), 3)
+	trans := false
+	if s.opt.PunctuatorFullWidthToHalfWidth {
+		if v, ok := toHalfWidthPunctuator(tok); ok {
+			tok = v
+			trans = true
+		}
+	}
 	for i := len(tok); i > 0; i-- {
 		switch ch := tok[:i]; ch {
 		case "...", ".", ",", "?", ":", ";",
@@ -525,10 +563,10 @@ func (s *scanner) nextIsPunctuator() (string, int, bool) {
 			"<<=", ">>=", "<<", ">>", "<:", ":>", "<%", "%>", "<=", ">=", "<", ">",
 			"##", "#":
 			if v, ok := mp[ch]; ok {
-				return v, i, true
+				return v, i, trans, true
 			}
-			return ch, i, true
+			return ch, i, trans, true
 		}
 	}
-	return "", 0, false
+	return "", 0, trans, false
 }

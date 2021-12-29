@@ -156,7 +156,7 @@ func calcDelta(before, after []token.Token) (delta int) {
 }
 
 func isValidToken(lit string) bool {
-	s := scanner.NewStringScan("<runtime>", lit)
+	s := scanner.NewStringScan("<runtime>", lit, nil)
 	if tks, err := scanner.ScanToken(s); err != nil {
 		return false
 	} else {

@@ -61,7 +61,7 @@ func TestParser_ParseExpr(t *testing.T) {
 					}
 					defer func() { _ = f.Close() }()
 					ctx := NewContext()
-					r := scanner.NewScan(p, f)
+					r := scanner.NewScan(p, f, nil)
 					parser := NewParser(ctx, r)
 					expr := parser.ParseExpr()
 

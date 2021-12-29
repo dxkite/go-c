@@ -9,20 +9,27 @@ import (
 	"strings"
 )
 
+type Option struct {
+	scanner.Option
+}
+
 type processor struct {
-	ctx       *Context
-	cur       token.Token
-	r         scanner.Scanner
-	ignoreErr bool
+	ctx *Context
+	cur token.Token
+	r   scanner.Scanner
+	opt *Option
 }
 
 // New 创建宏处理器
-func New(ctx *Context, r scanner.Scanner, ignoreErr bool) scanner.Scanner {
+func New(ctx *Context, r scanner.Scanner, opt *Option) scanner.Scanner {
 	e := &processor{}
 	e.r = r
 	e.ctx = ctx
 	e.next()
-	e.ignoreErr = ignoreErr
+	if opt == nil {
+		opt = &Option{}
+	}
+	e.opt = opt
 	return e
 }
 
@@ -42,17 +49,6 @@ func (p *processor) Scan() (t token.Token) {
 		}
 		// 普通token
 		t = p.cur
-		if !p.ignoreErr && p.ctx.err.Len() > 0 {
-			t = &scanner.IllegalToken{
-				Token: &scanner.Token{
-					Pos: p.cur.Position(),
-					Typ: p.cur.Type(),
-					Lit: p.cur.Literal(),
-				},
-				Err: p.ctx.err,
-			}
-			return
-		}
 		p.next()
 	}
 	return t
@@ -152,7 +148,7 @@ func (p *processor) expandMacroBodyToken(tok, ident token.Token, params map[stri
 		delta := 0
 		// 展开其他部分
 		if len(cur) > 0 {
-			tokens, _ := scanner.ScanToken(New(p.ctx, newExpandMock(tok, scanner.NewArrayScan(cur)), p.ignoreErr))
+			tokens, _ := scanner.ScanToken(New(p.ctx, newExpandMock(tok, scanner.NewArrayScan(cur)), p.opt))
 			// fmt.Println("expand", inlineTokenString(cur), "=>", inlineTokenString(tokens))
 			exp = append(exp, tokens...)
 			delta = calcDelta(cur, tokens)
@@ -628,7 +624,7 @@ func (p *processor) evalConstExpr() bool {
 		}
 		p.next()
 	}
-	exp := New(p.ctx, scanner.NewArrayScan(tks), p.ignoreErr)
+	exp := New(p.ctx, scanner.NewArrayScan(tks), p.opt)
 	expand, err := scanner.ScanToken(exp)
 	if err != nil {
 		p.addErr(p.cur.Position(), errors.ErrMacroConstExpr, inlineTokenString(tks))
@@ -754,7 +750,7 @@ func (p *processor) doInclude() {
 	c := p.startCache()
 	p.skipEndMacro()
 	tks := c.GetClear()
-	exp := New(p.ctx, scanner.NewArrayScan(tks), p.ignoreErr)
+	exp := New(p.ctx, scanner.NewArrayScan(tks), p.opt)
 	expand, err := scanner.ScanToken(exp)
 	if err != nil {
 		p.addErr(p.cur.Position(), errors.ErrMacroInvalidIncludeString, inlineTokenString(tks))
@@ -774,7 +770,7 @@ func (p *processor) includeFile(s string) {
 			p.expectEndMacro()
 			return
 		}
-		sc, err := scanner.NewFileScan(fn)
+		sc, err := scanner.NewFileScan(fn, &p.opt.Option)
 		if err != nil {
 			p.addErr(p.cur.Position(), errors.ErrMacroIncludeFileRead, fn, err.Error())
 			return

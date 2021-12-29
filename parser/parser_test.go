@@ -26,7 +26,7 @@ func testParseType(name, code, json, err string) bool {
 		})
 	})
 
-	p := NewParser(scanner.NewStringScan("", code), errHandler)
+	p := NewParser(scanner.NewStringScan("", code, nil), errHandler)
 	t := p.parseTypeName()
 	jsonCode, _ := ast.DumpJson(t, true)
 	jsonErr, _ := ast.DumpJson(errList, true)
@@ -79,7 +79,7 @@ func testParseExpr(name, code, json, err string) bool {
 			Msg: errors.New(pos, code, params...).Error(),
 		})
 	})
-	p := NewParser(scanner.NewStringScan("", code), errHandler)
+	p := NewParser(scanner.NewStringScan("", code, nil), errHandler)
 	t := p.parseExpr()
 	jsonCode, _ := ast.DumpJson(t, true)
 	jsonErr, _ := ast.DumpJson(errList, true)
@@ -125,7 +125,7 @@ func testParseDecl(name, code, json, err string) bool {
 			Msg: errors.New(pos, code, params...).Error(),
 		})
 	})
-	p := NewParser(scanner.NewStringScan("", code), errHandler)
+	p := NewParser(scanner.NewStringScan("", code, nil), errHandler)
 	t := p.ParseUnit()
 	jsonCode, _ := ast.DumpJson(t, true)
 	jsonErr, _ := ast.DumpJson(errList, true)
