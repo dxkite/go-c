@@ -179,7 +179,7 @@ func NewTokenScan(s Scanner) Scanner {
 }
 
 func (ts *tokenScanner) Scan() (t token.Token) {
-	for t = ts.Scanner.Scan(); t.Type() == token.WHITESPACE; t = ts.Scanner.Scan() {
+	for t = ts.Scanner.Scan(); t.Type() == token.WHITESPACE || t.Type() == token.NEWLINE; t = ts.Scanner.Scan() {
 		// next
 	}
 	return t
