@@ -894,28 +894,7 @@ func (p *parser) until(lit string) bool {
 }
 
 func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
-	isTypedef := false
-	if v, ok := inner.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
-		isTypedef = true
-		if len(*v.Specifier) == 1 {
-			inner = v.Inner
-		}
-	}
-	typ, ident := p.parseDeclarator(inner)
-	if isTypedef {
-		decl := &ast.TypedefDecl{
-			Type: typ,
-			Name: ident,
-		}
-		p.env.declareType(decl)
-		return decl
-	}
-	decl := &ast.VarDecl{Type: typ, Name: ident}
-	if p.cur.Literal() == "=" {
-		p.next()
-		decl.Init = p.parseInitializer()
-	}
-	p.env.declareIdent(ast.ObjectVar, decl)
+	decl, _ := p.parseExternalDeclOrInit(inner, false)
 	return decl
 }
 
@@ -1109,26 +1088,33 @@ func (p *parser) parseExprStmt() ast.Stmt {
 
 func (p *parser) parseExternalDecl() ast.Decl {
 	typ := p.parseDeclarationSpecifiers()
+	decl, comma := p.parseExternalDeclOrInit(typ, true)
+	if comma {
+		p.exceptPunctuator(";")
+	}
+	return decl
+}
+
+func (p *parser) parseExternalDeclOrInit(inner ast.Typename, external bool) (ast.Decl, bool) {
 	isTypedef := false
-	if v, ok := typ.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
+	if v, ok := inner.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
 		isTypedef = true
 		if len(*v.Specifier) == 1 {
-			typ = v.Inner
+			inner = v.Inner
 		}
 	}
 
-	typ, ident := p.parseDeclarator(typ)
+	typ, ident := p.parseDeclarator(inner)
 	if isTypedef {
 		decl := &ast.TypedefDecl{
 			Type: typ,
 			Name: ident,
 		}
 		p.env.declareType(decl)
-		p.exceptPunctuator(";")
-		return decl
+		return decl, external
 	}
 
-	if v, ok := typ.(*ast.FuncType); ok {
+	if v, ok := typ.(*ast.FuncType); ok && external {
 		fn := &ast.FuncDecl{
 			Name:     ident,
 			Return:   v.Return,
@@ -1138,9 +1124,8 @@ func (p *parser) parseExternalDecl() ast.Decl {
 
 		obj := ast.NewDeclObject(ast.ObjectFunc, ident, fn)
 		if p.cur.Literal() == ";" {
-			p.exceptPunctuator(";")
 			p.env.declare(obj)
-			return fn
+			return fn, external
 		}
 
 		// 如果函数中未定义参数类型 则在后续定义语句定义
@@ -1160,7 +1145,7 @@ func (p *parser) parseExternalDecl() ast.Decl {
 
 		obj.Completed = true
 		p.env.declare(obj)
-		return fn
+		return fn, false
 	}
 
 	decl := &ast.VarDecl{Type: typ, Name: ident}
@@ -1170,9 +1155,8 @@ func (p *parser) parseExternalDecl() ast.Decl {
 		decl.Init = p.parseInitializer()
 	}
 
-	p.exceptPunctuator(";")
 	p.env.declareIdent(ast.ObjectVar, decl)
-	return decl
+	return decl, external
 }
 
 func (p *parser) parseFile() *ast.File {
