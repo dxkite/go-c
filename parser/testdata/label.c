@@ -57,7 +57,7 @@ int main() {
 //    |   |  `+Token = "test"<IDENT@testdata\label.c:4:10>
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Fun = Ident
+//    |   |  |+Func = Ident
 //    |   |  | `+Token = "print"<IDENT@testdata\label.c:5:5>
 //    |   |  `+Args = 
 //    |   |   `-BasicLit
@@ -70,7 +70,7 @@ int main() {
 //    |   | | `+Token = "test"<IDENT@testdata\label.c:7:5>
 //    |   | `+Stmt = ExprStmt
 //    |   |  `+Expr = CallExpr
-//    |   |   |+Fun = Ident
+//    |   |   |+Func = Ident
 //    |   |   | `+Token = "printf"<IDENT@testdata\label.c:8:9>
 //    |   |   `+Args = 
 //    |   |    `-BasicLit
@@ -80,7 +80,7 @@ int main() {
 //    |    | `+Token = "test2"<IDENT@testdata\label.c:9:5>
 //    |    `+Stmt = ExprStmt
 //    |     `+Expr = CallExpr
-//    |      |+Fun = Ident
+//    |      |+Func = Ident
 //    |      | `+Token = "printf"<IDENT@testdata\label.c:10:9>
 //    |      `+Args = 
 //    |       `-BasicLit

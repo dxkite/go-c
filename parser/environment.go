@@ -176,6 +176,14 @@ func (e *environment) tryResolve(space ast.ScopeNamespace, name string) *ast.Obj
 	return nil
 }
 
+func (e *environment) resolveIdent(name *ast.Ident) *ast.Object {
+	obj := e.tryResolve(ast.IdentScope, name.Literal())
+	if obj == nil {
+		e.parser.addErr(name.Position(), errors.ErrSyntaxUndefinedIdent, name.Literal())
+	}
+	return obj
+}
+
 func (e *environment) isTypename(name string) ast.Typename {
 	obj := e.tryResolve(ast.IdentScope, name)
 	if obj != nil && obj.Type == ast.ObjectTypename {
@@ -190,8 +198,17 @@ func (e *environment) enterScope(typ ast.ScopeType) {
 }
 
 // 退出作用域
-func (e *environment) leaveScope() {
+func (e *environment) leaveScope() (scope *ast.Scope) {
+	scope = e.nested
 	e.nested = e.nested.Outer
+	return
+}
+
+// 复制函数定义
+func (e *environment) copyParameterScope(typ *ast.FuncDecl) {
+	for _, item := range typ.Params {
+		e.declareIdent(ast.ObjectParamVal, item)
+	}
 }
 
 // 进入label作用域

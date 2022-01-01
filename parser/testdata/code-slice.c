@@ -23,21 +23,21 @@ int main() {
 //    |  `+Body = CompoundStmt
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Fun = Ident
+//    |   |  |+Func = Ident
 //    |   |  | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
 //    |   |  `+Args = 
 //    |   |   `-BasicLit
 //    |   |    `+Token = "\"code\""<STRING@testdata/code-slice.h:1:8>
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Fun = Ident
+//    |   |  |+Func = Ident
 //    |   |  | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
 //    |   |  `+Args = 
 //    |   |   `-BasicLit
 //    |   |    `+Token = "\"code\""<STRING@testdata/code-slice.h:1:8>
 //    |   `-ExprStmt
 //    |    `+Expr = CallExpr
-//    |     |+Fun = Ident
+//    |     |+Func = Ident
 //    |     | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
 //    |     `+Args = 
 //    |      `-BasicLit

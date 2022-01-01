@@ -165,7 +165,7 @@ func (p *parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 	case "(":
 		arg := p.parseArgsExpr()
 		expr = &ast.CallExpr{
-			Fun:  expr,
+			Func: expr,
 			Args: arg,
 		}
 	default:
@@ -481,7 +481,7 @@ func (p *parser) parseAbstractDeclarator(inner ast.Typename) ast.Typename {
 func (p *parser) parseFuncType(inner ast.Typename) ast.Typename {
 	p.env.enterScope(ast.FuncPrototypeScope)
 	params, ellipsis := p.parseParameterList()
-	p.env.leaveLabelScope()
+	p.env.leaveScope()
 	return &ast.FuncType{
 		Return:   inner,
 		Params:   params,
@@ -1138,8 +1138,9 @@ func (p *parser) parseExternalDeclOrInit(inner ast.Typename, external bool) (ast
 		if p.cur.Literal() == "{" {
 			p.env.enterLabelScope()
 			p.env.enterScope(ast.FuncScope)
+			p.env.copyParameterScope(fn)
 			fn.Body = p.parseCompoundStmt()
-			p.env.leaveLabelScope()
+			p.env.leaveScope()
 			p.reportUnResolveLabel(p.env.leaveLabelScope())
 		}
 

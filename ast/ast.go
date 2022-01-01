@@ -46,7 +46,7 @@ type (
 
 	// 函数调用
 	CallExpr struct {
-		Fun  Expr
+		Func Expr
 		Args []Expr
 	}
 
