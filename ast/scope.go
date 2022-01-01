@@ -54,9 +54,9 @@ func NewTypenameObject(ident *Ident, name Typename) *Object {
 	}
 }
 
-func NewDeclObject(ident *Ident, decl Decl) *Object {
+func NewDeclObject(typ ObjectType, ident *Ident, decl Decl) *Object {
 	return &Object{
-		Type: ObjectTypename,
+		Type: typ,
 		Name: ident.Literal(),
 		Pos:  ident.Position(),
 		Decl: decl,

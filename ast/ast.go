@@ -336,7 +336,6 @@ type (
 		Name       string
 		Decl       []Decl   // 文件内部的定义
 		Unresolved []*Ident // 未解析的标识符
-		ExportDecl []Decl   // 导出的定义
 	}
 
 	// 函数定义

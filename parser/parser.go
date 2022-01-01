@@ -43,11 +43,16 @@ func (p *multiparser) parseUnit() *ast.TranslationUnit {
 			break
 		}
 		file := t.Position().Filename
-		pp := newParser(file, newFileScanner(file, p.r), p.global, p.err)
+		pp := newParser(file, p.r, p.global, p.err)
 		ret := pp.parseFile()
+		p.push(pp.cur)
 		unit.Files = append(unit.Files, ret)
 	}
 	return unit
+}
+
+func (p *multiparser) push(tok token.Token) {
+	p.r = scanner.NewPeekScan(scanner.NewMultiScan(p.r, scanner.NewArrayScan([]token.Token{tok})))
 }
 
 func newParser(file string, r scanner.Scanner, glb *ast.Scope, err errors.ErrorHandler) *parser {
@@ -116,6 +121,7 @@ func (p *parser) parsePrimaryExpr() ast.Expr {
 		return &ast.BasicLit{Token: cur}
 	}
 	exp := ast.BadExpr{Token: p.cur}
+	p.next()
 	return &exp
 }
 
@@ -308,7 +314,7 @@ func (p *parser) parseCompoundLitExpr() ast.Expr {
 func (p *parser) parseInitializerList() *ast.InitializerExpr {
 	p.exceptPunctuator("{")
 	list := ast.InitializerExpr{}
-	for p.cur.Literal() != "}" {
+	for p.until("}") {
 		item := p.parseInitializer()
 		list = append(list, item)
 		if t := p.peekOne(); p.cur.Literal() != "}" && t.Literal() != "}" {
@@ -387,7 +393,7 @@ func (p *parser) parseDesignator() ast.Expr {
 func (p *parser) parseArgsExpr() []ast.Expr {
 	p.next() // (
 	var list []ast.Expr
-	for p.cur.Literal() != ")" {
+	for p.until(")") {
 		item := p.parseAssignExpr()
 		list = append(list, item)
 		if p.cur.Literal() != "," {
@@ -525,7 +531,7 @@ func (p *parser) parseArrayTypeExpr(inner ast.Typename) ast.Typename {
 
 func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 	p.exceptPunctuator("(")
-	for p.cur.Literal() != ")" && p.cur.Literal() != "..." {
+	for p.cur.Literal() != ")" && p.cur.Literal() != "..." && p.cur.Type() != token.EOF {
 		param := p.parseParameterDecl()
 		params = append(params, param)
 		if p.cur.Literal() != "," {
@@ -767,9 +773,9 @@ func (p *parser) parseRecordType() *ast.RecordType {
 	}
 
 	p.next() // {
-	for p.cur.Literal() != "}" {
+	for p.until("}") {
 		typ := p.parseTypeQualifierSpecifierList()
-		for {
+		for p.cur.Type() != token.EOF {
 			f := &ast.RecordField{}
 			typ, ident := p.parseDeclarator(typ)
 			f.Type = typ
@@ -821,7 +827,7 @@ func (p *parser) parseEnumType() *ast.EnumType {
 	}
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "{" {
 		p.next() // {
-		for p.cur.Literal() != "}" {
+		for p.until("}") {
 			ident := p.expectIdent()
 			var expr ast.Expr
 			if p.cur.Literal() == "=" {
@@ -858,7 +864,7 @@ func (p *parser) parseDeclStmt() *ast.DeclStmt {
 func (p *parser) parseDeclaration() []ast.Decl {
 	typ := p.parseDeclarationSpecifiers()
 	var decls []ast.Decl
-	for p.cur.Literal() != ";" {
+	for p.until(";") {
 		decl := p.parserInitDeclarator(typ)
 		decls = append(decls, decl)
 		if p.cur.Literal() == "," {
@@ -869,6 +875,10 @@ func (p *parser) parseDeclaration() []ast.Decl {
 	}
 	p.exceptPunctuator(";")
 	return decls
+}
+
+func (p *parser) until(lit string) bool {
+	return p.cur.Literal() != lit && p.cur.Type() != token.EOF
 }
 
 func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
@@ -1067,7 +1077,7 @@ func (p *parser) parseForStmt() ast.Stmt {
 func (p *parser) parseCompoundStmt() *ast.CompoundStmt {
 	stmts := ast.CompoundStmt{}
 	p.exceptPunctuator("{")
-	for p.cur.Literal() != "}" {
+	for p.until("}") {
 		stmt := p.parseBlockItem()
 		stmts = append(stmts, stmt)
 	}
@@ -1116,8 +1126,10 @@ func (p *parser) parseExternalDecl() ast.Decl {
 			Ellipsis: v.Ellipsis,
 		}
 
+		obj := ast.NewDeclObject(ast.ObjectFunc, ident, fn)
 		if p.cur.Literal() == ";" {
 			p.exceptPunctuator(";")
+			p.env.declare(obj)
 			return fn
 		}
 
@@ -1134,6 +1146,8 @@ func (p *parser) parseExternalDecl() ast.Decl {
 			p.reportUnResolveLabel(p.env.leaveLabelScope())
 		}
 
+		obj.Completed = true
+		p.env.declare(obj)
 		return fn
 	}
 
@@ -1152,16 +1166,8 @@ func (p *parser) parseFile() *ast.File {
 	unit := &ast.File{}
 	unit.Name = p.file
 	var decls []ast.Decl
-	for p.cur.Type() != token.EOF {
+	for p.cur.Type() != token.EOF && p.cur.Position().Filename == p.file {
 		decl := p.parseDecl()
-		switch t := decl.(type) {
-		case *ast.FuncDecl, *ast.TypedefDecl:
-			unit.ExportDecl = append(unit.ExportDecl, decl)
-		case *ast.VarDecl:
-			if vv, ok := t.Type.(*ast.TypeStorageSpecifier); ok && (*vv.Specifier)["extern"] == true {
-				unit.ExportDecl = append(unit.ExportDecl, decl)
-			}
-		}
 		decls = append(decls, decl)
 	}
 	unit.Decl = decls
