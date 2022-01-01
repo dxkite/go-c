@@ -619,6 +619,11 @@ func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 		}
 	}
 
+	// 内置类型
+	if buildIn != nil {
+		typ = p.makeBuildInType(buildIn)
+	}
+
 	if len(qua) > 0 {
 		t := &ast.TypeQualifier{
 			Qualifier: &ast.Qualifier{},
@@ -687,6 +692,11 @@ func (p *parser) parseDeclarationSpecifiers() ast.Typename {
 		}
 	}
 
+	// 内置类型
+	if buildIn != nil {
+		typ = p.makeBuildInType(buildIn)
+	}
+
 	if len(qua) > 0 {
 		t := &ast.TypeQualifier{
 			Qualifier: &ast.Qualifier{},
@@ -705,6 +715,19 @@ func (p *parser) parseDeclarationSpecifiers() ast.Typename {
 		typ = st
 	}
 	return typ
+}
+
+func (p *parser) makeBuildInType(spec *ast.BuildInType) ast.Typename {
+	typ := ast.CInt
+	if len(spec.Lit) != 0 {
+		if t, err := ast.ParseBuildInType(spec.Lit); err != nil {
+			p.err(err.Pos, errors.ErrTypeError, err.Code, err.Params...)
+		} else {
+			typ = t
+		}
+	}
+	spec.Type = typ
+	return spec
 }
 
 func (p *parser) parseTypeSpecifier() ast.Typename {
@@ -734,13 +757,8 @@ func (p *parser) parseBuildInType() ast.Typename {
 		}
 		p.next()
 	}
-	typ, err := ast.ParseBuildInType(spec)
-	if err != nil {
-		p.err(err.Pos, errors.ErrTypeError, err.Code, err.Params...)
-	}
 	return &ast.BuildInType{
-		Lit:  spec,
-		Type: typ,
+		Lit: spec,
 	}
 }
 

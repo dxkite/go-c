@@ -25,6 +25,7 @@ type (
 		token.Token
 	}
 
+	// 类型初始化表达式
 	CompoundLit struct {
 		Type     Typename
 		InitList *InitializerExpr
@@ -72,6 +73,7 @@ type (
 		X Expr
 	}
 
+	// "++", "--", "&", "*", "+", "-", "~", "!" sizeof
 	UnaryExpr struct {
 		Op token.Token
 		X  Expr
