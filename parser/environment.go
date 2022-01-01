@@ -6,11 +6,12 @@ import (
 )
 
 type environment struct {
-	global *ast.Scope // 全局作用域
-	nested *ast.Scope // 文件作用域
-	label  *ast.Scope
-	labels []*ast.Ident
-	parser *parser
+	global     *ast.Scope // 全局作用域
+	nested     *ast.Scope // 文件作用域
+	label      *ast.Scope
+	labels     []*ast.Ident
+	parser     *parser
+	unresolved []*ast.Ident // 未解析的标识符
 }
 
 func newEnv(glb *ast.Scope, p *parser) *environment {
@@ -60,6 +61,59 @@ func (e *environment) declareRecord(r *ast.RecordType, completed bool) {
 	obj := ast.NewObjectTypename(typ, r.Name, r)
 	obj.Completed = completed
 	e.declare(obj)
+}
+
+func unPtr(p ast.Typename) ast.Typename {
+	if v, ok := unSpec(p).(*ast.PointerType); ok {
+		return unPtr(v.Inner)
+	}
+	return p
+}
+
+func unSpec(typ ast.Typename) ast.Typename {
+	switch v := typ.(type) {
+	case *ast.TypeQualifier:
+		return unSpec(v.Inner)
+	case *ast.TypeStorageSpecifier:
+		return unSpec(v.Inner)
+	}
+	return typ
+}
+
+// 解析类型，是否需要完全类型 completed
+func (e *environment) resolveType(typ ast.Typename, completed bool) ast.Typename {
+	switch v := unSpec(typ).(type) {
+	case *ast.EnumType:
+		if v.Name == nil {
+			return typ
+		}
+		if vv := e.tryResolve(ast.EnumScope, v.Name.Literal()); vv != nil {
+			return typ
+		}
+		return nil
+	case *ast.RecordType:
+		if v.Name == nil {
+			return typ
+		}
+		scope := ast.StructScope
+		err := errors.ErrSyntaxIncompleteStruct
+		if v.Type.Literal() == "union" {
+			err = errors.ErrSyntaxIncompleteUnion
+			scope = ast.UnionScope
+		}
+		if vv := e.tryResolve(scope, v.Name.Literal()); vv != nil {
+			if completed && !vv.Completed {
+				e.parser.addErr(v.Name.Position(), err, v.Name.Literal())
+			}
+			return vv.Typename
+		}
+		return nil
+	case *ast.PointerType:
+		if t := e.resolveType(unPtr(typ), false); t != nil {
+			return t
+		}
+	}
+	return typ
 }
 
 func (e *environment) declareEnum(r *ast.EnumType, completed bool) {

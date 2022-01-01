@@ -53,4 +53,6 @@ const (
 	ErrSyntaxRedefinedLabel                   // 重复定义的标签 %s，上次定义的位置 %s
 	ErrSyntaxUndefinedIdent                   // 未定义的标识符 %s
 	ErrSyntaxUndefinedLabel                   // 未定义的标签 %s
+	ErrSyntaxIncompleteStruct                 // 不完全的结构体类型 %s
+	ErrSyntaxIncompleteUnion                  // 不完全的联合体类型 %s
 )

@@ -792,11 +792,11 @@ func (p *parser) parseRecordType() *ast.RecordType {
 				f.Bit = expr
 			}
 			// bit field
-			// TODO 递归类型引用检查
 			if f.Bit == nil && f.Name == nil && !isRecordType(typ) {
 				p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedRecordMemberName)
 				break
 			}
+			p.env.resolveType(f.Type, true)
 			r.Fields = append(r.Fields, f)
 			if p.cur.Literal() != "," {
 				break

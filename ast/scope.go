@@ -86,12 +86,14 @@ type Scope struct {
 	Outer   *Scope
 	Type    ScopeType
 	Objects []map[string]*Object
+	cap     int
 }
 
 func NewScope(typ ScopeType, outer *Scope, cap int) *Scope {
 	s := &Scope{
 		Outer: outer,
 		Type:  typ,
+		cap:   cap,
 	}
 	s.Objects = make([]map[string]*Object, cap)
 	for i := 0; i < cap; i++ {
@@ -101,10 +103,16 @@ func NewScope(typ ScopeType, outer *Scope, cap int) *Scope {
 }
 
 func (s *Scope) Lookup(name ScopeNamespace, id string) *Object {
+	if int(name) >= s.cap {
+		return nil
+	}
 	return s.Objects[name][id]
 }
 
 func (s *Scope) Insert(name ScopeNamespace, obj *Object) (alt *Object) {
+	if int(name) >= s.cap {
+		return nil
+	}
 	if alt = s.Objects[name][obj.Name]; alt == nil {
 		s.Objects[name][obj.Name] = obj
 	}
