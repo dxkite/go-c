@@ -907,7 +907,7 @@ func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
 			Type: typ,
 			Name: ident,
 		}
-		p.defineType(decl)
+		p.env.declareType(decl)
 		return decl
 	}
 	decl := &ast.VarDecl{Type: typ, Name: ident}
@@ -917,10 +917,6 @@ func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
 	}
 	p.env.declareIdent(ast.ObjectVar, decl)
 	return decl
-}
-
-func (p *parser) defineType(decl *ast.TypedefDecl) {
-	p.env.declare(ast.NewTypenameObject(decl.Name, decl.Type))
 }
 
 func (p *parser) parseStmt() ast.Stmt {
@@ -1127,7 +1123,7 @@ func (p *parser) parseExternalDecl() ast.Decl {
 			Type: typ,
 			Name: ident,
 		}
-		p.defineType(decl)
+		p.env.declareType(decl)
 		p.exceptPunctuator(";")
 		return decl
 	}

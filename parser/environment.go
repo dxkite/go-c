@@ -116,6 +116,10 @@ func (e *environment) resolveType(typ ast.Typename, completed bool) ast.Typename
 	return typ
 }
 
+func (e *environment) declareType(decl *ast.TypedefDecl) {
+	e.declare(ast.NewTypenameObject(decl.Name, decl.Type))
+}
+
 func (e *environment) declareEnum(r *ast.EnumType, completed bool) {
 	if r.Name == nil {
 		return
