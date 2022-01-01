@@ -1,6 +1,7 @@
 int main() {
     return 0;
 }
+
 // ===========================
 // TranslationUnitDecl
 //  `+Decl = 
@@ -18,4 +19,6 @@ int main() {
 //     `-ReturnStmt
 //      `+X = BasicLit
 //       `+Token = "0"<INT@testdata\simple.c:2:12>
+// ===========================
+//
 // ===========================

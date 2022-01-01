@@ -8,23 +8,56 @@ import (
 )
 
 // 表达式解析
-type Parser struct {
-	// 定义的类型
-	typeName map[string]*ast.TypedefDecl
+type parser struct {
 	// 错误处理
 	err errors.ErrorHandler
 	// 当前token
 	cur token.Token
 	// 当前输入
 	r scanner.Scanner
+	// 环境
+	env *environment
+	// 当前文件
+	file string
 }
 
-func NewParser(r scanner.Scanner, err errors.ErrorHandler) *Parser {
-	p := &Parser{
-		err: err,
-		r:   scanner.NewTokenScan(r),
+type multiparser struct {
+	global *ast.Scope // 全局作用域 (extern)
+	r      scanner.PeekScanner
+	err    errors.ErrorHandler
+}
+
+func newMultiparser(r scanner.Scanner, err errors.ErrorHandler) *multiparser {
+	return &multiparser{
+		r:      scanner.NewPeekScan(r),
+		err:    err,
+		global: ast.NewScope(ast.GlobalScope, nil, 1),
+	}
+}
+
+func (p *multiparser) parseUnit() *ast.TranslationUnit {
+	unit := &ast.TranslationUnit{}
+	for {
+		t := p.r.PeekOne()
+		if t.Type() == token.EOF {
+			break
+		}
+		file := t.Position().Filename
+		pp := newParser(file, newFileScanner(file, p.r), p.global, p.err)
+		ret := pp.parseFile()
+		unit.Files = append(unit.Files, ret)
+	}
+	return unit
+}
+
+func newParser(file string, r scanner.Scanner, glb *ast.Scope, err errors.ErrorHandler) *parser {
+	p := &parser{
+		err:  err,
+		file: file,
+		r:    scanner.NewTokenScan(r),
 	}
 	p.next()
+	p.env = newEnv(glb, p)
 	return p
 }
 
@@ -63,7 +96,7 @@ func precedence(lit string) int {
 }
 
 // primary-expression: identifier | constant | string-literal | ( expression )
-func (p *Parser) parsePrimaryExpr() ast.Expr {
+func (p *parser) parsePrimaryExpr() ast.Expr {
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "(" {
 		p.next()
 		x := p.parseExpr()
@@ -82,11 +115,11 @@ func (p *Parser) parsePrimaryExpr() ast.Expr {
 		p.next()
 		return &ast.BasicLit{Token: cur}
 	}
-	exp := ast.BadExpr([]token.Token{p.cur})
+	exp := ast.BadExpr{Token: p.cur}
 	return &exp
 }
 
-func (p *Parser) parsePostfixExpr() ast.Expr {
+func (p *parser) parsePostfixExpr() ast.Expr {
 	// ( typename ) { init-list }
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "(" {
 		if t := p.peekOne(); p.isTypeNameTok(t) {
@@ -97,7 +130,7 @@ func (p *Parser) parsePostfixExpr() ast.Expr {
 	return p.parsePostfixExprInner(expr)
 }
 
-func (p *Parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
+func (p *parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 	switch p.cur.Literal() {
 	case "[":
 		p.next() // [
@@ -135,7 +168,7 @@ func (p *Parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 	return p.parsePostfixExprInner(expr)
 }
 
-func (p *Parser) parseUnaryExpr() ast.Expr {
+func (p *parser) parseUnaryExpr() ast.Expr {
 	if p.cur.Type() == token.PUNCTUATOR || p.cur.Literal() == "sizeof" {
 		switch p.cur.Literal() {
 		case "++", "--", "&", "*", "+", "-", "~", "!":
@@ -165,7 +198,7 @@ func (p *Parser) parseUnaryExpr() ast.Expr {
 	return p.parsePostfixExpr()
 }
 
-func (p *Parser) parseCastExpr() ast.Expr {
+func (p *parser) parseCastExpr() ast.Expr {
 	if t := p.peekOne(); p.cur.Literal() == "(" && p.isTypeNameTok(t) {
 		p.next()                  // (
 		name := p.parseTypeName() // type-name
@@ -186,7 +219,7 @@ func (p *Parser) parseCastExpr() ast.Expr {
 	return p.parseUnaryExpr()
 }
 
-func (p *Parser) selectExpr(prec int) (expr ast.Expr) {
+func (p *parser) selectExpr(prec int) (expr ast.Expr) {
 	if prec >= UnaryPrec {
 		return p.parseCastExpr()
 	} else {
@@ -194,7 +227,7 @@ func (p *Parser) selectExpr(prec int) (expr ast.Expr) {
 	}
 }
 
-func (p *Parser) parseBinaryExpr(prec int) ast.Expr {
+func (p *parser) parseBinaryExpr(prec int) ast.Expr {
 	x := p.selectExpr(prec + 1)
 	if p.cur.Type() == token.PUNCTUATOR && precedence(p.cur.Literal()) >= prec {
 		op := p.cur
@@ -209,7 +242,7 @@ func (p *Parser) parseBinaryExpr(prec int) ast.Expr {
 	return x
 }
 
-func (p *Parser) parseCondExpr() ast.Expr {
+func (p *parser) parseCondExpr() ast.Expr {
 	x := p.parseBinaryExpr(BinaryPrec)
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "?" {
 		op := p.cur
@@ -228,11 +261,11 @@ func (p *Parser) parseCondExpr() ast.Expr {
 }
 
 // const expr
-func (p *Parser) parseConstantExpr() ast.Expr {
+func (p *parser) parseConstantExpr() ast.Expr {
 	return &ast.ConstantExpr{X: p.parseCondExpr()}
 }
 
-func (p *Parser) parseAssignExpr() ast.Expr {
+func (p *parser) parseAssignExpr() ast.Expr {
 	x := p.parseCondExpr()
 	switch p.cur.Literal() {
 	case "=", "*=", "/=", "%=", "+=", "-=", "<<=", "==>", "&=", "^=", "|=":
@@ -247,7 +280,7 @@ func (p *Parser) parseAssignExpr() ast.Expr {
 	return x
 }
 
-func (p *Parser) parseExpr() ast.Expr {
+func (p *parser) parseExpr() ast.Expr {
 	x := p.parseAssignExpr()
 	comma := ast.CommaExpr{x}
 	if p.cur.Literal() == "," {
@@ -261,7 +294,7 @@ func (p *Parser) parseExpr() ast.Expr {
 	return comma[0]
 }
 
-func (p *Parser) parseCompoundLitExpr() ast.Expr {
+func (p *parser) parseCompoundLitExpr() ast.Expr {
 	p.next() // (
 	typeName := p.parseTypeName()
 	p.exceptPunctuator(")")
@@ -272,7 +305,7 @@ func (p *Parser) parseCompoundLitExpr() ast.Expr {
 	}
 }
 
-func (p *Parser) parseInitializerList() *ast.InitializerExpr {
+func (p *parser) parseInitializerList() *ast.InitializerExpr {
 	p.exceptPunctuator("{")
 	list := ast.InitializerExpr{}
 	for p.cur.Literal() != "}" {
@@ -290,7 +323,7 @@ func (p *Parser) parseInitializerList() *ast.InitializerExpr {
 	return &list
 }
 
-func (p *Parser) parseInitializer() ast.Expr {
+func (p *parser) parseInitializer() ast.Expr {
 	if p.cur.Literal() == "{" {
 		return p.parseInitializerList()
 	}
@@ -300,7 +333,7 @@ func (p *Parser) parseInitializer() ast.Expr {
 	return p.parseAssignExpr()
 }
 
-func (p *Parser) parseDesignationInitExpr() ast.Expr {
+func (p *parser) parseDesignationInitExpr() ast.Expr {
 	designator := p.parseDesignator()
 	if designator != nil {
 		p.exceptPunctuator("=")
@@ -328,13 +361,13 @@ func applyDesignator(des ast.Expr, assign ast.Expr) {
 	}
 }
 
-func (p *Parser) parseDesignator() ast.Expr {
+func (p *parser) parseDesignator() ast.Expr {
 	if p.cur.Literal() == "." {
 		p.next()
 		ident := p.expectIdent()
 		x := p.parseDesignator()
 		return &ast.RecordDesignatorExpr{
-			Field: &ast.Ident{ident},
+			Field: &ast.Ident{Token: ident},
 			X:     x,
 		}
 	}
@@ -351,7 +384,7 @@ func (p *Parser) parseDesignator() ast.Expr {
 	return nil
 }
 
-func (p *Parser) parseArgsExpr() []ast.Expr {
+func (p *parser) parseArgsExpr() []ast.Expr {
 	p.next() // (
 	var list []ast.Expr
 	for p.cur.Literal() != ")" {
@@ -367,7 +400,7 @@ func (p *Parser) parseArgsExpr() []ast.Expr {
 }
 
 var typeQualifier = []string{"const", "restrict", "volatile"}
-var typeSpecifier = []string{"void", "char", "short", "int", "long", "float", "double", "signed", "unsigned", "_Bool", "_Complex"}
+var typeSpecifier = []string{"void", "char", "short", "int", "long", "float", "double", "signed", "unsigned", "_Bool" /*"_Complex"*/}
 var functionSpecifier = []string{"inline"}
 var storageClassSpecifier = []string{"typedef", "extern", "static", "auto", "register"}
 
@@ -414,12 +447,12 @@ func init() {
 }
 
 // 解析类型名称
-func (p *Parser) parseTypeName() ast.TypeName {
+func (p *parser) parseTypeName() ast.Typename {
 	basic := p.parseTypeQualifierSpecifierList()
 	return p.parseAbstractDeclarator(basic)
 }
 
-func (p *Parser) parseAbstractDeclarator(inner ast.TypeName) ast.TypeName {
+func (p *parser) parseAbstractDeclarator(inner ast.Typename) ast.Typename {
 	switch p.cur.Literal() {
 	case "*":
 		inner = p.parsePointer(inner)
@@ -439,16 +472,16 @@ func (p *Parser) parseAbstractDeclarator(inner ast.TypeName) ast.TypeName {
 	return p.parseAbstractDeclarator(inner)
 }
 
-func (p *Parser) parseFuncType(inner ast.TypeName) ast.TypeName {
+func (p *parser) parseFuncType(inner ast.Typename) ast.Typename {
 	params, ellipsis := p.parseParameterList()
 	return &ast.FuncType{
-		Inner:    inner,
+		Return:   inner,
 		Params:   params,
 		Ellipsis: ellipsis,
 	}
 }
 
-func (p *Parser) parseArrayType(inner ast.TypeName) ast.TypeName {
+func (p *parser) parseArrayType(inner ast.Typename) ast.Typename {
 	if t := p.peekOne(); t.Literal() == "*" || t.Literal() == "]" {
 		p.next() // [
 		if p.cur.Literal() == "*" {
@@ -460,7 +493,7 @@ func (p *Parser) parseArrayType(inner ast.TypeName) ast.TypeName {
 	return p.parseArrayTypeExpr(inner)
 }
 
-func (p *Parser) parseArrayTypeExpr(inner ast.TypeName) ast.TypeName {
+func (p *parser) parseArrayTypeExpr(inner ast.Typename) ast.Typename {
 	p.next() // [
 	static := false
 	var qua []token.Token
@@ -476,13 +509,11 @@ func (p *Parser) parseArrayTypeExpr(inner ast.TypeName) ast.TypeName {
 
 	if v, ok := expr.(*ast.AssignExpr); ok {
 		arr := &ast.ArrayType{
-			Inner:     inner,
-			Qualifier: &ast.Qualifier{},
-			Static:    static,
-			Size:      v,
+			Inner:  inner,
+			Static: static,
+			Size:   v,
 		}
-		p.markQualifier(arr.Qualifier, qua)
-		return arr
+		return p.makeTypeQualifier(arr, qua)
 	}
 
 	// 常量表达式
@@ -492,7 +523,7 @@ func (p *Parser) parseArrayTypeExpr(inner ast.TypeName) ast.TypeName {
 	}
 }
 
-func (p *Parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
+func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 	p.exceptPunctuator("(")
 	for p.cur.Literal() != ")" && p.cur.Literal() != "..." {
 		param := p.parseParameterDecl()
@@ -510,21 +541,21 @@ func (p *Parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 	return
 }
 
-func (p *Parser) parseParameterDecl() *ast.ParamVarDecl {
+func (p *parser) parseParameterDecl() *ast.ParamVarDecl {
 	typ := p.parseDeclarationSpecifiers()
 	param := &ast.ParamVarDecl{}
 	param.Type, param.Name = p.parseDeclarator(typ)
 	return param
 }
 
-func (p *Parser) parseDeclarator(inner ast.TypeName) (ast.TypeName, *ast.Ident) {
+func (p *parser) parseDeclarator(inner ast.Typename) (ast.Typename, *ast.Ident) {
 	if p.cur.Literal() == "*" {
 		inner = p.parsePointer(inner)
 	}
 	return p.parseDirectDeclarator(inner)
 }
 
-func (p *Parser) parseDirectDeclarator(inner ast.TypeName) (ast.TypeName, *ast.Ident) {
+func (p *parser) parseDirectDeclarator(inner ast.Typename) (ast.Typename, *ast.Ident) {
 	var ident *ast.Ident
 	if p.cur.Literal() == "(" {
 		p.next() // (
@@ -542,7 +573,7 @@ func (p *Parser) parseDirectDeclarator(inner ast.TypeName) (ast.TypeName, *ast.I
 	return inner, ident
 }
 
-func (p *Parser) parseDirectDeclaratorInner(typ ast.TypeName) ast.TypeName {
+func (p *parser) parseDirectDeclaratorInner(typ ast.Typename) ast.Typename {
 	switch p.cur.Literal() {
 	case "(":
 		typ = p.parseFuncType(typ)
@@ -555,9 +586,9 @@ func (p *Parser) parseDirectDeclaratorInner(typ ast.TypeName) ast.TypeName {
 }
 
 // ( type-specifier | type-qualifier ) +
-func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
+func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 	var qua []token.Token
-	var typ ast.TypeName
+	var typ ast.Typename
 	var buildIn *ast.BuildInType
 
 	for typeSpecifierQualifierMap[p.cur.Literal()] {
@@ -567,14 +598,14 @@ func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 			continue
 		}
 		if buildIn != nil && typeStructMap[p.cur.Literal()] {
-			p.addErr(p.cur, errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
+			p.addErr(p.cur.Position(), errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
 		typ = p.parseTypeSpecifier()
 		if v, ok := typ.(*ast.BuildInType); ok {
 			if buildIn == nil {
 				buildIn = v
 			} else {
-				buildIn.Type = append(buildIn.Type, v.Type...)
+				buildIn.Lit = append(buildIn.Lit, v.Lit...)
 			}
 		}
 	}
@@ -592,23 +623,34 @@ func (p *Parser) parseTypeQualifierSpecifierList() ast.TypeName {
 }
 
 // (('*') typeQualifierList?)+
-func (p *Parser) parsePointer(inner ast.TypeName) (t ast.TypeName) {
+func (p *parser) parsePointer(inner ast.Typename) (t ast.Typename) {
 	p.next() // *
 	tt := &ast.PointerType{Inner: inner}
 	tks := p.scanTypeQualifierTok()
-	tt.Qualifier = &ast.Qualifier{}
-	p.markQualifier(tt.Qualifier, tks)
-	t = tt
+	t = p.makeTypeQualifier(tt, tks)
 	for p.cur.Literal() == "*" {
 		t = p.parsePointer(t)
 	}
 	return t
 }
 
+func (p *parser) makeTypeQualifier(typ ast.Typename, qua []token.Token) ast.Typename {
+	if len(qua) == 0 {
+		return typ
+	}
+	t := &ast.TypeQualifier{
+		Qualifier: &ast.Qualifier{},
+		Inner:     typ,
+	}
+	t.Qualifier = &ast.Qualifier{}
+	p.markQualifier(t.Qualifier, qua)
+	return t
+}
+
 // 扫描类型
-func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
+func (p *parser) parseDeclarationSpecifiers() ast.Typename {
 	var qua []token.Token
-	var typ ast.TypeName
+	var typ ast.Typename
 	var buildIn *ast.BuildInType
 	var spec []token.Token
 
@@ -624,14 +666,14 @@ func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
 			continue
 		}
 		if buildIn != nil && typeStructMap[p.cur.Literal()] {
-			p.addErr(p.cur, errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
+			p.addErr(p.cur.Position(), errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
 		typ = p.parseTypeSpecifier()
 		if v, ok := typ.(*ast.BuildInType); ok {
 			if buildIn == nil {
 				buildIn = v
 			} else {
-				buildIn.Type = append(buildIn.Type, v.Type...)
+				buildIn.Lit = append(buildIn.Lit, v.Lit...)
 			}
 		}
 	}
@@ -656,7 +698,7 @@ func (p *Parser) parseDeclarationSpecifiers() ast.TypeName {
 	return typ
 }
 
-func (p *Parser) parseTypeSpecifier() ast.TypeName {
+func (p *parser) parseTypeSpecifier() ast.Typename {
 	switch p.cur.Literal() {
 	case "struct", "union":
 		return p.parseRecordType()
@@ -664,15 +706,17 @@ func (p *Parser) parseTypeSpecifier() ast.TypeName {
 		return p.parseEnumType()
 	default:
 		// 用户定义的类型
-		if p.cur.Type() == token.IDENT && p.isTypedefName(p.cur) {
-			return p.typeName[p.cur.Literal()].Type
+		if p.cur.Type() == token.IDENT {
+			if t := p.isTypedefName(p.cur); t != nil {
+				return t
+			}
 		}
 	}
 	return p.parseBuildInType()
 }
 
 // 扫描内置类型
-func (p *Parser) parseBuildInType() ast.TypeName {
+func (p *parser) parseBuildInType() ast.Typename {
 	var spec []token.Token
 	for p.cur.Type() == token.KEYWORD && typeSpecifierMap[p.cur.Literal()] {
 		if typeSpecifierMap[p.cur.Literal()] {
@@ -680,30 +724,35 @@ func (p *Parser) parseBuildInType() ast.TypeName {
 		}
 		p.next()
 	}
+	typ, err := ast.ParseBuildInType(spec)
+	if err != nil {
+		p.err(err.Pos, errors.ErrTypeError, err.Code, err.Params...)
+	}
 	return &ast.BuildInType{
-		Type: spec,
+		Lit:  spec,
+		Type: typ,
 	}
 }
 
-func (p *Parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
+func (p *parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
 	for _, t := range qua {
 		if (*q)[t.Literal()] {
-			p.addWarn(t, errors.ErrSyntaxDuplicateTypeQualifier, t.Literal())
+			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeQualifier, t.Literal())
 		}
 		(*q)[t.Literal()] = true
 	}
 }
 
-func (p *Parser) markSpecifier(q *ast.Specifier, qua []token.Token) {
+func (p *parser) markSpecifier(q *ast.Specifier, qua []token.Token) {
 	for _, t := range qua {
 		if (*q)[t.Literal()] {
-			p.addWarn(t, errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
+			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
 		}
 		(*q)[t.Literal()] = true
 	}
 }
 
-func (p *Parser) parseRecordType() *ast.RecordType {
+func (p *parser) parseRecordType() *ast.RecordType {
 	t := p.cur
 	p.next() // struct union
 	r := &ast.RecordType{Type: t}
@@ -734,7 +783,7 @@ func (p *Parser) parseRecordType() *ast.RecordType {
 			// bit field
 			// TODO 递归类型引用检查
 			if f.Bit == nil && f.Name == nil && !isRecordType(typ) {
-				p.addErr(p.cur, errors.ErrSyntaxExpectedRecordMemberName)
+				p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedRecordMemberName)
 				break
 			}
 			r.Fields = append(r.Fields, f)
@@ -749,7 +798,7 @@ func (p *Parser) parseRecordType() *ast.RecordType {
 	return r
 }
 
-func isRecordType(typ ast.TypeName) bool {
+func isRecordType(typ ast.Typename) bool {
 	switch v := typ.(type) {
 	case *ast.RecordType:
 		return true
@@ -763,7 +812,7 @@ func isRecordType(typ ast.TypeName) bool {
 	return false
 }
 
-func (p *Parser) parseEnumType() *ast.EnumType {
+func (p *parser) parseEnumType() *ast.EnumType {
 	p.next() // enum
 	t := &ast.EnumType{}
 	if p.cur.Type() == token.IDENT {
@@ -779,7 +828,7 @@ func (p *Parser) parseEnumType() *ast.EnumType {
 				p.next()
 				expr = p.parseConstantExpr()
 			}
-			t.List = append(t.List, &ast.EnumField{
+			t.List = append(t.List, &ast.EnumFieldDecl{
 				Name: &ast.Ident{Token: ident},
 				Val:  expr,
 			})
@@ -793,7 +842,7 @@ func (p *Parser) parseEnumType() *ast.EnumType {
 }
 
 // 特殊限定符
-func (p *Parser) scanTypeQualifierTok() (qua []token.Token) {
+func (p *parser) scanTypeQualifierTok() (qua []token.Token) {
 	for p.cur.Type() == token.KEYWORD && typeQualifierMap[p.cur.Literal()] {
 		qua = append(qua, p.cur)
 		p.next()
@@ -801,12 +850,12 @@ func (p *Parser) scanTypeQualifierTok() (qua []token.Token) {
 	return
 }
 
-func (p *Parser) parseDeclStmt() *ast.DeclStmt {
+func (p *parser) parseDeclStmt() *ast.DeclStmt {
 	stmt := ast.DeclStmt(p.parseDeclaration())
 	return &stmt
 }
 
-func (p *Parser) parseDeclaration() []ast.Decl {
+func (p *parser) parseDeclaration() []ast.Decl {
 	typ := p.parseDeclarationSpecifiers()
 	var decls []ast.Decl
 	for p.cur.Literal() != ";" {
@@ -822,7 +871,7 @@ func (p *Parser) parseDeclaration() []ast.Decl {
 	return decls
 }
 
-func (p *Parser) parserInitDeclarator(inner ast.TypeName) ast.Decl {
+func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
 	isTypedef := false
 	if v, ok := inner.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
 		isTypedef = true
@@ -847,11 +896,11 @@ func (p *Parser) parserInitDeclarator(inner ast.TypeName) ast.Decl {
 	return decl
 }
 
-func (p *Parser) defineType(decl *ast.TypedefDecl) {
-	p.typeName[decl.Name.Literal()] = decl
+func (p *parser) defineType(decl *ast.TypedefDecl) {
+	p.env.declare(ast.NewTypenameObject(decl.Name, decl.Type))
 }
 
-func (p *Parser) parseStmt() ast.Stmt {
+func (p *parser) parseStmt() ast.Stmt {
 	switch p.cur.Literal() {
 	case "case", "default":
 		return p.parseLabeledStmt()
@@ -869,7 +918,9 @@ func (p *Parser) parseStmt() ast.Stmt {
 		p.next() // goto
 		id := p.expectIdent()
 		p.exceptPunctuator(";")
-		return &ast.GotoStmt{Id: &ast.Ident{Token: id}}
+		stmt := &ast.GotoStmt{Id: &ast.Ident{Token: id}}
+		p.env.tryResolveLabel(stmt.Id)
+		return stmt
 	case "break":
 		p.next() // break
 		p.exceptPunctuator(";")
@@ -887,7 +938,8 @@ func (p *Parser) parseStmt() ast.Stmt {
 		p.exceptPunctuator(";")
 		return stmt
 	case "{":
-		return p.parseCompoundStmt()
+		stmt := p.parseCompoundStmt()
+		return stmt
 	}
 	if p.cur.Type() == token.IDENT && p.peekOne().Literal() == ":" {
 		return p.parseLabeledStmt()
@@ -895,7 +947,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 	return p.parseExprStmt()
 }
 
-func (p *Parser) parseLabeledStmt() ast.Stmt {
+func (p *parser) parseLabeledStmt() ast.Stmt {
 	// case const-expr:
 	if p.cur.Literal() == "case" {
 		p.next() // case
@@ -923,15 +975,17 @@ func (p *Parser) parseLabeledStmt() ast.Stmt {
 		ident := p.expectIdent()
 		p.exceptPunctuator(":")
 		stmt := p.parseStmt()
-		return &ast.LabelStmt{
+		st := &ast.LabelStmt{
 			Id:   &ast.Ident{Token: ident},
 			Stmt: stmt,
 		}
+		p.env.declare(ast.NewObject(ast.ObjectLabelName, st.Id))
+		return st
 	}
 	return p.parseStmt()
 }
 
-func (p *Parser) parseSwitchStmt() ast.Stmt {
+func (p *parser) parseSwitchStmt() ast.Stmt {
 	p.next() // switch
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
@@ -943,7 +997,7 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 	}
 }
 
-func (p *Parser) parseIfStmt() ast.Stmt {
+func (p *parser) parseIfStmt() ast.Stmt {
 	p.next() // if
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
@@ -960,7 +1014,7 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 	}
 }
 
-func (p *Parser) parseWhileStmt() ast.Stmt {
+func (p *parser) parseWhileStmt() ast.Stmt {
 	p.next() // switch
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
@@ -972,7 +1026,7 @@ func (p *Parser) parseWhileStmt() ast.Stmt {
 	}
 }
 
-func (p *Parser) parseDoWhileStmt() ast.Stmt {
+func (p *parser) parseDoWhileStmt() ast.Stmt {
 	p.next() // do
 	stmt := p.parseStmt()
 	p.exceptKeyword("while")
@@ -986,7 +1040,7 @@ func (p *Parser) parseDoWhileStmt() ast.Stmt {
 	}
 }
 
-func (p *Parser) parseForStmt() ast.Stmt {
+func (p *parser) parseForStmt() ast.Stmt {
 	p.next() // for
 	forStmt := &ast.ForStmt{}
 	if p.isTypeNameTok(p.cur) {
@@ -1010,7 +1064,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	return forStmt
 }
 
-func (p *Parser) parseCompoundStmt() *ast.CompoundStmt {
+func (p *parser) parseCompoundStmt() *ast.CompoundStmt {
 	stmts := ast.CompoundStmt{}
 	p.exceptPunctuator("{")
 	for p.cur.Literal() != "}" {
@@ -1021,20 +1075,20 @@ func (p *Parser) parseCompoundStmt() *ast.CompoundStmt {
 	return &stmts
 }
 
-func (p *Parser) parseBlockItem() ast.Stmt {
+func (p *parser) parseBlockItem() ast.Stmt {
 	if declarationSpecifierMap[p.cur.Literal()] {
 		return p.parseDeclStmt()
 	}
 	return p.parseStmt()
 }
 
-func (p *Parser) parseExprStmt() ast.Stmt {
+func (p *parser) parseExprStmt() ast.Stmt {
 	expr := p.parseExpr()
 	p.exceptPunctuator(";")
 	return &ast.ExprStmt{Expr: expr}
 }
 
-func (p *Parser) parseExternalDecl() ast.Decl {
+func (p *parser) parseExternalDecl() ast.Decl {
 	typ := p.parseDeclarationSpecifiers()
 	isTypedef := false
 	if v, ok := typ.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
@@ -1043,6 +1097,7 @@ func (p *Parser) parseExternalDecl() ast.Decl {
 			typ = v.Inner
 		}
 	}
+
 	typ, ident := p.parseDeclarator(typ)
 	if isTypedef {
 		decl := &ast.TypedefDecl{
@@ -1056,10 +1111,11 @@ func (p *Parser) parseExternalDecl() ast.Decl {
 	if v, ok := typ.(*ast.FuncType); ok {
 		fn := &ast.FuncDecl{
 			Name:     ident,
-			Return:   v.Inner,
+			Return:   v.Return,
 			Params:   v.Params,
 			Ellipsis: v.Ellipsis,
 		}
+
 		if p.cur.Literal() == ";" {
 			p.exceptPunctuator(";")
 			return fn
@@ -1073,91 +1129,112 @@ func (p *Parser) parseExternalDecl() ast.Decl {
 		}
 
 		if p.cur.Literal() == "{" {
+			p.env.enterLabelScope()
 			fn.Body = p.parseCompoundStmt()
+			p.reportUnResolveLabel(p.env.leaveLabelScope())
 		}
+
 		return fn
 	}
 
 	decl := &ast.VarDecl{Type: typ, Name: ident}
+
 	if p.cur.Literal() == "=" {
 		p.next()
 		decl.Init = p.parseInitializer()
 	}
+
+	p.exceptPunctuator(";")
 	return decl
 }
 
-func (p *Parser) ParseUnit() *ast.TranslationUnitDecl {
-	decls := &ast.TranslationUnitDecl{}
+func (p *parser) parseFile() *ast.File {
+	unit := &ast.File{}
+	unit.Name = p.file
+	var decls []ast.Decl
 	for p.cur.Type() != token.EOF {
-		decls.Decl = append(decls.Decl, p.ParseDecl())
+		decl := p.parseDecl()
+		switch t := decl.(type) {
+		case *ast.FuncDecl, *ast.TypedefDecl:
+			unit.ExportDecl = append(unit.ExportDecl, decl)
+		case *ast.VarDecl:
+			if vv, ok := t.Type.(*ast.TypeStorageSpecifier); ok && (*vv.Specifier)["extern"] == true {
+				unit.ExportDecl = append(unit.ExportDecl, decl)
+			}
+		}
+		decls = append(decls, decl)
 	}
-	return decls
+	unit.Decl = decls
+	return unit
 }
 
-func (p *Parser) ParseDecl() ast.Decl {
+func (p *parser) parseDecl() ast.Decl {
 	return p.parseExternalDecl()
 }
 
-func (p *Parser) isTypeNameTok(tok token.Token) bool {
+func (p *parser) isTypeNameTok(tok token.Token) bool {
 	name := tok.Literal()
 	if typeSpecifierQualifierMap[name] {
 		return true
 	}
-	return p.isTypedefName(tok)
+	return p.isTypedefName(tok) != nil
 }
 
-func (p *Parser) isTypedefName(tok token.Token) bool {
-	if _, ok := p.typeName[tok.Literal()]; ok {
-		return true
-	}
-	return false
+func (p *parser) isTypedefName(tok token.Token) ast.Typename {
+	return p.env.isTypename(tok.Literal())
 }
 
-func (p *Parser) expectIdent() token.Token {
+func (p *parser) expectIdent() token.Token {
 	if p.cur.Type() == token.IDENT {
 		tok := p.cur
 		p.next()
 		return tok
 	}
-	p.addErr(p.cur, errors.ErrSyntaxExpectedIdentGot, p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedIdentGot, p.cur.Literal())
 	return p.cur
 }
 
 // 获取下一个Token
-func (p *Parser) next() token.Token {
+func (p *parser) next() token.Token {
 	p.cur = p.r.Scan()
 	return p.cur
 }
 
-func (p *Parser) exceptKeyword(lit string) (t token.Token) {
+func (p *parser) exceptKeyword(lit string) (t token.Token) {
 	t = p.cur
 	if p.cur.Type() == token.KEYWORD && p.cur.Literal() == lit {
 		p.next()
 		return
 	}
-	p.addErr(p.cur, errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
 	return
 }
 
-func (p *Parser) exceptPunctuator(lit string) (t token.Token) {
+func (p *parser) exceptPunctuator(lit string) (t token.Token) {
 	t = p.cur
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == lit {
 		p.next()
 		return
 	}
-	p.addErr(p.cur, errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
+	p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedGot, lit, p.cur.Literal())
 	return
 }
 
-func (p *Parser) addErr(pos token.Token, code errors.ErrCode, args ...interface{}) {
-	p.err(pos.Position(), errors.ErrTypeError, code, args...)
+func (p *parser) addErr(pos token.Position, code errors.ErrCode, args ...interface{}) {
+	p.err(pos, errors.ErrTypeError, code, args...)
 }
 
-func (p *Parser) addWarn(pos token.Token, code errors.ErrCode, args ...interface{}) {
-	p.err(pos.Position(), errors.ErrTypeError, code, args...)
+func (p *parser) addWarn(pos token.Position, code errors.ErrCode, args ...interface{}) {
+	p.err(pos, errors.ErrTypeError, code, args...)
 }
 
-func (p *Parser) peekOne() token.Token {
+func (p *parser) reportUnResolveLabel(labels []*ast.Ident) {
+	for _, v := range labels {
+		p.addErr(v.Position(), errors.ErrSyntaxUndefinedLabel, v.Literal())
+	}
+}
+
+func (p *parser) peekOne() token.Token {
 	if ps, ok := p.r.(scanner.PeekScanner); ok {
 		return ps.PeekOne()
 	}

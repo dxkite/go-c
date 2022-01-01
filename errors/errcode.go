@@ -43,4 +43,14 @@ const (
 	ErrSyntaxDuplicateTypeSpecifier           // 重复的类型定义符号 %s
 	ErrSyntaxDuplicateTypeQualifier           // 重复的类型修饰符号 %s
 	ErrSyntaxExpectedRecordMemberName         // 类型定义符号之后应该是成员变量的名称
+	ErrSyntaxRedefineFunc                     // 重复声明函数 %s，上次声明的位置 %s
+	ErrSyntaxRedefineVar                      // 重复声明的变量名 %s，上次声明的位置 %s
+	ErrSyntaxRedefineIdent                    // 重复的标识符 %s，上次声明的位置 %s
+	ErrSyntaxRedefinedType                    // 重复定义的类型 %s，上次定义的位置 %s
+	ErrSyntaxRedefinedStruct                  // 重复定义的结构体 %s，上次定义的位置 %s
+	ErrSyntaxRedefinedUnion                   // 重复定义的联合体 %s，上次定义的位置 %s
+	ErrSyntaxRedefinedEnum                    // 重复定义的枚举 %s，上次定义的位置 %s
+	ErrSyntaxRedefinedLabel                   // 重复定义的标签 %s，上次定义的位置 %s
+	ErrSyntaxUndefinedIdent                   // 未定义的标识符 %s
+	ErrSyntaxUndefinedLabel                   // 未定义的标签 %s
 )

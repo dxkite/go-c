@@ -1,6 +1,8 @@
 package ast
 
-import "dxkite.cn/c/token"
+import (
+	"dxkite.cn/c/token"
+)
 
 type Expr interface {
 	expr()
@@ -8,7 +10,9 @@ type Expr interface {
 
 type (
 	// 无法解析的表达式
-	BadExpr []token.Token
+	BadExpr struct {
+		token.Token
+	}
 
 	// 标识符
 	Ident struct {
@@ -21,9 +25,8 @@ type (
 		token.Token
 	}
 
-	// 匿名字面量
 	CompoundLit struct {
-		Type     TypeName
+		Type     Typename
 		InitList *InitializerExpr
 	}
 
@@ -62,7 +65,7 @@ type (
 
 	TypeCastExpr struct {
 		X    Expr
-		Type TypeName
+		Type Typename
 	}
 
 	ParenExpr struct {
@@ -105,7 +108,7 @@ type (
 
 	// sizeof 表达式
 	SizeOfExpr struct {
-		Type TypeName
+		Type Typename
 	}
 )
 
@@ -129,15 +132,11 @@ func (*AssignExpr) expr()           {}
 func (*CommaExpr) expr()            {}
 func (*SizeOfExpr) expr()           {}
 
-type TypeName interface {
+type Typename interface {
 	typeName()
 }
 
 type (
-	BadType struct {
-		token.Token
-	}
-
 	// 结构体/联合体
 	RecordType struct {
 		Type   token.Token
@@ -146,23 +145,17 @@ type (
 	}
 
 	RecordField struct {
-		Type TypeName
+		Type Typename
 		Name *Ident
 		Bit  Expr
 	}
 
-	// 用户定义类型
-	UserType struct {
-		Name *Ident
-		Type TypeName
-	}
-
 	// 枚举类型
-	EnumField struct {
+	EnumFieldDecl struct {
 		Name *Ident
 		Val  Expr
 	}
-	EnumFieldList []*EnumField
+	EnumFieldList []*EnumFieldDecl
 	EnumType      struct {
 		Name *Ident
 		List EnumFieldList
@@ -170,7 +163,8 @@ type (
 
 	// 内置类型
 	BuildInType struct {
-		Type []token.Token
+		Lit  []token.Token
+		Type CBuildInType
 	}
 
 	Qualifier map[string]bool
@@ -179,62 +173,58 @@ type (
 	// const/restrict/volatile
 	TypeQualifier struct {
 		Qualifier *Qualifier
-		Inner     TypeName
+		Inner     Typename
 	}
 
 	// extern/static/auto/register
 	TypeStorageSpecifier struct {
 		Specifier *Specifier
-		Inner     TypeName
+		Inner     Typename
 	}
 
 	// 指针类型
 	PointerType struct {
-		Qualifier *Qualifier
-		Inner     TypeName
+		Inner Typename
 	}
 
 	// 数组类型
 	ArrayType struct {
-		Inner     TypeName
-		Qualifier *Qualifier
-		Static    bool
-		Size      Expr
+		Inner  Typename
+		Static bool
+		Size   Expr
 	}
 
 	// 常量数组
 	ConstArrayType struct {
-		Inner TypeName
+		Inner Typename
 		Size  Expr
 	}
 
 	// T [*]
 	// T []
 	IncompleteArrayType struct {
-		Inner TypeName
+		Inner Typename
 	}
 
 	// 函数类型
 	ParamVarDecl struct {
-		Type TypeName
 		Name *Ident
+		Type Typename
 	}
 	ParamList []*ParamVarDecl
 	FuncType  struct {
-		Inner    TypeName
 		Params   ParamList
 		Ellipsis bool // ...
+		Return   Typename
 	}
 
 	// 括号 (abstract)
 	ParenType struct {
-		Inner TypeName
+		Inner Typename
 	}
 )
 
-func (*BadType) typeName()              {}
 func (*RecordType) typeName()           {}
-func (*UserType) typeName()             {}
 func (*EnumType) typeName()             {}
 func (*BuildInType) typeName()          {}
 func (*TypeQualifier) typeName()        {}
@@ -332,38 +322,58 @@ func (*ReturnStmt) stmt()   {}
 
 type Decl interface {
 	decl()
+	Pos() token.Position
 }
 
 type (
-	TranslationUnitDecl struct {
-		Decl []Decl
+	// 编译单元
+	TranslationUnit struct {
+		Files []*File
+	}
+
+	// 按照文件为单位分割代码
+	File struct {
+		Name       string
+		Decl       []Decl   // 文件内部的定义
+		Unresolved []*Ident // 未解析的标识符
+		ExportDecl []Decl   // 导出的定义
 	}
 
 	// 函数定义
 	FuncDecl struct {
 		Name     *Ident
-		Return   TypeName
 		Params   ParamList
 		Ellipsis bool // ...
+		Return   Typename
 		Decl     []Decl
 		Body     *CompoundStmt
 	}
 
 	// 变量定义
 	VarDecl struct {
-		Type TypeName
 		Name *Ident
+		Type Typename
 		Init Expr
 	}
 
 	// 类型定义
 	TypedefDecl struct {
-		Type TypeName
 		Name *Ident
+		Type Typename
 	}
 )
 
-func (*FuncDecl) decl()            {}
-func (*VarDecl) decl()             {}
-func (*TypedefDecl) decl()         {}
-func (*TranslationUnitDecl) decl() {}
+func (*FuncDecl) decl() {}
+func (f *FuncDecl) Pos() token.Position {
+	return f.Name.Position()
+}
+
+func (*VarDecl) decl() {}
+func (f *VarDecl) Pos() token.Position {
+	return f.Name.Position()
+}
+
+func (*TypedefDecl) decl() {}
+func (f *TypedefDecl) Pos() token.Position {
+	return f.Name.Position()
+}

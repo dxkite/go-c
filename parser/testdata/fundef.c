@@ -8,7 +8,6 @@ int max(int a, int b) {
 int main() {
     return max(10,20);
 }
-
 // ===========================
 // TranslationUnitDecl
 //  `+Decl = 
@@ -72,4 +71,6 @@ int main() {
 //        | `+Token = "10"<INT@testdata\fundef.c:9:16>
 //        `-BasicLit
 //         `+Token = "20"<INT@testdata\fundef.c:9:19>
+// ===========================
+//
 // ===========================

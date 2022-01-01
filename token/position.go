@@ -10,6 +10,6 @@ type Position struct {
 	Line, Column int
 }
 
-func (p *Position) String() string {
+func (p Position) String() string {
 	return fmt.Sprintf("%s:%d:%d", p.Filename, p.Line, p.Column)
 }
