@@ -42,15 +42,66 @@ func (e *environment) declare(obj *ast.Object) {
 	e.alterDeclare(e.nested.Insert(namespace, obj), obj, errors.ErrSyntaxRedefineIdent)
 }
 
+func (e *environment) declareDeclIdent(typ ast.ObjectType, decl ast.Decl) {
+	if decl.Ident() == nil {
+		return
+	}
+	e.declare(ast.NewDeclObject(typ, decl.Ident(), decl))
+}
+
+func (e *environment) declareRecord(r *ast.RecordType, completed bool) {
+	if r.Name == nil {
+		return
+	}
+	typ := ast.ObjectStructName
+	if r.Type.Literal() == "union" {
+		typ = ast.ObjectUnionName
+	}
+	obj := ast.NewObjectTypename(typ, r.Name, r)
+	obj.Completed = completed
+	e.declare(obj)
+}
+
+func (e *environment) declareEnum(r *ast.EnumType, completed bool) {
+	if r.Name == nil {
+		return
+	}
+	typ := ast.ObjectEnumName
+	obj := ast.NewObjectTypename(typ, r.Name, r)
+	obj.Completed = completed
+	e.declare(obj)
+}
+
+func (e *environment) declareEnumTag(r *ast.EnumFieldDecl) {
+	typ := ast.ObjectEnumTag
+	obj := ast.NewDeclObject(typ, r.Name, r)
+	e.declare(obj)
+}
+
 func (e *environment) alterDeclare(alt, obj *ast.Object, err errors.ErrCode) {
 	if alt == nil {
 		return
 	}
-	if alt.Type == ast.ObjectFunc && obj.Type == ast.ObjectFunc {
+	if alt.Type == obj.Type && obj.Type == ast.ObjectFunc {
 		if !alt.Completed && obj.Completed {
 			return
 		}
 		err = errors.ErrSyntaxRedefineFunc
+	}
+	if alt.Type == obj.Type && (alt.Type == ast.ObjectStructName ||
+		alt.Type == ast.ObjectEnumName ||
+		alt.Type == ast.ObjectUnionName) {
+		if !alt.Completed && obj.Completed {
+			return
+		}
+		switch alt.Type {
+		case ast.ObjectStructName:
+			err = errors.ErrSyntaxRedefinedStruct
+		case ast.ObjectEnumName:
+			err = errors.ErrSyntaxRedefinedEnum
+		case ast.ObjectUnionName:
+			err = errors.ErrSyntaxRedefinedUnion
+		}
 	}
 	e.parser.addErr(obj.Pos, err, obj, alt)
 }
@@ -69,7 +120,7 @@ func (e *environment) tryResolve(space ast.ScopeNamespace, name string) *ast.Obj
 
 func (e *environment) isTypename(name string) ast.Typename {
 	obj := e.tryResolve(ast.IdentScope, name)
-	if obj.Type == ast.ObjectTypename {
+	if obj != nil && obj.Type == ast.ObjectTypename {
 		return obj.Typename
 	}
 	return nil

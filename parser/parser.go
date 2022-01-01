@@ -479,7 +479,9 @@ func (p *parser) parseAbstractDeclarator(inner ast.Typename) ast.Typename {
 }
 
 func (p *parser) parseFuncType(inner ast.Typename) ast.Typename {
+	p.env.enterScope(ast.FuncPrototypeScope)
 	params, ellipsis := p.parseParameterList()
+	p.env.leaveLabelScope()
 	return &ast.FuncType{
 		Return:   inner,
 		Params:   params,
@@ -533,6 +535,7 @@ func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 	p.exceptPunctuator("(")
 	for p.cur.Literal() != ")" && p.cur.Literal() != "..." && p.cur.Type() != token.EOF {
 		param := p.parseParameterDecl()
+		p.env.declareDeclIdent(ast.ObjectParamVal, param)
 		params = append(params, param)
 		if p.cur.Literal() != "," {
 			break
@@ -660,7 +663,7 @@ func (p *parser) parseDeclarationSpecifiers() ast.Typename {
 	var buildIn *ast.BuildInType
 	var spec []token.Token
 
-	for declarationSpecifierMap[p.cur.Literal()] {
+	for declarationSpecifierMap[p.cur.Literal()] || p.isTypeNameTok(p.cur) {
 		if typeQualifierMap[p.cur.Literal()] {
 			qua = append(qua, p.cur)
 			p.next()
@@ -714,6 +717,7 @@ func (p *parser) parseTypeSpecifier() ast.Typename {
 		// 用户定义的类型
 		if p.cur.Type() == token.IDENT {
 			if t := p.isTypedefName(p.cur); t != nil {
+				p.next()
 				return t
 			}
 		}
@@ -772,6 +776,7 @@ func (p *parser) parseRecordType() *ast.RecordType {
 		return r
 	}
 
+	p.env.declareRecord(r, false)
 	p.next() // {
 	for p.until("}") {
 		typ := p.parseTypeQualifierSpecifierList()
@@ -801,6 +806,7 @@ func (p *parser) parseRecordType() *ast.RecordType {
 		p.exceptPunctuator(";")
 	}
 	p.exceptPunctuator("}") // }
+	p.env.declareRecord(r, true)
 	return r
 }
 
@@ -825,25 +831,31 @@ func (p *parser) parseEnumType() *ast.EnumType {
 		t.Name = &ast.Ident{Token: p.cur}
 		p.next()
 	}
-	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "{" {
-		p.next() // {
-		for p.until("}") {
-			ident := p.expectIdent()
-			var expr ast.Expr
-			if p.cur.Literal() == "=" {
-				p.next()
-				expr = p.parseConstantExpr()
-			}
-			t.List = append(t.List, &ast.EnumFieldDecl{
-				Name: &ast.Ident{Token: ident},
-				Val:  expr,
-			})
-			if p.cur.Literal() == "," {
-				p.next() // ,
-			}
-		}
-		p.exceptPunctuator("}") // }
+	if p.cur.Literal() != "{" {
+		return t
 	}
+	p.env.declareEnum(t, false)
+	p.next() // {
+	for p.until("}") {
+		ident := p.expectIdent()
+		var expr ast.Expr
+		if p.cur.Literal() == "=" {
+			p.next()
+			expr = p.parseConstantExpr()
+		}
+		tag := &ast.EnumFieldDecl{
+			Name: &ast.Ident{Token: ident},
+			Val:  expr,
+		}
+		p.env.declareEnumTag(tag)
+		t.List = append(t.List, tag)
+		if p.cur.Literal() != "," {
+			break
+		}
+		p.exceptPunctuator(",")
+	}
+	p.exceptPunctuator("}") // }
+	p.env.declareEnum(t, true)
 	return t
 }
 
@@ -1086,7 +1098,7 @@ func (p *parser) parseCompoundStmt() *ast.CompoundStmt {
 }
 
 func (p *parser) parseBlockItem() ast.Stmt {
-	if declarationSpecifierMap[p.cur.Literal()] {
+	if declarationSpecifierMap[p.cur.Literal()] || p.isTypeNameTok(p.cur) {
 		return p.parseDeclStmt()
 	}
 	return p.parseStmt()
@@ -1115,6 +1127,7 @@ func (p *parser) parseExternalDecl() ast.Decl {
 			Name: ident,
 		}
 		p.defineType(decl)
+		p.exceptPunctuator(";")
 		return decl
 	}
 
@@ -1142,7 +1155,9 @@ func (p *parser) parseExternalDecl() ast.Decl {
 
 		if p.cur.Literal() == "{" {
 			p.env.enterLabelScope()
+			p.env.enterScope(ast.FuncScope)
 			fn.Body = p.parseCompoundStmt()
+			p.env.leaveLabelScope()
 			p.reportUnResolveLabel(p.env.leaveLabelScope())
 		}
 
@@ -1159,6 +1174,7 @@ func (p *parser) parseExternalDecl() ast.Decl {
 	}
 
 	p.exceptPunctuator(";")
+	p.env.declareDeclIdent(ast.ObjectVar, decl)
 	return decl
 }
 

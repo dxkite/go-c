@@ -322,7 +322,7 @@ func (*ReturnStmt) stmt()   {}
 
 type Decl interface {
 	decl()
-	Pos() token.Position
+	Ident() *Ident
 }
 
 type (
@@ -363,16 +363,26 @@ type (
 )
 
 func (*FuncDecl) decl() {}
-func (f *FuncDecl) Pos() token.Position {
-	return f.Name.Position()
+func (f *FuncDecl) Ident() *Ident {
+	return f.Name
 }
 
 func (*VarDecl) decl() {}
-func (f *VarDecl) Pos() token.Position {
-	return f.Name.Position()
+func (f *VarDecl) Ident() *Ident {
+	return f.Name
 }
 
 func (*TypedefDecl) decl() {}
-func (f *TypedefDecl) Pos() token.Position {
-	return f.Name.Position()
+func (f *TypedefDecl) Ident() *Ident {
+	return f.Name
+}
+
+func (*ParamVarDecl) decl() {}
+func (f *ParamVarDecl) Ident() *Ident {
+	return f.Name
+}
+
+func (*EnumFieldDecl) decl() {}
+func (f *EnumFieldDecl) Ident() *Ident {
+	return f.Name
 }
