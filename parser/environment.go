@@ -42,7 +42,7 @@ func (e *environment) declare(obj *ast.Object) {
 	e.alterDeclare(e.nested.Insert(namespace, obj), obj, errors.ErrSyntaxRedefineIdent)
 }
 
-func (e *environment) declareDeclIdent(typ ast.ObjectType, decl ast.Decl) {
+func (e *environment) declareIdent(typ ast.ObjectType, decl ast.Decl) {
 	if decl.Ident() == nil {
 		return
 	}
@@ -103,7 +103,7 @@ func (e *environment) alterDeclare(alt, obj *ast.Object, err errors.ErrCode) {
 			err = errors.ErrSyntaxRedefinedUnion
 		}
 	}
-	e.parser.addErr(obj.Pos, err, obj, alt)
+	e.parser.addErr(obj.Pos, err, obj.Name, alt.Pos.String())
 }
 
 // 解析变量

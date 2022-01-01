@@ -535,7 +535,7 @@ func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 	p.exceptPunctuator("(")
 	for p.cur.Literal() != ")" && p.cur.Literal() != "..." && p.cur.Type() != token.EOF {
 		param := p.parseParameterDecl()
-		p.env.declareDeclIdent(ast.ObjectParamVal, param)
+		p.env.declareIdent(ast.ObjectParamVal, param)
 		params = append(params, param)
 		if p.cur.Literal() != "," {
 			break
@@ -915,6 +915,7 @@ func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
 		p.next()
 		decl.Init = p.parseInitializer()
 	}
+	p.env.declareIdent(ast.ObjectVar, decl)
 	return decl
 }
 
@@ -1174,7 +1175,7 @@ func (p *parser) parseExternalDecl() ast.Decl {
 	}
 
 	p.exceptPunctuator(";")
-	p.env.declareDeclIdent(ast.ObjectVar, decl)
+	p.env.declareIdent(ast.ObjectVar, decl)
 	return decl
 }
 
