@@ -140,17 +140,12 @@ func (e *environment) alterDeclare(alt, obj *ast.Object, err errors.ErrCode) {
 	if alt == nil {
 		return
 	}
-	if alt.Type == obj.Type && obj.Type == ast.ObjectFunc {
-		if !alt.Completed && obj.Completed {
-			return
-		}
-		err = errors.ErrSyntaxRedefineFunc
-	}
-	if alt.Type == obj.Type && (alt.Type == ast.ObjectStructName ||
-		alt.Type == ast.ObjectEnumName ||
-		alt.Type == ast.ObjectUnionName) {
-		if !alt.Completed && obj.Completed {
-			return
+	if alt.Type == obj.Type {
+		switch alt.Type {
+		case ast.ObjectStructName, ast.ObjectEnumName, ast.ObjectUnionName, ast.ObjectFunc:
+			if !alt.Completed && obj.Completed {
+				return
+			}
 		}
 		switch alt.Type {
 		case ast.ObjectStructName:
@@ -159,6 +154,12 @@ func (e *environment) alterDeclare(alt, obj *ast.Object, err errors.ErrCode) {
 			err = errors.ErrSyntaxRedefinedEnum
 		case ast.ObjectUnionName:
 			err = errors.ErrSyntaxRedefinedUnion
+		case ast.ObjectFunc:
+			err = errors.ErrSyntaxRedefineFunc
+		case ast.ObjectVar:
+			err = errors.ErrSyntaxRedefineVar
+		case ast.ObjectTypename:
+			err = errors.ErrSyntaxRedefinedType
 		}
 	}
 	e.parser.addErr(obj.Pos, err, obj.Name, alt.Pos.String())

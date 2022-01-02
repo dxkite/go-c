@@ -27,14 +27,12 @@ int main() {
 //   | |  |   `+Inner = TypeQualifier
 //   | |  |    |+Qualifier = map[const:true]
 //   | |  |    `+Inner = BuildInType
-//   | |  |     |+Lit = 
-//   | |  |     | `-"char"<KEYWORD@testdata/printf.h:1:18>
-//   | |  |     `+Type = char
+//   | |  |     `+Lit = 
+//   | |  |      `-"char"<KEYWORD@testdata/printf.h:1:18>
 //   | |  |+Ellipsis = true
 //   | |  |+Return = BuildInType
-//   | |  | |+Lit = 
-//   | |  | | `-"int"<KEYWORD@testdata/printf.h:1:1>
-//   | |  | `+Type = int
+//   | |  | `+Lit = 
+//   | |  |  `-"int"<KEYWORD@testdata/printf.h:1:1>
 //   | |  |+Decl = 
 //   | |  `+Body = <nil>
 //   | `+Unresolved = 
@@ -47,9 +45,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\label.c:3:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\label.c:3:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-GotoStmt

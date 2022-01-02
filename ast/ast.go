@@ -165,8 +165,7 @@ type (
 
 	// 内置类型
 	BuildInType struct {
-		Lit  []token.Token
-		Type CBuildInType
+		Lit []token.Token
 	}
 
 	Qualifier map[string]bool

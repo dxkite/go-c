@@ -42,9 +42,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\enum.c:7:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\enum.c:7:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt

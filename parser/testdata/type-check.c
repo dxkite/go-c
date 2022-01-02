@@ -48,9 +48,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\type-check.c:5:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\type-check.c:5:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
@@ -58,18 +57,16 @@ int main() {
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "a"<IDENT@testdata\type-check.c:6:9>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"int"<KEYWORD@testdata\type-check.c:6:5>
-//    |   |  | `+Type = int
+//    |   |  | `+Lit = 
+//    |   |  |  `-"int"<KEYWORD@testdata\type-check.c:6:5>
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "b"<IDENT@testdata\type-check.c:7:10>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"char"<KEYWORD@testdata\type-check.c:7:5>
-//    |   |  | `+Type = char
+//    |   |  | `+Lit = 
+//    |   |  |  `-"char"<KEYWORD@testdata\type-check.c:7:5>
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
@@ -122,5 +119,5 @@ int main() {
 // `-Error
 //  |+Pos = testdata\type-check.c:9:18
 //  |+Typ = 0
-//  `+Msg = 在 testdata\type-check.c 文件的第9行18列: 重复的标识符 tree，上次声明的位置 testdata\type-check.c:8:12
+//  `+Msg = 在 testdata\type-check.c 文件的第9行18列: 重复声明的变量名 tree，上次声明的位置 testdata\type-check.c:8:12
 // ===========================

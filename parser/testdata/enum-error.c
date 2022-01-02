@@ -46,9 +46,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\enum-error.c:7:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\enum-error.c:7:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
@@ -79,27 +78,24 @@ int main() {
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "color1"<IDENT@testdata\enum-error.c:9:9>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"int"<KEYWORD@testdata\enum-error.c:9:5>
-//    |   |  | `+Type = int
+//    |   |  | `+Lit = 
+//    |   |  |  `-"int"<KEYWORD@testdata\enum-error.c:9:5>
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "color2"<IDENT@testdata\enum-error.c:10:10>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"char"<KEYWORD@testdata\enum-error.c:10:5>
-//    |   |  | `+Type = char
+//    |   |  | `+Lit = 
+//    |   |  |  `-"char"<KEYWORD@testdata\enum-error.c:10:5>
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "Color"<IDENT@testdata\enum-error.c:11:15>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"long"<KEYWORD@testdata\enum-error.c:11:10>
-//    |   |  | `+Type = CUnknownType
+//    |   |  | `+Lit = 
+//    |   |  |  `-"long"<KEYWORD@testdata\enum-error.c:11:10>
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
 //    |   | `+Expr = Ident
@@ -109,10 +105,9 @@ int main() {
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "Color"<IDENT@testdata\enum-error.c:12:15>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | |-"long"<KEYWORD@testdata\enum-error.c:12:5>
-//    |   |  | | `-"enum"<KEYWORD@testdata\enum-error.c:12:10>
-//    |   |  | `+Type = int
+//    |   |  | `+Lit = 
+//    |   |  |  |-"long"<KEYWORD@testdata\enum-error.c:12:5>
+//    |   |  |  `-"enum"<KEYWORD@testdata\enum-error.c:12:10>
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
 //    |   | `+Expr = Ident
@@ -124,10 +119,9 @@ int main() {
 //    |   |  |+Type = TypeQualifier
 //    |   |  | |+Qualifier = map[const:true]
 //    |   |  | `+Inner = BuildInType
-//    |   |  |  |+Lit = 
-//    |   |  |  | |-"long"<KEYWORD@testdata\enum-error.c:13:11>
-//    |   |  |  | `-"enum"<KEYWORD@testdata\enum-error.c:13:16>
-//    |   |  |  `+Type = int
+//    |   |  |  `+Lit = 
+//    |   |  |   |-"long"<KEYWORD@testdata\enum-error.c:13:11>
+//    |   |  |   `-"enum"<KEYWORD@testdata\enum-error.c:13:16>
 //    |   |  `+Init = <nil>
 //    |   `-ExprStmt
 //    |    `+Expr = Ident
@@ -138,31 +132,23 @@ int main() {
 // |-Error
 // | |+Pos = testdata\enum-error.c:9:9
 // | |+Typ = 0
-// | `+Msg = 在 testdata\enum-error.c 文件的第9行9列: 重复的标识符 color1，上次声明的位置 testdata\enum-error.c:8:13
+// | `+Msg = 在 testdata\enum-error.c 文件的第9行9列: 重复声明的变量名 color1，上次声明的位置 testdata\enum-error.c:8:13
 // |-Error
 // | |+Pos = testdata\enum-error.c:11:21
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第11行21列: 这里应该是一个 ; ，不应该出现 color2
 // |-Error
-// | |+Pos = testdata\enum-error.c:12:10
-// | |+Typ = 0
-// | `+Msg = 在 testdata\enum-error.c 文件的第12行10列: 非预期的类型定义符号 enum
-// |-Error
 // | |+Pos = testdata\enum-error.c:12:15
 // | |+Typ = 0
-// | `+Msg = 在 testdata\enum-error.c 文件的第12行15列: 重复的标识符 Color，上次声明的位置 testdata\enum-error.c:11:15
+// | `+Msg = 在 testdata\enum-error.c 文件的第12行15列: 重复声明的变量名 Color，上次声明的位置 testdata\enum-error.c:11:15
 // |-Error
 // | |+Pos = testdata\enum-error.c:12:21
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第12行21列: 这里应该是一个 ; ，不应该出现 color2
 // |-Error
-// | |+Pos = testdata\enum-error.c:13:16
-// | |+Typ = 0
-// | `+Msg = 在 testdata\enum-error.c 文件的第13行16列: 非预期的类型定义符号 enum
-// |-Error
 // | |+Pos = testdata\enum-error.c:13:21
 // | |+Typ = 0
-// | `+Msg = 在 testdata\enum-error.c 文件的第13行21列: 重复的标识符 Color，上次声明的位置 testdata\enum-error.c:11:15
+// | `+Msg = 在 testdata\enum-error.c 文件的第13行21列: 重复声明的变量名 Color，上次声明的位置 testdata\enum-error.c:11:15
 // `-Error
 //  |+Pos = testdata\enum-error.c:13:27
 //  |+Typ = 0

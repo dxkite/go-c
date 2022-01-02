@@ -48,9 +48,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\enum-error-conflict.c:8:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:8:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
@@ -85,9 +84,8 @@ int main() {
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "a"<IDENT@testdata\enum-error-conflict.c:10:9>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"int"<KEYWORD@testdata\enum-error-conflict.c:10:5>
-//    |   |  | `+Type = int
+//    |   |  | `+Lit = 
+//    |   |  |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:10:5>
 //    |   |  `+Init = Ident
 //    |   |   `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:10:13>
 //    |   `-DeclStmt
@@ -95,9 +93,8 @@ int main() {
 //    |     |+Name = Ident
 //    |     | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:11:9>
 //    |     |+Type = BuildInType
-//    |     | |+Lit = 
-//    |     | | `-"int"<KEYWORD@testdata\enum-error-conflict.c:11:5>
-//    |     | `+Type = int
+//    |     | `+Lit = 
+//    |     |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:11:5>
 //    |     `+Init = BasicLit
 //    |      `+Token = "10"<INT@testdata\enum-error-conflict.c:11:18>
 //    `+Unresolved = 

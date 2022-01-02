@@ -14,9 +14,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\simple.c:1:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\simple.c:1:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   `-ReturnStmt

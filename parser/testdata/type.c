@@ -28,9 +28,8 @@ int main() {
 //    | | |+Name = Ident
 //    | | | `+Token = "i"<IDENT@testdata\type.c:1:5>
 //    | | |+Type = BuildInType
-//    | | | |+Lit = 
-//    | | | | `-"int"<KEYWORD@testdata\type.c:1:1>
-//    | | | `+Type = int
+//    | | | `+Lit = 
+//    | | |  `-"int"<KEYWORD@testdata\type.c:1:1>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -38,9 +37,8 @@ int main() {
 //    | | |+Type = TypeQualifier
 //    | | | |+Qualifier = map[const:true]
 //    | | | `+Inner = BuildInType
-//    | | |  |+Lit = 
-//    | | |  | `-"int"<KEYWORD@testdata\type.c:2:7>
-//    | | |  `+Type = int
+//    | | |  `+Lit = 
+//    | | |   `-"int"<KEYWORD@testdata\type.c:2:7>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -48,12 +46,11 @@ int main() {
 //    | | |+Type = TypeQualifier
 //    | | | |+Qualifier = map[const:true]
 //    | | | `+Inner = BuildInType
-//    | | |  |+Lit = 
-//    | | |  | |-"long"<KEYWORD@testdata\type.c:3:7>
-//    | | |  | |-"long"<KEYWORD@testdata\type.c:3:12>
-//    | | |  | |-"long"<KEYWORD@testdata\type.c:3:17>
-//    | | |  | `-"int"<KEYWORD@testdata\type.c:3:22>
-//    | | |  `+Type = int
+//    | | |  `+Lit = 
+//    | | |   |-"long"<KEYWORD@testdata\type.c:3:7>
+//    | | |   |-"long"<KEYWORD@testdata\type.c:3:12>
+//    | | |   |-"long"<KEYWORD@testdata\type.c:3:17>
+//    | | |   `-"int"<KEYWORD@testdata\type.c:3:22>
 //    | | `+Init = BasicLit
 //    | |  `+Token = "10"<INT@testdata\type.c:3:33>
 //    | |-VarDecl
@@ -62,9 +59,8 @@ int main() {
 //    | | |+Type = TypeQualifier
 //    | | | |+Qualifier = map[const:true]
 //    | | | `+Inner = BuildInType
-//    | | |  |+Lit = 
-//    | | |  | `-"double"<KEYWORD@testdata\type.c:4:7>
-//    | | |  `+Type = double
+//    | | |  `+Lit = 
+//    | | |   `-"double"<KEYWORD@testdata\type.c:4:7>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -73,10 +69,9 @@ int main() {
 //    | | | `+Inner = TypeQualifier
 //    | | |  |+Qualifier = map[const:true]
 //    | | |  `+Inner = BuildInType
-//    | | |   |+Lit = 
-//    | | |   | |-"long"<KEYWORD@testdata\type.c:5:7>
-//    | | |   | `-"double"<KEYWORD@testdata\type.c:5:12>
-//    | | |   `+Type = double
+//    | | |   `+Lit = 
+//    | | |    |-"long"<KEYWORD@testdata\type.c:5:7>
+//    | | |    `-"double"<KEYWORD@testdata\type.c:5:12>
 //    | | `+Init = InitializerExpr
 //    | |  |-BasicLit
 //    | |  | `+Token = "1"<INT@testdata\type.c:5:28>
@@ -92,9 +87,8 @@ int main() {
 //    | | |+Type = TypeQualifier
 //    | | | |+Qualifier = map[const:true]
 //    | | | `+Inner = BuildInType
-//    | | |  |+Lit = 
-//    | | |  | `-"float"<KEYWORD@testdata\type.c:6:7>
-//    | | |  `+Type = float
+//    | | |  `+Lit = 
+//    | | |   `-"float"<KEYWORD@testdata\type.c:6:7>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -102,10 +96,9 @@ int main() {
 //    | | |+Type = TypeQualifier
 //    | | | |+Qualifier = map[const:true]
 //    | | | `+Inner = BuildInType
-//    | | |  |+Lit = 
-//    | | |  | |-"int"<KEYWORD@testdata\type.c:7:7>
-//    | | |  | `-"short"<KEYWORD@testdata\type.c:7:11>
-//    | | |  `+Type = int
+//    | | |  `+Lit = 
+//    | | |   |-"int"<KEYWORD@testdata\type.c:7:7>
+//    | | |   `-"short"<KEYWORD@testdata\type.c:7:11>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -114,9 +107,8 @@ int main() {
 //    | | | `+Inner = TypeStorageSpecifier
 //    | | |  |+Specifier = map[extern:true]
 //    | | |  `+Inner = BuildInType
-//    | | |   |+Lit = 
-//    | | |   | `-"int"<KEYWORD@testdata\type.c:8:8>
-//    | | |   `+Type = int
+//    | | |   `+Lit = 
+//    | | |    `-"int"<KEYWORD@testdata\type.c:8:8>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -127,9 +119,8 @@ int main() {
 //    | | |  `+Inner = TypeStorageSpecifier
 //    | | |   |+Specifier = map[static:true]
 //    | | |   `+Inner = BuildInType
-//    | | |    |+Lit = 
-//    | | |    | `-"int"<KEYWORD@testdata\type.c:9:8>
-//    | | |    `+Type = int
+//    | | |    `+Lit = 
+//    | | |     `-"int"<KEYWORD@testdata\type.c:9:8>
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = Ident
@@ -165,9 +156,8 @@ int main() {
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
 //    |  |+Return = BuildInType
-//    |  | |+Lit = 
-//    |  | | `-"int"<KEYWORD@testdata\type.c:15:1>
-//    |  | `+Type = int
+//    |  | `+Lit = 
+//    |  |  `-"int"<KEYWORD@testdata\type.c:15:1>
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
@@ -175,18 +165,16 @@ int main() {
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "a"<IDENT@testdata\type.c:16:9>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"int"<KEYWORD@testdata\type.c:16:5>
-//    |   |  | `+Type = int
+//    |   |  | `+Lit = 
+//    |   |  |  `-"int"<KEYWORD@testdata\type.c:16:5>
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Ident
 //    |   |  | `+Token = "b"<IDENT@testdata\type.c:17:10>
 //    |   |  |+Type = BuildInType
-//    |   |  | |+Lit = 
-//    |   |  | | `-"char"<KEYWORD@testdata\type.c:17:5>
-//    |   |  | `+Type = char
+//    |   |  | `+Lit = 
+//    |   |  |  `-"char"<KEYWORD@testdata\type.c:17:5>
 //    |   |  `+Init = <nil>
 //    |   `-ReturnStmt
 //    |    `+X = BasicLit
@@ -194,14 +182,6 @@ int main() {
 //    `+Unresolved = 
 // ===========================
 //
-// |-Error
-// | |+Pos = testdata\type.c:3:17
-// | |+Typ = 0
-// | `+Msg = 在 testdata\type.c 文件的第3行17列: 非预期的类型定义符号 long
-// |-Error
-// | |+Pos = testdata\type.c:7:11
-// | |+Typ = 0
-// | `+Msg = 在 testdata\type.c 文件的第7行11列: 非预期的类型定义符号 short
 // `-Error
 //  |+Pos = testdata\type.c:12:12
 //  |+Typ = 0
