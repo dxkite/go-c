@@ -186,8 +186,8 @@ type (
 
 	// 内置类型
 	BuildInType struct {
-		Qua *Qualifier
-		Lit []token.Token
+		Qua  *Qualifier
+		Type BasicType
 	}
 
 	Specifier map[string]bool
@@ -325,9 +325,7 @@ func (t *EnumType) String() string {
 
 func (t *BuildInType) String() string {
 	name := []string{t.Qualifier().String()}
-	for _, v := range t.Lit {
-		name = append(name, v.Literal())
-	}
+	name = append(name, t.Type.String())
 	return strings.Join(name, " ")
 }
 

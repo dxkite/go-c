@@ -47,21 +47,21 @@ int main() {
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Color
-//    |   |  |+Type =  long
+//    |   |  |+Type =  UnknownType
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
 //    |   | `+Expr = color2
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Color
-//    |   |  |+Type =  long enum
+//    |   |  |+Type =  int
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
 //    |   | `+Expr = color2
 //    |   |-DeclStmt
 //    |   | `-VarDecl
 //    |   |  |+Name = Color
-//    |   |  |+Type = const long enum
+//    |   |  |+Type = const int
 //    |   |  `+Init = <nil>
 //    |   `-ExprStmt
 //    |    `+Expr = color3
@@ -77,6 +77,10 @@ int main() {
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第11行21列: 这里应该是一个 ; ，不应该出现 color2
 // |-Error
+// | |+Pos = testdata\enum-error.c:12:10
+// | |+Typ = 0
+// | `+Msg = 在 testdata\enum-error.c 文件的第12行10列: 非预期的类型定义符号 enum
+// |-Error
 // | |+Pos = testdata\enum-error.c:12:15
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第12行15列: 重复声明的变量名 Color，上次声明的位置 testdata\enum-error.c:11:15
@@ -84,6 +88,10 @@ int main() {
 // | |+Pos = testdata\enum-error.c:12:21
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第12行21列: 这里应该是一个 ; ，不应该出现 color2
+// |-Error
+// | |+Pos = testdata\enum-error.c:13:16
+// | |+Typ = 0
+// | `+Msg = 在 testdata\enum-error.c 文件的第13行16列: 非预期的类型定义符号 enum
 // |-Error
 // | |+Pos = testdata\enum-error.c:13:21
 // | |+Typ = 0

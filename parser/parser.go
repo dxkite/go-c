@@ -598,7 +598,7 @@ func (p *parser) parseDirectDeclaratorInner(typ ast.Typename) ast.Typename {
 func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 	var qua []token.Token
 	var typ ast.Typename
-	var buildIn *ast.BuildInType
+	var buildIn []token.Token
 
 	for typeSpecifierQualifierMap[p.cur.Literal()] {
 		if typeQualifierMap[p.cur.Literal()] {
@@ -606,17 +606,26 @@ func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 			p.next()
 			continue
 		}
-		if buildIn != nil && typeStructMap[p.cur.Literal()] {
+		if len(buildIn) > 0 && typeStructMap[p.cur.Literal()] {
 			p.addErr(p.cur.Position(), errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
-		typ = p.parseTypeSpecifier()
-		if v, ok := typ.(*ast.BuildInType); ok {
-			if buildIn == nil {
-				buildIn = v
-			} else {
-				buildIn.Lit = append(buildIn.Lit, v.Lit...)
-			}
+		if t, s := p.parseTypeSpecifier(); t != nil {
+			typ = t
+		} else {
+			buildIn = append(buildIn, s...)
 		}
+	}
+
+	if len(buildIn) != 0 {
+		tp := &ast.BuildInType{
+			Type: ast.Int,
+		}
+		if t, err := ast.ParseBuildInType(buildIn); err != nil {
+			p.addErr(err.Pos, err.Code, err.Params...)
+		} else {
+			tp.Type = t
+		}
+		typ = tp
 	}
 
 	if len(qua) > 0 && typ != nil {
@@ -646,7 +655,7 @@ func (p *parser) makeTypeQualifier(typ ast.Typename, qua []token.Token) ast.Type
 func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifier) {
 	var qua []token.Token
 	var typ ast.Typename
-	var buildIn *ast.BuildInType
+	var buildIn []token.Token
 	var spec []token.Token
 
 	for declarationSpecifierMap[p.cur.Literal()] || p.isTypeNameTok(p.cur) {
@@ -655,22 +664,32 @@ func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifi
 			p.next()
 			continue
 		}
+
 		if storageClassSpecifierMap[p.cur.Literal()] {
 			spec = append(spec, p.cur)
 			p.next()
 			continue
 		}
-		if buildIn != nil && typeStructMap[p.cur.Literal()] {
+		if len(buildIn) > 0 && typeStructMap[p.cur.Literal()] {
 			p.addErr(p.cur.Position(), errors.ErrSyntaxUnexpectedTypeSpecifier, p.cur.Literal())
 		}
-		typ = p.parseTypeSpecifier()
-		if v, ok := typ.(*ast.BuildInType); ok {
-			if buildIn == nil {
-				buildIn = v
-			} else {
-				buildIn.Lit = append(buildIn.Lit, v.Lit...)
-			}
+		if t, s := p.parseTypeSpecifier(); t != nil {
+			typ = t
+		} else {
+			buildIn = append(buildIn, s...)
 		}
+	}
+
+	if len(buildIn) != 0 {
+		tp := &ast.BuildInType{
+			Type: ast.Int,
+		}
+		if t, err := ast.ParseBuildInType(buildIn); err != nil {
+			p.addErr(err.Pos, err.Code, err.Params...)
+		} else {
+			tp.Type = t
+		}
+		typ = tp
 	}
 
 	if len(qua) > 0 && typ != nil {
@@ -693,26 +712,26 @@ func (p *parser) markSpecifier(q *ast.StorageSpecifier, qua []token.Token) {
 	}
 }
 
-func (p *parser) parseTypeSpecifier() ast.Typename {
+func (p *parser) parseTypeSpecifier() (ast.Typename, []token.Token) {
 	switch p.cur.Literal() {
 	case "struct", "union":
-		return p.parseRecordType()
+		return p.parseRecordType(), nil
 	case "enum":
-		return p.parseEnumType()
+		return p.parseEnumType(), nil
 	default:
 		// 用户定义的类型
 		if p.cur.Type() == token.IDENT {
 			if t := p.isTypedefName(p.cur); t != nil {
 				p.next()
-				return t
+				return t, nil
 			}
 		}
 	}
-	return p.parseBuildInType()
+	return nil, p.parseBuildInSpec()
 }
 
 // 扫描内置类型
-func (p *parser) parseBuildInType() ast.Typename {
+func (p *parser) parseBuildInSpec() []token.Token {
 	var spec []token.Token
 	for p.cur.Type() == token.KEYWORD && typeSpecifierMap[p.cur.Literal()] {
 		if typeSpecifierMap[p.cur.Literal()] {
@@ -720,9 +739,7 @@ func (p *parser) parseBuildInType() ast.Typename {
 		}
 		p.next()
 	}
-	return &ast.BuildInType{
-		Lit: spec,
-	}
+	return spec
 }
 
 func (p *parser) markQualifier(q *ast.Qualifier, qua []token.Token) {

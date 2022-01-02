@@ -34,7 +34,7 @@ int main() {
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = clli
-//    | | |+Type = const long long long int
+//    | | |+Type = const int
 //    | | `+Init = 10
 //    | |-VarDecl
 //    | | |+Name = cd
@@ -42,7 +42,7 @@ int main() {
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = cld
-//    | | |+Type =  const long double[]
+//    | | |+Type =  const double[]
 //    | | `+Init = InitializerExpr
 //    | |  |-1
 //    | |  |-2
@@ -54,7 +54,7 @@ int main() {
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = is_err
-//    | | |+Type = const int short
+//    | | |+Type = const int
 //    | | `+Init = <nil>
 //    | |-VarDecl
 //    | | |+Name = ei_v
@@ -90,6 +90,14 @@ int main() {
 //    `+Unresolved = 
 // ===========================
 //
+// |-Error
+// | |+Pos = testdata\type.c:3:17
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.c 文件的第3行17列: 非预期的类型定义符号 long
+// |-Error
+// | |+Pos = testdata\type.c:7:11
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.c 文件的第7行11列: 非预期的类型定义符号 short
 // `-Error
 //  |+Pos = testdata\type.c:12:12
 //  |+Typ = 0

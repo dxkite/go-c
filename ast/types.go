@@ -1,16 +1,16 @@
 //go:generate stringer -type BuildInType -linecomment
-package types
+package ast
 
 import (
-	"dxkite.cn/c/ast"
 	"dxkite.cn/c/errors"
+	"dxkite.cn/c/token"
 )
 
 // C语言基础类型
-type BuildInType int
+type BasicType int
 
 const (
-	UnknownType BuildInType = iota
+	UnknownType BasicType = iota
 
 	Void // void
 	// bool
@@ -35,9 +35,11 @@ const (
 	UnsignedInt // unsigned int
 	// uint64
 	UnsignedLongLong // unsigned long long
+	// uintptr
+	UnsignedPointer // 无符号指针
 )
 
-var sizeof = map[BuildInType]int{
+var sizeof = map[BasicType]int{
 	Void:             1,
 	Bool:             1,
 	Char:             1,
@@ -50,9 +52,10 @@ var sizeof = map[BuildInType]int{
 	UnsignedShort:    2,
 	UnsignedInt:      4,
 	UnsignedLongLong: 8,
+	UnsignedPointer:  4,
 }
 
-func (t BuildInType) Size() int {
+func (t BasicType) Size() int {
 	if v, ok := sizeof[t]; ok {
 		return v
 	}
@@ -60,13 +63,13 @@ func (t BuildInType) Size() int {
 }
 
 // 解析内置类型
-func parseBuildInType(typ *ast.BuildInType) (BuildInType, *errors.Error) {
-	var base BuildInType
+func ParseBuildInType(lit []token.Token) (BasicType, *errors.Error) {
+	var base BasicType
 	long := 0
 	signed := false
 	unsigned := false
 
-	for _, v := range typ.Lit {
+	for _, v := range lit {
 		switch v.Literal() {
 		case "void", "_Bool", "char", "short", "float", "double":
 			if base != UnknownType {
