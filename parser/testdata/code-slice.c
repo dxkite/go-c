@@ -11,36 +11,27 @@ int main() {
 //    |+Name = testdata\code-slice.c
 //    |+Decl = 
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\code-slice.c:1:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\code-slice.c:1:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Func = Ident
-//    |   |  | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
+//    |   |  |+Func = printf
 //    |   |  `+Args = 
-//    |   |   `-BasicLit
-//    |   |    `+Token = "\"code\""<STRING@testdata/code-slice.h:1:8>
+//    |   |   `-"code"
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Func = Ident
-//    |   |  | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
+//    |   |  |+Func = printf
 //    |   |  `+Args = 
-//    |   |   `-BasicLit
-//    |   |    `+Token = "\"code\""<STRING@testdata/code-slice.h:1:8>
+//    |   |   `-"code"
 //    |   `-ExprStmt
 //    |    `+Expr = CallExpr
-//    |     |+Func = Ident
-//    |     | `+Token = "printf"<IDENT@testdata/code-slice.h:1:1>
+//    |     |+Func = printf
 //    |     `+Args = 
-//    |      `-BasicLit
-//    |       `+Token = "\"code\""<STRING@testdata/code-slice.h:1:8>
+//    |      `-"code"
 //    `+Unresolved = 
 // ===========================
 //

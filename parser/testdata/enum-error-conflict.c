@@ -18,85 +18,30 @@ int main() {
 //    |+Name = testdata\enum-error-conflict.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = Ident
-//    | | | `+Token = "color_t"<IDENT@testdata\enum-error-conflict.c:6:3>
-//    | | `+Type = EnumType
-//    | |  |+Name = Ident
-//    | |  | `+Token = "Color"<IDENT@testdata\enum-error-conflict.c:1:14>
-//    | |  `+List = EnumFieldList
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "BLUE"<IDENT@testdata\enum-error-conflict.c:2:5>
-//    | |   | `+Val = ConstantExpr
-//    | |   |  `+X = BasicLit
-//    | |   |   `+Token = "1"<INT@testdata\enum-error-conflict.c:2:12>
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "GREEN"<IDENT@testdata\enum-error-conflict.c:3:5>
-//    | |   | `+Val = <nil>
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:4:5>
-//    | |   | `+Val = <nil>
-//    | |   `-EnumFieldDecl
-//    | |    |+Name = Ident
-//    | |    | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:5:5>
-//    | |    `+Val = <nil>
+//    | | |+Name = color_t
+//    | | `+Type =  enum Color
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\enum-error-conflict.c:8:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:8:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "color1"<IDENT@testdata\enum-error-conflict.c:9:13>
-//    |   |  |+Type = EnumType
-//    |   |  | |+Name = Ident
-//    |   |  | | `+Token = "Color"<IDENT@testdata\enum-error-conflict.c:1:14>
-//    |   |  | `+List = EnumFieldList
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "BLUE"<IDENT@testdata\enum-error-conflict.c:2:5>
-//    |   |  |  | `+Val = ConstantExpr
-//    |   |  |  |  `+X = BasicLit
-//    |   |  |  |   `+Token = "1"<INT@testdata\enum-error-conflict.c:2:12>
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "GREEN"<IDENT@testdata\enum-error-conflict.c:3:5>
-//    |   |  |  | `+Val = <nil>
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:4:5>
-//    |   |  |  | `+Val = <nil>
-//    |   |  |  `-EnumFieldDecl
-//    |   |  |   |+Name = Ident
-//    |   |  |   | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:5:5>
-//    |   |  |   `+Val = <nil>
+//    |   |  |+Name = color1
+//    |   |  |+Type =  enum Color
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "a"<IDENT@testdata\enum-error-conflict.c:10:9>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:10:5>
-//    |   |  `+Init = Ident
-//    |   |   `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:10:13>
+//    |   |  |+Name = a
+//    |   |  |+Type =  int
+//    |   |  `+Init = YELLOW
 //    |   `-DeclStmt
 //    |    `-VarDecl
-//    |     |+Name = Ident
-//    |     | `+Token = "YELLOW"<IDENT@testdata\enum-error-conflict.c:11:9>
-//    |     |+Type = BuildInType
-//    |     | `+Lit = 
-//    |     |  `-"int"<KEYWORD@testdata\enum-error-conflict.c:11:5>
-//    |     `+Init = BasicLit
-//    |      `+Token = "10"<INT@testdata\enum-error-conflict.c:11:18>
+//    |     |+Name = YELLOW
+//    |     |+Type =  int
+//    |     `+Init = 10
 //    `+Unresolved = 
 // ===========================
 //

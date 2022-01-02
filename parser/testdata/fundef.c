@@ -8,69 +8,53 @@ int max(int a, int b) {
 int main() {
     return max(10,20);
 }
+
 // ===========================
-// TranslationUnitDecl
-//  `+Decl = 
-//   |-FuncDecl
-//   | |+Name = Ident
-//   | | `+Token = "max"<IDENT@testdata\fundef.c:1:5>
-//   | |+Return = BuildInType
-//   | | |+Lit = 
-//   | | | `-"int"<KEYWORD@testdata\fundef.c:1:1>
-//   | | `+Type = int
-//   | |+Params = ParamList
-//   | | |-ParamVarDecl
-//   | | | |+Type = BuildInType
-//   | | | | |+Lit = 
-//   | | | | | `-"int"<KEYWORD@testdata\fundef.c:1:9>
-//   | | | | `+Type = int
-//   | | | `+Name = Ident
-//   | | |  `+Token = "a"<IDENT@testdata\fundef.c:1:13>
-//   | | `-ParamVarDecl
-//   | |  |+Type = BuildInType
-//   | |  | |+Lit = 
-//   | |  | | `-"int"<KEYWORD@testdata\fundef.c:1:16>
-//   | |  | `+Type = int
-//   | |  `+Name = Ident
-//   | |   `+Token = "b"<IDENT@testdata\fundef.c:1:20>
-//   | |+Ellipsis = false
-//   | |+Decl = 
-//   | `+Body = CompoundStmt
-//   |  |-IfStmt
-//   |  | |+X = BinaryExpr
-//   |  | | |+X = Ident
-//   |  | | | `+Token = "a"<IDENT@testdata\fundef.c:2:9>
-//   |  | | |+Op = ">"<PUNCTUATOR@testdata\fundef.c:2:10>
-//   |  | | `+Y = Ident
-//   |  | |  `+Token = "b"<IDENT@testdata\fundef.c:2:11>
-//   |  | |+Then = CompoundStmt
-//   |  | | `-ReturnStmt
-//   |  | |  `+X = Ident
-//   |  | |   `+Token = "a"<IDENT@testdata\fundef.c:3:16>
-//   |  | `+Else = <nil>
-//   |  `-ReturnStmt
-//   |   `+X = Ident
-//   |    `+Token = "b"<IDENT@testdata\fundef.c:5:12>
-//   `-FuncDecl
-//    |+Name = Ident
-//    | `+Token = "main"<IDENT@testdata\fundef.c:8:5>
-//    |+Return = BuildInType
-//    | |+Lit = 
-//    | | `-"int"<KEYWORD@testdata\fundef.c:8:1>
-//    | `+Type = int
-//    |+Params = ParamList
-//    |+Ellipsis = false
+// TranslationUnit
+//  `+Files = 
+//   `-File
+//    |+Name = testdata\fundef.c
 //    |+Decl = 
-//    `+Body = CompoundStmt
-//     `-ReturnStmt
-//      `+X = CallExpr
-//       |+Fun = Ident
-//       | `+Token = "max"<IDENT@testdata\fundef.c:9:12>
-//       `+Args = 
-//        |-BasicLit
-//        | `+Token = "10"<INT@testdata\fundef.c:9:16>
-//        `-BasicLit
-//         `+Token = "20"<INT@testdata\fundef.c:9:19>
+//    | |-FuncDecl
+//    | | |+Name = max
+//    | | |+Params = ParamList
+//    | | | |-ParamVarDecl
+//    | | | | |+Qua = map[]
+//    | | | | |+Name = a
+//    | | | | `+Type =  int
+//    | | | `-ParamVarDecl
+//    | | |  |+Qua = map[]
+//    | | |  |+Name = b
+//    | | |  `+Type =  int
+//    | | |+Ellipsis = false
+//    | | |+Return =  int
+//    | | |+Decl = 
+//    | | `+Body = CompoundStmt
+//    | |  |-IfStmt
+//    | |  | |+X = BinaryExpr
+//    | |  | | |+X = a
+//    | |  | | |+Op = ">"<PUNCTUATOR@testdata\fundef.c:2:10>
+//    | |  | | `+Y = b
+//    | |  | |+Then = CompoundStmt
+//    | |  | | `-ReturnStmt
+//    | |  | |  `+X = a
+//    | |  | `+Else = <nil>
+//    | |  `-ReturnStmt
+//    | |   `+X = b
+//    | `-FuncDecl
+//    |  |+Name = main
+//    |  |+Params = ParamList
+//    |  |+Ellipsis = false
+//    |  |+Return =  int
+//    |  |+Decl = 
+//    |  `+Body = CompoundStmt
+//    |   `-ReturnStmt
+//    |    `+X = CallExpr
+//    |     |+Func = max
+//    |     `+Args = 
+//    |      |-10
+//    |      `-20
+//    `+Unresolved = 
 // ===========================
 //
 // ===========================

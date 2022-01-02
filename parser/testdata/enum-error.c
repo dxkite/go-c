@@ -20,112 +20,51 @@ int main() {
 //    |+Name = testdata\enum-error.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = Ident
-//    | | | `+Token = "color_t"<IDENT@testdata\enum-error.c:5:3>
-//    | | `+Type = EnumType
-//    | |  |+Name = Ident
-//    | |  | `+Token = "Color"<IDENT@testdata\enum-error.c:1:14>
-//    | |  `+List = EnumFieldList
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "BLUE"<IDENT@testdata\enum-error.c:2:5>
-//    | |   | `+Val = ConstantExpr
-//    | |   |  `+X = BasicLit
-//    | |   |   `+Token = "1"<INT@testdata\enum-error.c:2:12>
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "GREEN"<IDENT@testdata\enum-error.c:3:5>
-//    | |   | `+Val = <nil>
-//    | |   `-EnumFieldDecl
-//    | |    |+Name = Ident
-//    | |    | `+Token = "YELLOW"<IDENT@testdata\enum-error.c:4:5>
-//    | |    `+Val = <nil>
+//    | | |+Name = color_t
+//    | | `+Type =  enum Color
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\enum-error.c:7:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\enum-error.c:7:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "color1"<IDENT@testdata\enum-error.c:8:13>
-//    |   |  |+Type = EnumType
-//    |   |  | |+Name = Ident
-//    |   |  | | `+Token = "Color"<IDENT@testdata\enum-error.c:1:14>
-//    |   |  | `+List = EnumFieldList
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "BLUE"<IDENT@testdata\enum-error.c:2:5>
-//    |   |  |  | `+Val = ConstantExpr
-//    |   |  |  |  `+X = BasicLit
-//    |   |  |  |   `+Token = "1"<INT@testdata\enum-error.c:2:12>
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "GREEN"<IDENT@testdata\enum-error.c:3:5>
-//    |   |  |  | `+Val = <nil>
-//    |   |  |  `-EnumFieldDecl
-//    |   |  |   |+Name = Ident
-//    |   |  |   | `+Token = "YELLOW"<IDENT@testdata\enum-error.c:4:5>
-//    |   |  |   `+Val = <nil>
+//    |   |  |+Name = color1
+//    |   |  |+Type =  enum Color
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "color1"<IDENT@testdata\enum-error.c:9:9>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"int"<KEYWORD@testdata\enum-error.c:9:5>
+//    |   |  |+Name = color1
+//    |   |  |+Type =  int
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "color2"<IDENT@testdata\enum-error.c:10:10>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"char"<KEYWORD@testdata\enum-error.c:10:5>
+//    |   |  |+Name = color2
+//    |   |  |+Type =  char
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "Color"<IDENT@testdata\enum-error.c:11:15>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"long"<KEYWORD@testdata\enum-error.c:11:10>
+//    |   |  |+Name = Color
+//    |   |  |+Type =  long
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
-//    |   | `+Expr = Ident
-//    |   |  `+Token = "color2"<IDENT@testdata\enum-error.c:11:21>
+//    |   | `+Expr = color2
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "Color"<IDENT@testdata\enum-error.c:12:15>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  |-"long"<KEYWORD@testdata\enum-error.c:12:5>
-//    |   |  |  `-"enum"<KEYWORD@testdata\enum-error.c:12:10>
+//    |   |  |+Name = Color
+//    |   |  |+Type =  long enum
 //    |   |  `+Init = <nil>
 //    |   |-ExprStmt
-//    |   | `+Expr = Ident
-//    |   |  `+Token = "color2"<IDENT@testdata\enum-error.c:12:21>
+//    |   | `+Expr = color2
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "Color"<IDENT@testdata\enum-error.c:13:21>
-//    |   |  |+Type = TypeQualifier
-//    |   |  | |+Qualifier = map[const:true]
-//    |   |  | `+Inner = BuildInType
-//    |   |  |  `+Lit = 
-//    |   |  |   |-"long"<KEYWORD@testdata\enum-error.c:13:11>
-//    |   |  |   `-"enum"<KEYWORD@testdata\enum-error.c:13:16>
+//    |   |  |+Name = Color
+//    |   |  |+Type = const long enum
 //    |   |  `+Init = <nil>
 //    |   `-ExprStmt
-//    |    `+Expr = Ident
-//    |     `+Token = "color3"<IDENT@testdata\enum-error.c:13:27>
+//    |    `+Expr = color3
 //    `+Unresolved = 
 // ===========================
 //

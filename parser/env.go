@@ -64,25 +64,15 @@ func (e *environment) declareRecord(r *ast.RecordType, completed bool) {
 }
 
 func unPtr(p ast.Typename) ast.Typename {
-	if v, ok := unSpec(p).(*ast.PointerType); ok {
+	if v, ok := p.(*ast.PointerType); ok {
 		return unPtr(v.Inner)
 	}
 	return p
 }
 
-func unSpec(typ ast.Typename) ast.Typename {
-	switch v := typ.(type) {
-	case *ast.TypeQualifier:
-		return unSpec(v.Inner)
-	case *ast.TypeStorageSpecifier:
-		return unSpec(v.Inner)
-	}
-	return typ
-}
-
 // 解析类型，是否需要完全类型 completed
 func (e *environment) resolveType(typ ast.Typename, completed bool) ast.Typename {
-	switch v := unSpec(typ).(type) {
+	switch v := typ.(type) {
 	case *ast.EnumType:
 		if v.Name == nil {
 			return typ

@@ -16,67 +16,24 @@ int main() {
 //    |+Name = testdata\enum.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = Ident
-//    | | | `+Token = "color_t"<IDENT@testdata\enum.c:5:3>
-//    | | `+Type = EnumType
-//    | |  |+Name = Ident
-//    | |  | `+Token = "Color"<IDENT@testdata\enum.c:1:14>
-//    | |  `+List = EnumFieldList
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "BLUE"<IDENT@testdata\enum.c:2:5>
-//    | |   | `+Val = ConstantExpr
-//    | |   |  `+X = BasicLit
-//    | |   |   `+Token = "1"<INT@testdata\enum.c:2:12>
-//    | |   |-EnumFieldDecl
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "GREEN"<IDENT@testdata\enum.c:3:5>
-//    | |   | `+Val = <nil>
-//    | |   `-EnumFieldDecl
-//    | |    |+Name = Ident
-//    | |    | `+Token = "YELLOW"<IDENT@testdata\enum.c:4:5>
-//    | |    `+Val = <nil>
+//    | | |+Name = color_t
+//    | | `+Type =  enum Color
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\enum.c:7:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\enum.c:7:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "color1"<IDENT@testdata\enum.c:8:13>
-//    |   |  |+Type = EnumType
-//    |   |  | |+Name = Ident
-//    |   |  | | `+Token = "Color"<IDENT@testdata\enum.c:1:14>
-//    |   |  | `+List = EnumFieldList
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "BLUE"<IDENT@testdata\enum.c:2:5>
-//    |   |  |  | `+Val = ConstantExpr
-//    |   |  |  |  `+X = BasicLit
-//    |   |  |  |   `+Token = "1"<INT@testdata\enum.c:2:12>
-//    |   |  |  |-EnumFieldDecl
-//    |   |  |  | |+Name = Ident
-//    |   |  |  | | `+Token = "GREEN"<IDENT@testdata\enum.c:3:5>
-//    |   |  |  | `+Val = <nil>
-//    |   |  |  `-EnumFieldDecl
-//    |   |  |   |+Name = Ident
-//    |   |  |   | `+Token = "YELLOW"<IDENT@testdata\enum.c:4:5>
-//    |   |  |   `+Val = <nil>
+//    |   |  |+Name = color1
+//    |   |  |+Type =  enum Color
 //    |   |  `+Init = <nil>
 //    |   `-DeclStmt
 //    |    `-VarDecl
-//    |     |+Name = Ident
-//    |     | `+Token = "color2"<IDENT@testdata\enum.c:9:16>
-//    |     |+Type = EnumType
-//    |     | |+Name = Ident
-//    |     | | `+Token = "Color"<IDENT@testdata\enum.c:9:10>
-//    |     | `+List = EnumFieldList
+//    |     |+Name = color2
+//    |     |+Type =  enum Color
 //    |     `+Init = <nil>
 //    `+Unresolved = 
 // ===========================

@@ -16,98 +16,34 @@ int main() {
 //    |+Name = testdata\type-check.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = Ident
-//    | | | `+Token = "tree"<IDENT@testdata\type-check.c:3:3>
-//    | | `+Type = RecordType
-//    | |  |+Type = "struct"<KEYWORD@testdata\type-check.c:1:9>
-//    | |  |+Name = Ident
-//    | |  | `+Token = "tree"<IDENT@testdata\type-check.c:1:16>
-//    | |  `+Fields = 
-//    | |   |-RecordField
-//    | |   | |+Type = PointerType
-//    | |   | | `+Inner = RecordType
-//    | |   | |  |+Type = "struct"<KEYWORD@testdata\type-check.c:2:5>
-//    | |   | |  |+Name = Ident
-//    | |   | |  | `+Token = "tree"<IDENT@testdata\type-check.c:2:12>
-//    | |   | |  `+Fields = 
-//    | |   | |+Name = Ident
-//    | |   | | `+Token = "left"<IDENT@testdata\type-check.c:2:18>
-//    | |   | `+Bit = <nil>
-//    | |   `-RecordField
-//    | |    |+Type = RecordType
-//    | |    | |+Type = "struct"<KEYWORD@testdata\type-check.c:2:5>
-//    | |    | |+Name = Ident
-//    | |    | | `+Token = "tree"<IDENT@testdata\type-check.c:2:12>
-//    | |    | `+Fields = 
-//    | |    |+Name = Ident
-//    | |    | `+Token = "right"<IDENT@testdata\type-check.c:2:24>
-//    | |    `+Bit = <nil>
+//    | | |+Name = tree
+//    | | `+Type =  struct tree
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\type-check.c:5:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\type-check.c:5:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "a"<IDENT@testdata\type-check.c:6:9>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"int"<KEYWORD@testdata\type-check.c:6:5>
+//    |   |  |+Name = a
+//    |   |  |+Type =  int
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "b"<IDENT@testdata\type-check.c:7:10>
-//    |   |  |+Type = BuildInType
-//    |   |  | `+Lit = 
-//    |   |  |  `-"char"<KEYWORD@testdata\type-check.c:7:5>
+//    |   |  |+Name = b
+//    |   |  |+Type =  char
 //    |   |  `+Init = <nil>
 //    |   |-DeclStmt
 //    |   | `-VarDecl
-//    |   |  |+Name = Ident
-//    |   |  | `+Token = "tree"<IDENT@testdata\type-check.c:8:12>
-//    |   |  |+Type = PointerType
-//    |   |  | `+Inner = RecordType
-//    |   |  |  |+Type = "struct"<KEYWORD@testdata\type-check.c:1:9>
-//    |   |  |  |+Name = Ident
-//    |   |  |  | `+Token = "tree"<IDENT@testdata\type-check.c:1:16>
-//    |   |  |  `+Fields = 
-//    |   |  |   |-RecordField
-//    |   |  |   | |+Type = PointerType
-//    |   |  |   | | `+Inner = RecordType
-//    |   |  |   | |  |+Type = "struct"<KEYWORD@testdata\type-check.c:2:5>
-//    |   |  |   | |  |+Name = Ident
-//    |   |  |   | |  | `+Token = "tree"<IDENT@testdata\type-check.c:2:12>
-//    |   |  |   | |  `+Fields = 
-//    |   |  |   | |+Name = Ident
-//    |   |  |   | | `+Token = "left"<IDENT@testdata\type-check.c:2:18>
-//    |   |  |   | `+Bit = <nil>
-//    |   |  |   `-RecordField
-//    |   |  |    |+Type = RecordType
-//    |   |  |    | |+Type = "struct"<KEYWORD@testdata\type-check.c:2:5>
-//    |   |  |    | |+Name = Ident
-//    |   |  |    | | `+Token = "tree"<IDENT@testdata\type-check.c:2:12>
-//    |   |  |    | `+Fields = 
-//    |   |  |    |+Name = Ident
-//    |   |  |    | `+Token = "right"<IDENT@testdata\type-check.c:2:24>
-//    |   |  |    `+Bit = <nil>
+//    |   |  |+Name = tree
+//    |   |  |+Type =  struct tree *
 //    |   |  `+Init = <nil>
 //    |   `-DeclStmt
 //    |    `-VarDecl
-//    |     |+Name = Ident
-//    |     | `+Token = "tree"<IDENT@testdata\type-check.c:9:18>
-//    |     |+Type = PointerType
-//    |     | `+Inner = RecordType
-//    |     |  |+Type = "struct"<KEYWORD@testdata\type-check.c:9:5>
-//    |     |  |+Name = Ident
-//    |     |  | `+Token = "tree"<IDENT@testdata\type-check.c:9:12>
-//    |     |  `+Fields = 
+//    |     |+Name = tree
+//    |     |+Type =  struct tree *
 //    |     `+Init = <nil>
 //    `+Unresolved = 
 // ===========================

@@ -2,7 +2,14 @@ package ast
 
 import (
 	"dxkite.cn/c/token"
+	"fmt"
+	"strings"
 )
+
+type Node interface {
+	Pos() token.Position
+	End() token.Position
+}
 
 type Expr interface {
 	expr()
@@ -114,10 +121,18 @@ type (
 	}
 )
 
-func (*BadExpr) expr()              {}
-func (*Ident) expr()                {}
-func (*BasicLit) expr()             {}
-func (*CompoundLit) expr()          {}
+func (*BadExpr) expr()                  {}
+func (e *BadExpr) Pos() token.Position  { return e.Position() }
+func (*Ident) expr()                    {}
+func (e *Ident) Pos() token.Position    { return e.Position() }
+func (*BasicLit) expr()                 {}
+func (e *BasicLit) Pos() token.Position { return e.Position() }
+func (*CompoundLit) expr()              {}
+
+func (e *Ident) String() string    { return e.Literal() }
+func (e *BasicLit) String() string { return e.Literal() }
+
+//func (e *CompoundLit) Pos() token.Position { return e }
 func (*InitializerExpr) expr()      {}
 func (*RecordDesignatorExpr) expr() {}
 func (*ArrayDesignatorExpr) expr()  {}
@@ -136,11 +151,16 @@ func (*SizeOfExpr) expr()           {}
 
 type Typename interface {
 	typeName()
+	Qualifier() *Qualifier
+	String() string
 }
 
 type (
+	Qualifier map[string]bool
+
 	// 结构体/联合体
 	RecordType struct {
+		Qua    *Qualifier
 		Type   token.Token
 		Name   *Ident
 		Fields []*RecordField
@@ -159,37 +179,28 @@ type (
 	}
 	EnumFieldList []*EnumFieldDecl
 	EnumType      struct {
+		Qua  *Qualifier
 		Name *Ident
 		List EnumFieldList
 	}
 
 	// 内置类型
 	BuildInType struct {
+		Qua *Qualifier
 		Lit []token.Token
 	}
 
-	Qualifier map[string]bool
 	Specifier map[string]bool
-
-	// const/restrict/volatile
-	TypeQualifier struct {
-		Qualifier *Qualifier
-		Inner     Typename
-	}
-
-	// extern/static/auto/register
-	TypeStorageSpecifier struct {
-		Specifier *Specifier
-		Inner     Typename
-	}
 
 	// 指针类型
 	PointerType struct {
+		Qua   *Qualifier
 		Inner Typename
 	}
 
 	// 数组类型
 	ArrayType struct {
+		Qua    *Qualifier
 		Inner  Typename
 		Static bool
 		Size   Expr
@@ -197,6 +208,7 @@ type (
 
 	// 常量数组
 	ConstArrayType struct {
+		Qua   *Qualifier
 		Inner Typename
 		Size  Expr
 	}
@@ -204,16 +216,20 @@ type (
 	// T [*]
 	// T []
 	IncompleteArrayType struct {
+		Qua   *Qualifier
 		Inner Typename
 	}
 
 	// 函数类型
 	ParamVarDecl struct {
+		Qua  *StorageSpecifier
 		Name *Ident
 		Type Typename
 	}
+
 	ParamList []*ParamVarDecl
 	FuncType  struct {
+		Qua      *Qualifier
 		Params   ParamList
 		Ellipsis bool // ...
 		Return   Typename
@@ -225,17 +241,124 @@ type (
 	}
 )
 
-func (*RecordType) typeName()           {}
-func (*EnumType) typeName()             {}
-func (*BuildInType) typeName()          {}
-func (*TypeQualifier) typeName()        {}
-func (*TypeStorageSpecifier) typeName() {}
-func (*PointerType) typeName()          {}
-func (*ArrayType) typeName()            {}
-func (*IncompleteArrayType) typeName()  {}
-func (*ConstArrayType) typeName()       {}
-func (*FuncType) typeName()             {}
-func (*ParenType) typeName()            {}
+func (*RecordType) typeName()               {}
+func (t *RecordType) Qualifier() *Qualifier { return t.Qua }
+
+func (*EnumType) typeName() {}
+func (t *EnumType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*BuildInType) typeName() {}
+func (t *BuildInType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*PointerType) typeName() {}
+func (t *PointerType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*ArrayType) typeName() {}
+func (t *ArrayType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*IncompleteArrayType) typeName() {}
+func (t *IncompleteArrayType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*ConstArrayType) typeName() {}
+func (t *ConstArrayType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*FuncType) typeName() {}
+func (t *FuncType) Qualifier() *Qualifier {
+	if t.Qua == nil {
+		t.Qua = &Qualifier{}
+	}
+	return t.Qua
+}
+func (*ParenType) typeName()               {}
+func (t *ParenType) Qualifier() *Qualifier { return t.Inner.Qualifier() }
+
+func (q *Qualifier) String() string {
+	if q == nil {
+		return ""
+	}
+	var qs []string
+	for name := range *q {
+		qs = append(qs, name)
+	}
+	return strings.Join(qs, " ")
+}
+
+func (t *RecordType) String() string {
+	name := ""
+	if t.Name != nil {
+		name = t.Name.Literal()
+	}
+	return fmt.Sprintf("%s struct %s", t.Qualifier().String(), name)
+}
+
+func (t *EnumType) String() string {
+	name := ""
+	if t.Name != nil {
+		name = t.Name.Literal()
+	}
+	return fmt.Sprintf("%s enum %s", t.Qualifier().String(), name)
+}
+
+func (t *BuildInType) String() string {
+	name := []string{t.Qualifier().String()}
+	for _, v := range t.Lit {
+		name = append(name, v.Literal())
+	}
+	return strings.Join(name, " ")
+}
+
+func (t *PointerType) String() string {
+	return fmt.Sprintf("%s *%s", t.Inner.String(), t.Qua.String())
+}
+
+func (t *ArrayType) String() string {
+	return fmt.Sprintf("%s %s[]", t.Qualifier().String(), t.Inner.String())
+}
+func (t *ConstArrayType) String() string {
+	return fmt.Sprintf("%s %s[]", t.Qualifier().String(), t.Inner.String())
+}
+func (t *IncompleteArrayType) String() string {
+	return fmt.Sprintf("%s %s[]", t.Qualifier().String(), t.Inner.String())
+}
+
+func (t *FuncType) String() string {
+	var params []string
+	for _, v := range t.Params {
+		params = append(params, v.Type.String())
+	}
+	if t.Ellipsis {
+		params = append(params, "...")
+	}
+	return fmt.Sprintf("%s (%s)", t.Return.String(), strings.Join(params, ","))
+}
+
+func (t *ParenType) String() string {
+	return fmt.Sprintf("(%s)", t.Inner.String())
+}
 
 type Stmt interface {
 	stmt()
@@ -244,6 +367,9 @@ type Stmt interface {
 type (
 	// 定义语句
 	DeclStmt []Decl
+
+	// typedef /extern /static /auto /register
+	StorageSpecifier map[string]bool
 
 	LabelStmt struct {
 		Id   *Ident

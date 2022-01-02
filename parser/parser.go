@@ -551,8 +551,8 @@ func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 }
 
 func (p *parser) parseParameterDecl() *ast.ParamVarDecl {
-	typ := p.parseDeclarationSpecifiers()
-	param := &ast.ParamVarDecl{}
+	typ, spec := p.parseDeclarationSpecifiers()
+	param := &ast.ParamVarDecl{Qua: spec}
 	param.Type, param.Name = p.parseDeclarator(typ)
 	return param
 }
@@ -619,14 +619,8 @@ func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 		}
 	}
 
-	if len(qua) > 0 {
-		t := &ast.TypeQualifier{
-			Qualifier: &ast.Qualifier{},
-			Inner:     typ,
-		}
-		t.Qualifier = &ast.Qualifier{}
-		p.markQualifier(t.Qualifier, qua)
-		typ = t
+	if len(qua) > 0 && typ != nil {
+		p.markQualifier(typ.Qualifier(), qua)
 	}
 	return typ
 }
@@ -644,20 +638,12 @@ func (p *parser) parsePointer(inner ast.Typename) (t ast.Typename) {
 }
 
 func (p *parser) makeTypeQualifier(typ ast.Typename, qua []token.Token) ast.Typename {
-	if len(qua) == 0 {
-		return typ
-	}
-	t := &ast.TypeQualifier{
-		Qualifier: &ast.Qualifier{},
-		Inner:     typ,
-	}
-	t.Qualifier = &ast.Qualifier{}
-	p.markQualifier(t.Qualifier, qua)
-	return t
+	p.markQualifier(typ.Qualifier(), qua)
+	return typ
 }
 
 // 扫描类型
-func (p *parser) parseDeclarationSpecifiers() ast.Typename {
+func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifier) {
 	var qua []token.Token
 	var typ ast.Typename
 	var buildIn *ast.BuildInType
@@ -687,24 +673,24 @@ func (p *parser) parseDeclarationSpecifiers() ast.Typename {
 		}
 	}
 
-	if len(qua) > 0 {
-		t := &ast.TypeQualifier{
-			Qualifier: &ast.Qualifier{},
-			Inner:     typ,
-		}
-		p.markQualifier(t.Qualifier, qua)
-		typ = t
+	if len(qua) > 0 && typ != nil {
+		p.markQualifier(typ.Qualifier(), qua)
 	}
 
+	storage := &ast.StorageSpecifier{}
 	if len(spec) > 0 {
-		st := &ast.TypeStorageSpecifier{
-			Specifier: &ast.Specifier{},
-			Inner:     typ,
-		}
-		p.markSpecifier(st.Specifier, spec)
-		typ = st
+		p.markSpecifier(storage, spec)
 	}
-	return typ
+	return typ, storage
+}
+
+func (p *parser) markSpecifier(q *ast.StorageSpecifier, qua []token.Token) {
+	for _, t := range qua {
+		if (*q)[t.Literal()] {
+			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
+		}
+		(*q)[t.Literal()] = true
+	}
 }
 
 func (p *parser) parseTypeSpecifier() ast.Typename {
@@ -740,18 +726,12 @@ func (p *parser) parseBuildInType() ast.Typename {
 }
 
 func (p *parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
+	if q == nil {
+		return
+	}
 	for _, t := range qua {
 		if (*q)[t.Literal()] {
 			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeQualifier, t.Literal())
-		}
-		(*q)[t.Literal()] = true
-	}
-}
-
-func (p *parser) markSpecifier(q *ast.Specifier, qua []token.Token) {
-	for _, t := range qua {
-		if (*q)[t.Literal()] {
-			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
 		}
 		(*q)[t.Literal()] = true
 	}
@@ -811,10 +791,6 @@ func isRecordType(typ ast.Typename) bool {
 		return true
 	case *ast.PointerType:
 		return isRecordType(v.Inner)
-	case *ast.TypeQualifier:
-		return isRecordType(v.Inner)
-	case *ast.TypeStorageSpecifier:
-		return isRecordType(v.Inner)
 	}
 	return false
 }
@@ -869,10 +845,10 @@ func (p *parser) parseDeclStmt() *ast.DeclStmt {
 }
 
 func (p *parser) parseDeclaration() []ast.Decl {
-	typ := p.parseDeclarationSpecifiers()
+	typ, spec := p.parseDeclarationSpecifiers()
 	var decls []ast.Decl
 	for p.until(";") {
-		decl := p.parserInitDeclarator(typ)
+		decl := p.parserInitDeclarator(typ, spec)
 		decls = append(decls, decl)
 		if p.cur.Literal() == "," {
 			p.next() //,
@@ -888,8 +864,8 @@ func (p *parser) until(lit string) bool {
 	return p.cur.Literal() != lit && p.cur.Type() != token.EOF
 }
 
-func (p *parser) parserInitDeclarator(inner ast.Typename) ast.Decl {
-	decl, _ := p.parseExternalDeclOrInit(inner, false)
+func (p *parser) parserInitDeclarator(inner ast.Typename, spec *ast.StorageSpecifier) ast.Decl {
+	decl, _ := p.parseExternalDeclOrInit(inner, spec, false)
 	return decl
 }
 
@@ -1082,21 +1058,18 @@ func (p *parser) parseExprStmt() ast.Stmt {
 }
 
 func (p *parser) parseExternalDecl() ast.Decl {
-	typ := p.parseDeclarationSpecifiers()
-	decl, comma := p.parseExternalDeclOrInit(typ, true)
+	typ, storage := p.parseDeclarationSpecifiers()
+	decl, comma := p.parseExternalDeclOrInit(typ, storage, true)
 	if comma {
 		p.exceptPunctuator(";")
 	}
 	return decl
 }
 
-func (p *parser) parseExternalDeclOrInit(inner ast.Typename, external bool) (ast.Decl, bool) {
+func (p *parser) parseExternalDeclOrInit(inner ast.Typename, specifier *ast.StorageSpecifier, external bool) (ast.Decl, bool) {
 	isTypedef := false
-	if v, ok := inner.(*ast.TypeStorageSpecifier); ok && (*v.Specifier)["typedef"] {
+	if (*specifier)["typedef"] {
 		isTypedef = true
-		if len(*v.Specifier) == 1 {
-			inner = v.Inner
-		}
 	}
 
 	typ, ident := p.parseDeclarator(inner)

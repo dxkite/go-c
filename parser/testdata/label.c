@@ -17,22 +17,14 @@ int main() {
 //   | |+Name = testdata/printf.h
 //   | |+Decl = 
 //   | | `-FuncDecl
-//   | |  |+Name = Ident
-//   | |  | `+Token = "printf"<IDENT@testdata/printf.h:1:5>
+//   | |  |+Name = printf
 //   | |  |+Params = ParamList
 //   | |  | `-ParamVarDecl
-//   | |  |  |+Name = Ident
-//   | |  |  | `+Token = "fmt"<IDENT@testdata/printf.h:1:24>
-//   | |  |  `+Type = PointerType
-//   | |  |   `+Inner = TypeQualifier
-//   | |  |    |+Qualifier = map[const:true]
-//   | |  |    `+Inner = BuildInType
-//   | |  |     `+Lit = 
-//   | |  |      `-"char"<KEYWORD@testdata/printf.h:1:18>
+//   | |  |  |+Qua = map[]
+//   | |  |  |+Name = fmt
+//   | |  |  `+Type = const char *
 //   | |  |+Ellipsis = true
-//   | |  |+Return = BuildInType
-//   | |  | `+Lit = 
-//   | |  |  `-"int"<KEYWORD@testdata/printf.h:1:1>
+//   | |  |+Return =  int
 //   | |  |+Decl = 
 //   | |  `+Body = <nil>
 //   | `+Unresolved = 
@@ -40,48 +32,35 @@ int main() {
 //    |+Name = testdata\label.c
 //    |+Decl = 
 //    | `-FuncDecl
-//    |  |+Name = Ident
-//    |  | `+Token = "main"<IDENT@testdata\label.c:3:5>
+//    |  |+Name = main
 //    |  |+Params = ParamList
 //    |  |+Ellipsis = false
-//    |  |+Return = BuildInType
-//    |  | `+Lit = 
-//    |  |  `-"int"<KEYWORD@testdata\label.c:3:1>
+//    |  |+Return =  int
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-GotoStmt
-//    |   | `+Id = Ident
-//    |   |  `+Token = "test"<IDENT@testdata\label.c:4:10>
+//    |   | `+Id = test
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Func = Ident
-//    |   |  | `+Token = "print"<IDENT@testdata\label.c:5:5>
+//    |   |  |+Func = print
 //    |   |  `+Args = 
-//    |   |   `-BasicLit
-//    |   |    `+Token = "\"demo\""<STRING@testdata\label.c:5:11>
+//    |   |   `-"demo"
 //    |   |-GotoStmt
-//    |   | `+Id = Ident
-//    |   |  `+Token = "test1"<IDENT@testdata\label.c:6:10>
+//    |   | `+Id = test1
 //    |   |-LabelStmt
-//    |   | |+Id = Ident
-//    |   | | `+Token = "test"<IDENT@testdata\label.c:7:5>
+//    |   | |+Id = test
 //    |   | `+Stmt = ExprStmt
 //    |   |  `+Expr = CallExpr
-//    |   |   |+Func = Ident
-//    |   |   | `+Token = "printf"<IDENT@testdata\label.c:8:9>
+//    |   |   |+Func = printf
 //    |   |   `+Args = 
-//    |   |    `-BasicLit
-//    |   |     `+Token = "\"test\""<STRING@testdata\label.c:8:16>
+//    |   |    `-"test"
 //    |   `-LabelStmt
-//    |    |+Id = Ident
-//    |    | `+Token = "test2"<IDENT@testdata\label.c:9:5>
+//    |    |+Id = test2
 //    |    `+Stmt = ExprStmt
 //    |     `+Expr = CallExpr
-//    |      |+Func = Ident
-//    |      | `+Token = "printf"<IDENT@testdata\label.c:10:9>
+//    |      |+Func = printf
 //    |      `+Args = 
-//    |       `-BasicLit
-//    |        `+Token = "\"test2\""<STRING@testdata\label.c:10:16>
+//    |       `-"test2"
 //    `+Unresolved = 
 // ===========================
 //
