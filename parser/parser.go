@@ -114,7 +114,11 @@ func (p *parser) parsePrimaryExpr() ast.Expr {
 	case token.IDENT:
 		cur := p.cur
 		p.next()
-		return &ast.Ident{Token: cur}
+		ident := &ast.Ident{Token: cur}
+		if obj := p.env.resolveIdent(ident); obj != nil {
+			ident.Type = obj.Typename
+		}
+		return ident
 	case token.INT, token.CHAR, token.FLOAT, token.STRING:
 		cur := p.cur
 		p.next()

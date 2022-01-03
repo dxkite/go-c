@@ -1,3 +1,5 @@
+#include "printf.h"
+
 int main() {
 #include "code-slice.h"
 #include "code-slice.h"
@@ -7,6 +9,21 @@ int main() {
 // ===========================
 // TranslationUnit
 //  `+Files = 
+//   |-File
+//   | |+Name = testdata/printf.h
+//   | |+Decl = 
+//   | | `-FuncDecl
+//   | |  |+Name = printf
+//   | |  |+Params = ParamList
+//   | |  | `-ParamVarDecl
+//   | |  |  |+Qua = map[]
+//   | |  |  |+Name = fmt
+//   | |  |  `+Type = const char *
+//   | |  |+Ellipsis = true
+//   | |  |+Return =  int
+//   | |  |+Decl = 
+//   | |  `+Body = <nil>
+//   | `+Unresolved = 
 //   `-File
 //    |+Name = testdata\code-slice.c
 //    |+Decl = 

@@ -24,6 +24,7 @@ type (
 	// 标识符
 	Ident struct {
 		token.Token
+		Type Typename
 	}
 
 	// 字面常量

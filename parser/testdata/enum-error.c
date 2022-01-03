@@ -96,8 +96,12 @@ int main() {
 // | |+Pos = testdata\enum-error.c:13:21
 // | |+Typ = 0
 // | `+Msg = 在 testdata\enum-error.c 文件的第13行21列: 重复声明的变量名 Color，上次声明的位置 testdata\enum-error.c:11:15
+// |-Error
+// | |+Pos = testdata\enum-error.c:13:27
+// | |+Typ = 0
+// | `+Msg = 在 testdata\enum-error.c 文件的第13行27列: 这里应该是一个 ; ，不应该出现 color3
 // `-Error
 //  |+Pos = testdata\enum-error.c:13:27
 //  |+Typ = 0
-//  `+Msg = 在 testdata\enum-error.c 文件的第13行27列: 这里应该是一个 ; ，不应该出现 color3
+//  `+Msg = 在 testdata\enum-error.c 文件的第13行27列: 未定义的标识符 color3
 // ===========================

@@ -2,7 +2,7 @@
 
 int main() {
     goto test;
-    print("demo");
+    printf("demo");
     goto test1;
     test:
         printf("test");
@@ -42,7 +42,7 @@ int main() {
 //    |   | `+Id = test
 //    |   |-ExprStmt
 //    |   | `+Expr = CallExpr
-//    |   |  |+Func = print
+//    |   |  |+Func = printf
 //    |   |  `+Args = 
 //    |   |   `-"demo"
 //    |   |-GotoStmt
