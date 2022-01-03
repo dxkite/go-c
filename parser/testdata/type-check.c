@@ -20,9 +20,7 @@ int main() {
 //    | | `+Type =  struct tree
 //    | `-FuncDecl
 //    |  |+Name = main
-//    |  |+Params = ParamList
-//    |  |+Ellipsis = false
-//    |  |+Return =  int
+//    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt

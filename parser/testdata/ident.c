@@ -18,17 +18,7 @@ int main() {
 //    |+Decl = 
 //    | |-FuncDecl
 //    | | |+Name = max
-//    | | |+Params = ParamList
-//    | | | |-ParamVarDecl
-//    | | | | |+Qua = map[]
-//    | | | | |+Name = a
-//    | | | | `+Type =  int
-//    | | | `-ParamVarDecl
-//    | | |  |+Qua = map[]
-//    | | |  |+Name = b
-//    | | |  `+Type =  int
-//    | | |+Ellipsis = false
-//    | | |+Return =  int
+//    | | |+Type =  int ( int, int)
 //    | | |+Decl = 
 //    | | `+Body = CompoundStmt
 //    | |  |-IfStmt
@@ -47,9 +37,7 @@ int main() {
 //    | |   `+X = b
 //    | `-FuncDecl
 //    |  |+Name = main
-//    |  |+Params = ParamList
-//    |  |+Ellipsis = false
-//    |  |+Return =  int
+//    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt

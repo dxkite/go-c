@@ -331,6 +331,9 @@ func (t *BuildInType) String() string {
 }
 
 func (t *PointerType) String() string {
+	if v, ok := t.Inner.(*FuncType); ok {
+		return fmt.Sprintf("%s (*%s) %s", v.Return, t.Qua.String(), funcParamString(v))
+	}
 	return fmt.Sprintf("%s *%s", t.Inner.String(), t.Qua.String())
 }
 
@@ -344,6 +347,17 @@ func (t *IncompleteArrayType) String() string {
 	return fmt.Sprintf("%s %s[]", t.Qualifier().String(), t.Inner.String())
 }
 
+func funcParamString(t *FuncType) string {
+	var params []string
+	for _, v := range t.Params {
+		params = append(params, v.Type.String())
+	}
+	if t.Ellipsis {
+		params = append(params, "...")
+	}
+	return "(" + strings.Join(params, ",") + ")"
+}
+
 func (t *FuncType) String() string {
 	var params []string
 	for _, v := range t.Params {
@@ -352,7 +366,7 @@ func (t *FuncType) String() string {
 	if t.Ellipsis {
 		params = append(params, "...")
 	}
-	return fmt.Sprintf("%s (%s)", t.Return.String(), strings.Join(params, ","))
+	return fmt.Sprintf("%s %s", t.Return.String(), funcParamString(t))
 }
 
 func (t *ParenType) String() string {
@@ -466,12 +480,10 @@ type (
 
 	// 函数定义
 	FuncDecl struct {
-		Name     *Ident
-		Params   ParamList
-		Ellipsis bool // ...
-		Return   Typename
-		Decl     []Decl
-		Body     *CompoundStmt
+		Name *Ident
+		Type *FuncType
+		Decl []Decl
+		Body *CompoundStmt
 	}
 
 	// 变量定义

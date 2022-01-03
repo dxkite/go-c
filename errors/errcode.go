@@ -55,4 +55,6 @@ const (
 	ErrSyntaxUndefinedLabel                   // 未定义的标签 %s
 	ErrSyntaxIncompleteStruct                 // 不完全的结构体类型 %s
 	ErrSyntaxIncompleteUnion                  // 不完全的联合体类型 %s
+	typeError                         ErrCode = 4000 + iota
+	ErrTypeImmediateMakeAddress               // 无法对临时变量进行取地址操作
 )

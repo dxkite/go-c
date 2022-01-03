@@ -7,6 +7,7 @@ const float cf;
 const int short is_err;
 extern int *ei_v;
 static int *const si;
+int (a*)();
 
 struct tree {
     struct tree *left, right;
@@ -18,11 +19,12 @@ int main() {
     return 0;
 }
 
+
 // ===========================
 // TranslationUnit
 //  `+Files = 
 //   `-File
-//    |+Name = testdata\type.c
+//    |+Name = testdata\type.cc
 //    |+Decl = 
 //    | |-VarDecl
 //    | | |+Name = i
@@ -65,14 +67,16 @@ int main() {
 //    | | |+Type =  int *const
 //    | | `+Init = <nil>
 //    | |-VarDecl
+//    | | |+Name = a
+//    | | |+Type = ( int)
+//    | | `+Init = <nil>
+//    | |-VarDecl
 //    | | |+Name = abc
 //    | | |+Type =  struct tree
 //    | | `+Init = <nil>
 //    | `-FuncDecl
 //    |  |+Name = main
-//    |  |+Params = ParamList
-//    |  |+Ellipsis = false
-//    |  |+Return =  int
+//    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-DeclStmt
@@ -91,15 +95,43 @@ int main() {
 // ===========================
 //
 // |-Error
-// | |+Pos = testdata\type.c:3:17
+// | |+Pos = testdata\type.cc:3:17
 // | |+Typ = 0
-// | `+Msg = 在 testdata\type.c 文件的第3行17列: 非预期的类型定义符号 long
+// | `+Msg = 在 testdata\type.cc 文件的第3行17列: 非预期的类型定义符号 long
 // |-Error
-// | |+Pos = testdata\type.c:7:11
+// | |+Pos = testdata\type.cc:7:11
 // | |+Typ = 0
-// | `+Msg = 在 testdata\type.c 文件的第7行11列: 非预期的类型定义符号 short
+// | `+Msg = 在 testdata\type.cc 文件的第7行11列: 非预期的类型定义符号 short
+// |-Error
+// | |+Pos = testdata\type.cc:10:7
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行7列: 这里应该是一个 ) ，不应该出现 *
+// |-Error
+// | |+Pos = testdata\type.cc:10:7
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行7列: 这里应该是一个 ; ，不应该出现 *
+// |-Error
+// | |+Pos = testdata\type.cc:10:7
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行7列: 这里应该是一个 定义语句 ，不应该出现 *
+// |-Error
+// | |+Pos = testdata\type.cc:10:8
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行8列: 这里应该是一个 定义语句 ，不应该出现 )
+// |-Error
+// | |+Pos = testdata\type.cc:10:9
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行9列: 这里应该是一个 定义语句 ，不应该出现 (
+// |-Error
+// | |+Pos = testdata\type.cc:10:10
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行10列: 这里应该是一个 定义语句 ，不应该出现 )
+// |-Error
+// | |+Pos = testdata\type.cc:10:11
+// | |+Typ = 0
+// | `+Msg = 在 testdata\type.cc 文件的第10行11列: 这里应该是一个 定义语句 ，不应该出现 ;
 // `-Error
-//  |+Pos = testdata\type.c:12:12
+//  |+Pos = testdata\type.cc:13:12
 //  |+Typ = 0
-//  `+Msg = 在 testdata\type.c 文件的第12行12列: 不完全的结构体类型 tree
+//  `+Msg = 在 testdata\type.cc 文件的第13行12列: 不完全的结构体类型 tree
 // ===========================

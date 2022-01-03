@@ -197,7 +197,7 @@ func (e *environment) leaveScope() (scope *ast.Scope) {
 
 // 复制函数定义
 func (e *environment) copyParameterScope(typ *ast.FuncDecl) {
-	for _, item := range typ.Params {
+	for _, item := range typ.Type.Params {
 		e.declareIdent(ast.ObjectParamVal, item)
 	}
 }

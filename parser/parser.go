@@ -655,6 +655,10 @@ func (p *parser) makeTypeQualifier(typ ast.Typename, qua []token.Token) ast.Type
 	return typ
 }
 
+func (p *parser) isDeclarationSpecifier(tok token.Token) bool {
+	return declarationSpecifierMap[tok.Literal()] || p.isTypeNameTok(tok)
+}
+
 // 扫描类型
 func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifier) {
 	var qua []token.Token
@@ -662,7 +666,7 @@ func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifi
 	var buildIn []token.Token
 	var spec []token.Token
 
-	for declarationSpecifierMap[p.cur.Literal()] || p.isTypeNameTok(p.cur) {
+	for p.isDeclarationSpecifier(p.cur) {
 		if typeQualifierMap[p.cur.Literal()] {
 			qua = append(qua, p.cur)
 			p.next()
@@ -1079,8 +1083,8 @@ func (p *parser) parseExprStmt() ast.Stmt {
 }
 
 func (p *parser) parseExternalDecl() ast.Decl {
-	typ, storage := p.parseDeclarationSpecifiers()
-	decl, comma := p.parseExternalDeclOrInit(typ, storage, true)
+	typ, spec := p.parseDeclarationSpecifiers()
+	decl, comma := p.parseExternalDeclOrInit(typ, spec, true)
 	if comma {
 		p.exceptPunctuator(";")
 	}
@@ -1105,10 +1109,8 @@ func (p *parser) parseExternalDeclOrInit(inner ast.Typename, specifier *ast.Stor
 
 	if v, ok := typ.(*ast.FuncType); ok && external {
 		fn := &ast.FuncDecl{
-			Name:     ident,
-			Return:   v.Return,
-			Params:   v.Params,
-			Ellipsis: v.Ellipsis,
+			Type: v,
+			Name: ident,
 		}
 
 		obj := ast.NewDeclObject(ast.ObjectFunc, ident, fn)
@@ -1117,21 +1119,19 @@ func (p *parser) parseExternalDeclOrInit(inner ast.Typename, specifier *ast.Stor
 			return fn, external
 		}
 
-		// 如果函数中未定义参数类型 则在后续定义语句定义
-		if len(fn.Params) > 0 && fn.Params[0].Type == nil {
+		// 如果函数中未定义参数类型 则在后续尝试解析语句定义
+		if len(v.Params) > 0 && v.Params[0].Type == nil {
 			for declarationSpecifierMap[p.cur.Literal()] {
 				fn.Decl = append(fn.Decl, p.parseDeclaration()...)
 			}
 		}
 
-		if p.cur.Literal() == "{" {
-			p.env.enterLabelScope()
-			p.env.enterScope(ast.FuncScope)
-			p.env.copyParameterScope(fn)
-			fn.Body = p.parseCompoundStmt()
-			p.env.leaveScope()
-			p.reportUnResolveLabel(p.env.leaveLabelScope())
-		}
+		p.env.enterLabelScope()
+		p.env.enterScope(ast.FuncScope)
+		p.env.copyParameterScope(fn)
+		fn.Body = p.parseCompoundStmt()
+		p.env.leaveScope()
+		p.reportUnResolveLabel(p.env.leaveLabelScope())
 
 		obj.Completed = true
 		p.env.declare(obj)
@@ -1154,8 +1154,13 @@ func (p *parser) parseFile() *ast.File {
 	unit.Name = p.file
 	var decls []ast.Decl
 	for p.cur.Type() != token.EOF && p.cur.Position().Filename == p.file {
-		decl := p.parseDecl()
-		decls = append(decls, decl)
+		if p.isDeclarationSpecifier(p.cur) {
+			decl := p.parseDecl()
+			decls = append(decls, decl)
+		} else {
+			p.addErr(p.cur.Position(), errors.ErrSyntaxExpectedGot, "定义语句", p.cur.Literal())
+			p.next()
+		}
 	}
 	unit.Decl = decls
 	return unit

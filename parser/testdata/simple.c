@@ -10,9 +10,7 @@ int main() {
 //    |+Decl = 
 //    | `-FuncDecl
 //    |  |+Name = main
-//    |  |+Params = ParamList
-//    |  |+Ellipsis = false
-//    |  |+Return =  int
+//    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   `-ReturnStmt

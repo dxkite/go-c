@@ -14,13 +14,7 @@ int main() {
 //   | |+Decl = 
 //   | | `-FuncDecl
 //   | |  |+Name = printf
-//   | |  |+Params = ParamList
-//   | |  | `-ParamVarDecl
-//   | |  |  |+Qua = map[]
-//   | |  |  |+Name = fmt
-//   | |  |  `+Type = const char *
-//   | |  |+Ellipsis = true
-//   | |  |+Return =  int
+//   | |  |+Type =  int (const char *,...)
 //   | |  |+Decl = 
 //   | |  `+Body = <nil>
 //   | `+Unresolved = 
@@ -29,9 +23,7 @@ int main() {
 //    |+Decl = 
 //    | `-FuncDecl
 //    |  |+Name = main
-//    |  |+Params = ParamList
-//    |  |+Ellipsis = false
-//    |  |+Return =  int
+//    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
 //    |   |-ExprStmt
