@@ -30,29 +30,45 @@ int main() {
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-GotoStmt
-//    |   | `+Id = test
-//    |   |-ExprStmt
-//    |   | `+Expr = CallExpr
-//    |   |  |+Func = printf
-//    |   |  `+Args = 
-//    |   |   `-"demo"
-//    |   |-GotoStmt
-//    |   | `+Id = test1
-//    |   |-LabelStmt
-//    |   | |+Id = test
-//    |   | `+Stmt = ExprStmt
-//    |   |  `+Expr = CallExpr
-//    |   |   |+Func = printf
-//    |   |   `+Args = 
-//    |   |    `-"test"
-//    |   `-LabelStmt
-//    |    |+Id = test2
-//    |    `+Stmt = ExprStmt
-//    |     `+Expr = CallExpr
-//    |      |+Func = printf
-//    |      `+Args = 
-//    |       `-"test2"
+//    |   |+Lbrace = testdata\label.c:3:12
+//    |   |+Stmts = 
+//    |   | |-GotoStmt
+//    |   | | |+Goto = testdata\label.c:4:5
+//    |   | | |+Id = test
+//    |   | | `+Semicolon = testdata\label.c:4:14
+//    |   | |-ExprStmt
+//    |   | | |+Expr = CallExpr
+//    |   | | | |+Func = printf
+//    |   | | | |+Lparen = testdata\label.c:5:11
+//    |   | | | |+Args = 
+//    |   | | | | `-"demo"
+//    |   | | | `+Rparen = testdata\label.c:5:18
+//    |   | | `+Semicolon = testdata\label.c:5:19
+//    |   | |-GotoStmt
+//    |   | | |+Goto = testdata\label.c:6:5
+//    |   | | |+Id = test1
+//    |   | | `+Semicolon = testdata\label.c:6:15
+//    |   | |-LabelStmt
+//    |   | | |+Id = test
+//    |   | | `+Stmt = ExprStmt
+//    |   | |  |+Expr = CallExpr
+//    |   | |  | |+Func = printf
+//    |   | |  | |+Lparen = testdata\label.c:8:15
+//    |   | |  | |+Args = 
+//    |   | |  | | `-"test"
+//    |   | |  | `+Rparen = testdata\label.c:8:22
+//    |   | |  `+Semicolon = testdata\label.c:8:23
+//    |   | `-LabelStmt
+//    |   |  |+Id = test2
+//    |   |  `+Stmt = ExprStmt
+//    |   |   |+Expr = CallExpr
+//    |   |   | |+Func = printf
+//    |   |   | |+Lparen = testdata\label.c:10:15
+//    |   |   | |+Args = 
+//    |   |   | | `-"test2"
+//    |   |   | `+Rparen = testdata\label.c:10:23
+//    |   |   `+Semicolon = testdata\label.c:10:24
+//    |   `+Rbrace = testdata\label.c:11:1
 //    `+Unresolved = 
 // ===========================
 //

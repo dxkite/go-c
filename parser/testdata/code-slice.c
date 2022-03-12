@@ -26,21 +26,33 @@ int main() {
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-ExprStmt
-//    |   | `+Expr = CallExpr
-//    |   |  |+Func = printf
-//    |   |  `+Args = 
-//    |   |   `-"code"
-//    |   |-ExprStmt
-//    |   | `+Expr = CallExpr
-//    |   |  |+Func = printf
-//    |   |  `+Args = 
-//    |   |   `-"code"
-//    |   `-ExprStmt
-//    |    `+Expr = CallExpr
-//    |     |+Func = printf
-//    |     `+Args = 
-//    |      `-"code"
+//    |   |+Lbrace = testdata\code-slice.c:3:12
+//    |   |+Stmts = 
+//    |   | |-ExprStmt
+//    |   | | |+Expr = CallExpr
+//    |   | | | |+Func = printf
+//    |   | | | |+Lparen = testdata/code-slice.h:1:7
+//    |   | | | |+Args = 
+//    |   | | | | `-"code"
+//    |   | | | `+Rparen = testdata/code-slice.h:1:14
+//    |   | | `+Semicolon = testdata/code-slice.h:1:15
+//    |   | |-ExprStmt
+//    |   | | |+Expr = CallExpr
+//    |   | | | |+Func = printf
+//    |   | | | |+Lparen = testdata/code-slice.h:1:7
+//    |   | | | |+Args = 
+//    |   | | | | `-"code"
+//    |   | | | `+Rparen = testdata/code-slice.h:1:14
+//    |   | | `+Semicolon = testdata/code-slice.h:1:15
+//    |   | `-ExprStmt
+//    |   |  |+Expr = CallExpr
+//    |   |  | |+Func = printf
+//    |   |  | |+Lparen = testdata/code-slice.h:1:7
+//    |   |  | |+Args = 
+//    |   |  | | `-"code"
+//    |   |  | `+Rparen = testdata/code-slice.h:1:14
+//    |   |  `+Semicolon = testdata/code-slice.h:1:15
+//    |   `+Rbrace = testdata\code-slice.c:7:1
 //    `+Unresolved = 
 // ===========================
 //

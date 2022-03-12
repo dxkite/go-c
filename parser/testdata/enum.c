@@ -16,23 +16,27 @@ int main() {
 //    |+Name = testdata\enum.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = color_t
-//    | | `+Type =  enum Color
+//    | | |+Typedef = testdata\enum.c:1:1
+//    | | |+Type =  enum Color
+//    | | `+Name = color_t
 //    | `-FuncDecl
 //    |  |+Name = main
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = color1
-//    |   |  |+Type =  enum Color
-//    |   |  `+Init = <nil>
-//    |   `-DeclStmt
-//    |    `-VarDecl
-//    |     |+Name = color2
-//    |     |+Type =  enum Color
-//    |     `+Init = <nil>
+//    |   |+Lbrace = testdata\enum.c:7:12
+//    |   |+Stmts = 
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  enum Color
+//    |   | |  |+Name = color1
+//    |   | |  `+Init = <nil>
+//    |   | `-DeclStmt
+//    |   |  `-VarDecl
+//    |   |   |+Type =  enum Color
+//    |   |   |+Name = color2
+//    |   |   `+Init = <nil>
+//    |   `+Rbrace = testdata\enum.c:10:1
 //    `+Unresolved = 
 // ===========================
 //

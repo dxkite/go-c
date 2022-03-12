@@ -18,28 +18,32 @@ int main() {
 //    |+Name = testdata\enum-error-conflict.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = color_t
-//    | | `+Type =  enum Color
+//    | | |+Typedef = testdata\enum-error-conflict.c:1:1
+//    | | |+Type =  enum Color
+//    | | `+Name = color_t
 //    | `-FuncDecl
 //    |  |+Name = main
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = color1
-//    |   |  |+Type =  enum Color
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = a
-//    |   |  |+Type =  int
-//    |   |  `+Init = YELLOW
-//    |   `-DeclStmt
-//    |    `-VarDecl
-//    |     |+Name = YELLOW
-//    |     |+Type =  int
-//    |     `+Init = 10
+//    |   |+Lbrace = testdata\enum-error-conflict.c:8:12
+//    |   |+Stmts = 
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  enum Color
+//    |   | |  |+Name = color1
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  int
+//    |   | |  |+Name = a
+//    |   | |  `+Init = YELLOW
+//    |   | `-DeclStmt
+//    |   |  `-VarDecl
+//    |   |   |+Type =  int
+//    |   |   |+Name = YELLOW
+//    |   |   `+Init = 10
+//    |   `+Rbrace = testdata\enum-error-conflict.c:12:1
 //    `+Unresolved = 
 // ===========================
 //

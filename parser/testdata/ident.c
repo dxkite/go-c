@@ -21,47 +21,69 @@ int main() {
 //    | | |+Type =  int ( int, int)
 //    | | |+Decl = 
 //    | | `+Body = CompoundStmt
-//    | |  |-IfStmt
-//    | |  | |+X = BinaryExpr
-//    | |  | | |+X = a
-//    | |  | | |+Op = ">"<PUNCTUATOR@testdata\ident.c:2:10>
-//    | |  | | `+Y = BinaryExpr
-//    | |  | |  |+X = b
-//    | |  | |  |+Op = "+"<PUNCTUATOR@testdata\ident.c:2:14>
-//    | |  | |  `+Y = c
-//    | |  | |+Then = CompoundStmt
-//    | |  | | `-ReturnStmt
-//    | |  | |  `+X = a
-//    | |  | `+Else = <nil>
-//    | |  `-ReturnStmt
-//    | |   `+X = b
+//    | |  |+Lbrace = testdata\ident.c:1:23
+//    | |  |+Stmts = 
+//    | |  | |-IfStmt
+//    | |  | | |+If = testdata\ident.c:2:5
+//    | |  | | |+X = BinaryExpr
+//    | |  | | | |+X = a
+//    | |  | | | |+Op = ">"<PUNCTUATOR@testdata\ident.c:2:10>
+//    | |  | | | `+Y = BinaryExpr
+//    | |  | | |  |+X = b
+//    | |  | | |  |+Op = "+"<PUNCTUATOR@testdata\ident.c:2:14>
+//    | |  | | |  `+Y = c
+//    | |  | | |+Then = CompoundStmt
+//    | |  | | | |+Lbrace = testdata\ident.c:2:19
+//    | |  | | | |+Stmts = 
+//    | |  | | | | `-ReturnStmt
+//    | |  | | | |  |+Return = testdata\ident.c:3:9
+//    | |  | | | |  |+X = a
+//    | |  | | | |  `+Semicolon = testdata\ident.c:3:17
+//    | |  | | | `+Rbrace = testdata\ident.c:4:5
+//    | |  | | `+Else = <nil>
+//    | |  | `-ReturnStmt
+//    | |  |  |+Return = testdata\ident.c:5:5
+//    | |  |  |+X = b
+//    | |  |  `+Semicolon = testdata\ident.c:5:13
+//    | |  `+Rbrace = testdata\ident.c:6:1
 //    | `-FuncDecl
 //    |  |+Name = main
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = a
-//    |   |  |+Type =  int
-//    |   |  `+Init = 10
-//    |   `-ReturnStmt
-//    |    `+X = BinaryExpr
-//    |     |+X = CallExpr
-//    |     | |+Func = max
-//    |     | `+Args = 
-//    |     |  |-10
-//    |     |  `-20
-//    |     |+Op = "+"<PUNCTUATOR@testdata\ident.c:10:23>
-//    |     `+Y = CallExpr
-//    |      |+Func = min
-//    |      `+Args = 
-//    |       |-10
-//    |       `-CallExpr
-//    |        |+Func = max
-//    |        `+Args = 
-//    |         |-a
-//    |         `-b
+//    |   |+Lbrace = testdata\ident.c:8:12
+//    |   |+Stmts = 
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  int
+//    |   | |  |+Name = a
+//    |   | |  `+Init = 10
+//    |   | `-ReturnStmt
+//    |   |  |+Return = testdata\ident.c:10:5
+//    |   |  |+X = BinaryExpr
+//    |   |  | |+X = CallExpr
+//    |   |  | | |+Func = max
+//    |   |  | | |+Lparen = testdata\ident.c:10:15
+//    |   |  | | |+Args = 
+//    |   |  | | | |-10
+//    |   |  | | | `-20
+//    |   |  | | `+Rparen = testdata\ident.c:10:21
+//    |   |  | |+Op = "+"<PUNCTUATOR@testdata\ident.c:10:23>
+//    |   |  | `+Y = CallExpr
+//    |   |  |  |+Func = min
+//    |   |  |  |+Lparen = testdata\ident.c:10:28
+//    |   |  |  |+Args = 
+//    |   |  |  | |-10
+//    |   |  |  | `-CallExpr
+//    |   |  |  |  |+Func = max
+//    |   |  |  |  |+Lparen = testdata\ident.c:10:36
+//    |   |  |  |  |+Args = 
+//    |   |  |  |  | |-a
+//    |   |  |  |  | `-b
+//    |   |  |  |  `+Rparen = testdata\ident.c:10:41
+//    |   |  |  `+Rparen = testdata\ident.c:10:42
+//    |   |  `+Semicolon = testdata\ident.c:10:43
+//    |   `+Rbrace = testdata\ident.c:11:1
 //    `+Unresolved = 
 // ===========================
 //

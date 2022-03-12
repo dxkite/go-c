@@ -224,7 +224,7 @@ func TestParser_ParseUnit(t *testing.T) {
 	if err := filepath.Walk("./testdata", func(p string, info os.FileInfo, err error) error {
 		ext := filepath.Ext(p)
 		name := filepath.Base(p)
-		if ext == ".cc" {
+		if ext == ".c" {
 			t.Run(name, func(t *testing.T) {
 				timeOut(t, func(t *testing.T) {
 					if err := testParseFile(p); err != nil {

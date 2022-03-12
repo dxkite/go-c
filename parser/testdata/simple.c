@@ -13,8 +13,13 @@ int main() {
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   `-ReturnStmt
-//    |    `+X = 0
+//    |   |+Lbrace = testdata\simple.c:1:12
+//    |   |+Stmts = 
+//    |   | `-ReturnStmt
+//    |   |  |+Return = testdata\simple.c:2:5
+//    |   |  |+X = 0
+//    |   |  `+Semicolon = testdata\simple.c:2:13
+//    |   `+Rbrace = testdata\simple.c:3:1
 //    `+Unresolved = 
 // ===========================
 //

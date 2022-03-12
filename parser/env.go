@@ -65,7 +65,7 @@ func (e *environment) declareRecord(r *ast.RecordType, completed bool) {
 
 func unPtr(p ast.Typename) ast.Typename {
 	if v, ok := p.(*ast.PointerType); ok {
-		return unPtr(v.Inner)
+		return unPtr(v.Type)
 	}
 	return p
 }

@@ -16,33 +16,37 @@ int main() {
 //    |+Name = testdata\type-check.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = tree
-//    | | `+Type =  struct tree
+//    | | |+Typedef = testdata\type-check.c:1:1
+//    | | |+Type =  struct tree
+//    | | `+Name = tree
 //    | `-FuncDecl
 //    |  |+Name = main
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = a
-//    |   |  |+Type =  int
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = b
-//    |   |  |+Type =  char
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = tree
-//    |   |  |+Type =  struct tree *
-//    |   |  `+Init = <nil>
-//    |   `-DeclStmt
-//    |    `-VarDecl
-//    |     |+Name = tree
-//    |     |+Type =  struct tree *
-//    |     `+Init = <nil>
+//    |   |+Lbrace = testdata\type-check.c:5:12
+//    |   |+Stmts = 
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  int
+//    |   | |  |+Name = a
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  char
+//    |   | |  |+Name = b
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  struct tree *
+//    |   | |  |+Name = tree
+//    |   | |  `+Init = <nil>
+//    |   | `-DeclStmt
+//    |   |  `-VarDecl
+//    |   |   |+Type =  struct tree *
+//    |   |   |+Name = tree
+//    |   |   `+Init = <nil>
+//    |   `+Rbrace = testdata\type-check.c:10:1
 //    `+Unresolved = 
 // ===========================
 //

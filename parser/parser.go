@@ -103,11 +103,14 @@ func precedence(lit string) int {
 // primary-expression: identifier | constant | string-literal | ( expression )
 func (p *parser) parsePrimaryExpr() ast.Expr {
 	if p.cur.Type() == token.PUNCTUATOR && p.cur.Literal() == "(" {
+		l := p.cur
 		p.next()
 		x := p.parseExpr()
-		p.exceptPunctuator(")")
+		r := p.exceptPunctuator(")")
 		return &ast.ParenExpr{
-			X: x,
+			Lparen: l.Position(),
+			X:      x,
+			Rparen: r.Position(),
 		}
 	}
 	switch p.cur.Type() {
@@ -143,12 +146,15 @@ func (p *parser) parsePostfixExpr() ast.Expr {
 func (p *parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 	switch p.cur.Literal() {
 	case "[":
+		lb := p.cur.Position()
 		p.next() // [
 		idx := p.parseExpr()
-		p.exceptPunctuator("]")
+		t := p.exceptPunctuator("]")
 		expr = &ast.IndexExpr{
-			Arr:   expr,
-			Index: idx,
+			Arr:    expr,
+			Lbrack: lb,
+			Index:  idx,
+			Rbrack: t.Position(),
 		}
 	case "++", "--":
 		op := p.cur
@@ -167,10 +173,15 @@ func (p *parser) parsePostfixExprInner(expr ast.Expr) ast.Expr {
 			Name: &ast.Ident{Token: name},
 		}
 	case "(":
+		l := p.cur
+		p.next() // (
 		arg := p.parseArgsExpr()
+		r := p.exceptPunctuator(")")
 		expr = &ast.CallExpr{
-			Func: expr,
-			Args: arg,
+			Func:   expr,
+			Lparen: l.Position(),
+			Args:   arg,
+			Rparen: r.Position(),
 		}
 	default:
 		return expr
@@ -210,20 +221,25 @@ func (p *parser) parseUnaryExpr() ast.Expr {
 
 func (p *parser) parseCastExpr() ast.Expr {
 	if t := p.peekOne(); p.cur.Literal() == "(" && p.isTypeNameTok(t) {
-		p.next()                  // (
-		name := p.parseTypeName() // type-name
-		p.exceptPunctuator(")")   // )
+		lp := p.cur
+		p.next()                      // (
+		name := p.parseTypeName()     // type-name
+		rp := p.exceptPunctuator(")") // )
 		if p.cur.Literal() == "{" {
 			expr := p.parseInitializerList()
 			return &ast.CompoundLit{
+				Lparen:   lp.Position(),
 				Type:     name,
+				Rparen:   rp.Position(),
 				InitList: expr,
 			}
 		}
 		expr := p.parseCastExpr()
 		return &ast.TypeCastExpr{
-			X:    expr,
-			Type: name,
+			Lparen: lp.Position(),
+			Type:   name,
+			Rparen: rp.Position(),
+			X:      expr,
 		}
 	}
 	return p.parseUnaryExpr()
@@ -305,22 +321,26 @@ func (p *parser) parseExpr() ast.Expr {
 }
 
 func (p *parser) parseCompoundLitExpr() ast.Expr {
+	lp := p.cur
 	p.next() // (
 	typeName := p.parseTypeName()
-	p.exceptPunctuator(")")
+	rp := p.exceptPunctuator(")")
 	expr := p.parseInitializerList()
 	return &ast.CompoundLit{
+		Lparen:   lp.Position(),
 		Type:     typeName,
+		Rparen:   rp.Position(),
 		InitList: expr,
 	}
 }
 
 func (p *parser) parseInitializerList() *ast.InitializerExpr {
-	p.exceptPunctuator("{")
-	list := ast.InitializerExpr{}
+	l := p.exceptPunctuator("{")
+	expr := ast.InitializerExpr{}
+	expr.Lbrace = l.Position()
 	for p.until("}") {
 		item := p.parseInitializer()
-		list = append(list, item)
+		expr.List = append(expr.List, item)
 		if t := p.peekOne(); p.cur.Literal() != "}" && t.Literal() != "}" {
 			p.exceptPunctuator(",")
 		} else {
@@ -329,8 +349,9 @@ func (p *parser) parseInitializerList() *ast.InitializerExpr {
 			}
 		}
 	}
-	p.exceptPunctuator("}")
-	return &list
+	r := p.exceptPunctuator("}")
+	expr.Rbrace = r.Position()
+	return &expr
 }
 
 func (p *parser) parseInitializer() ast.Expr {
@@ -372,11 +393,14 @@ func applyDesignator(des ast.Expr, assign ast.Expr) {
 }
 
 func (p *parser) parseDesignator() ast.Expr {
+	bg := p.cur.Position()
+	// .xxx
 	if p.cur.Literal() == "." {
 		p.next()
 		ident := p.expectIdent()
 		x := p.parseDesignator()
 		return &ast.RecordDesignatorExpr{
+			Dot:   bg,
 			Field: &ast.Ident{Token: ident},
 			X:     x,
 		}
@@ -384,18 +408,19 @@ func (p *parser) parseDesignator() ast.Expr {
 	if p.cur.Literal() == "[" {
 		p.next()
 		expr := p.parseConstantExpr()
-		p.exceptPunctuator("]")
+		rb := p.exceptPunctuator("]")
 		x := p.parseDesignator()
 		return &ast.ArrayDesignatorExpr{
-			Index: expr,
-			X:     x,
+			Lbrack: bg,
+			Index:  expr,
+			Rbrack: rb.Position(),
+			X:      x,
 		}
 	}
 	return nil
 }
 
 func (p *parser) parseArgsExpr() []ast.Expr {
-	p.next() // (
 	var list []ast.Expr
 	for p.until(")") {
 		item := p.parseAssignExpr()
@@ -405,7 +430,6 @@ func (p *parser) parseArgsExpr() []ast.Expr {
 		}
 		p.exceptPunctuator(",")
 	}
-	p.exceptPunctuator(")")
 	return list
 }
 
@@ -469,7 +493,7 @@ func (p *parser) parseAbstractDeclarator(inner ast.Typename) ast.Typename {
 	case "(":
 		if t := p.peekOne().Literal(); t == "*" || t == "[" || t == "(" {
 			p.next() // (
-			inner = p.parseAbstractDeclarator(&ast.ParenType{Inner: inner})
+			inner = p.parseAbstractDeclarator(&ast.ParenType{Type: inner})
 			p.exceptPunctuator(")")
 		} else {
 			inner = p.parseFuncType(inner)
@@ -484,29 +508,38 @@ func (p *parser) parseAbstractDeclarator(inner ast.Typename) ast.Typename {
 
 func (p *parser) parseFuncType(inner ast.Typename) ast.Typename {
 	p.env.enterScope(ast.FuncPrototypeScope)
+	lp := p.exceptPunctuator("(")
 	params, ellipsis := p.parseParameterList()
+	rp := p.exceptPunctuator(")")
 	p.env.leaveScope()
 	return &ast.FuncType{
 		Return:   inner,
+		Lparen:   lp.Position(),
 		Params:   params,
 		Ellipsis: ellipsis,
+		Rparen:   rp.Position(),
 	}
 }
 
 func (p *parser) parseArrayType(inner ast.Typename) ast.Typename {
 	if t := p.peekOne(); t.Literal() == "*" || t.Literal() == "]" {
-		p.next() // [
+		lb := p.exceptPunctuator("[")
 		if p.cur.Literal() == "*" {
 			p.next() // *
 		}
-		p.exceptPunctuator("]")
-		return &ast.IncompleteArrayType{Inner: inner}
+		rb := p.exceptPunctuator("]")
+		return &ast.ArrayType{
+			Type:       inner,
+			Incomplete: true,
+			Lbrack:     lb.Position(),
+			Rbrack:     rb.Position(),
+		}
 	}
-	return p.parseArrayTypeExpr(inner)
+	return p.parseArrayTypeSize(inner)
 }
 
-func (p *parser) parseArrayTypeExpr(inner ast.Typename) ast.Typename {
-	p.next() // [
+func (p *parser) parseArrayTypeSize(inner ast.Typename) ast.Typename {
+	lb := p.exceptPunctuator("[") // [
 	static := false
 	var qua []token.Token
 	for typeQualifierMap[p.cur.Literal()] || p.cur.Literal() == "static" {
@@ -517,26 +550,25 @@ func (p *parser) parseArrayTypeExpr(inner ast.Typename) ast.Typename {
 		}
 	}
 	expr := p.parseAssignExpr()
-	p.exceptPunctuator("]") // ]
+	rb := p.exceptPunctuator("]") // ]
+	arr := &ast.ArrayType{
+		Type:   inner,
+		Static: static,
+		Lbrack: lb.Position(),
+		Rbrack: rb.Position(),
+	}
 
 	if v, ok := expr.(*ast.AssignExpr); ok {
-		arr := &ast.ArrayType{
-			Inner:  inner,
-			Static: static,
-			Size:   v,
-		}
+		arr.Size = v
 		return p.makeTypeQualifier(arr, qua)
 	}
 
 	// 常量表达式
-	return &ast.ConstArrayType{
-		Inner: inner,
-		Size:  expr,
-	}
+	arr.Const = true
+	return arr
 }
 
 func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
-	p.exceptPunctuator("(")
 	for p.cur.Literal() != ")" && p.cur.Literal() != "..." && p.cur.Type() != token.EOF {
 		param := p.parseParameterDecl()
 		p.env.declareIdent(ast.ObjectParamVal, param)
@@ -550,7 +582,6 @@ func (p *parser) parseParameterList() (params ast.ParamList, ellipsis bool) {
 		ellipsis = true
 		p.next()
 	}
-	p.exceptPunctuator(")")
 	return
 }
 
@@ -571,10 +602,10 @@ func (p *parser) parseDeclarator(inner ast.Typename) (ast.Typename, *ast.Ident) 
 func (p *parser) parseDirectDeclarator(inner ast.Typename) (ast.Typename, *ast.Ident) {
 	var ident *ast.Ident
 	if p.cur.Literal() == "(" {
-		p.next() // (
+		lp := p.exceptPunctuator("(")
 		typ, ident := p.parseDeclarator(inner)
-		p.exceptPunctuator(")")
-		typ = &ast.ParenType{Inner: typ}
+		rp := p.exceptPunctuator(")")
+		typ = &ast.ParenType{Lparen: lp.Position(), Type: typ, Rparen: rp.Position()}
 		typ = p.parseDirectDeclaratorInner(typ)
 		return typ, ident
 	}
@@ -629,6 +660,10 @@ func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 		} else {
 			tp.Type = t
 		}
+		rg := &ast.Range{}
+		rg.Begin = buildIn[0].Position()
+		rg.End = buildIn[len(buildIn)-1].Position()
+		tp.Range = rg
 		typ = tp
 	}
 
@@ -640,8 +675,8 @@ func (p *parser) parseTypeQualifierSpecifierList() ast.Typename {
 
 // (('*') typeQualifierList?)+
 func (p *parser) parsePointer(inner ast.Typename) (t ast.Typename) {
-	p.next() // *
-	tt := &ast.PointerType{Inner: inner}
+	pk := p.exceptPunctuator("*")
+	tt := &ast.PointerType{Pointer: pk.Position(), Type: inner}
 	tks := p.scanTypeQualifierTok()
 	t = p.makeTypeQualifier(tt, tks)
 	for p.cur.Literal() == "*" {
@@ -713,10 +748,10 @@ func (p *parser) parseDeclarationSpecifiers() (ast.Typename, *ast.StorageSpecifi
 
 func (p *parser) markSpecifier(q *ast.StorageSpecifier, qua []token.Token) {
 	for _, t := range qua {
-		if (*q)[t.Literal()] {
+		if _, ok := (*q)[t.Literal()]; ok {
 			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeSpecifier, t.Literal())
 		}
-		(*q)[t.Literal()] = true
+		(*q)[t.Literal()] = t.Position()
 	}
 }
 
@@ -755,10 +790,10 @@ func (p *parser) markQualifier(q *ast.Qualifier, qua []token.Token) {
 		return
 	}
 	for _, t := range qua {
-		if (*q)[t.Literal()] {
+		if _, ok := (*q)[t.Literal()]; ok {
 			p.addWarn(t.Position(), errors.ErrSyntaxDuplicateTypeQualifier, t.Literal())
 		}
-		(*q)[t.Literal()] = true
+		(*q)[t.Literal()] = t.Position()
 	}
 }
 
@@ -777,7 +812,9 @@ func (p *parser) parseRecordType() *ast.RecordType {
 	}
 
 	p.env.declareRecord(r, false)
-	p.next() // {
+
+	r.Completed = true
+	r.Lbrace = p.exceptPunctuator("{").Position()
 	for p.until("}") {
 		typ := p.parseTypeQualifierSpecifierList()
 		for p.cur.Type() != token.EOF {
@@ -805,7 +842,8 @@ func (p *parser) parseRecordType() *ast.RecordType {
 		}
 		p.exceptPunctuator(";")
 	}
-	p.exceptPunctuator("}") // }
+
+	r.Rbrace = p.exceptPunctuator("}").Position() // }
 	p.env.declareRecord(r, true)
 	return r
 }
@@ -815,14 +853,14 @@ func isRecordType(typ ast.Typename) bool {
 	case *ast.RecordType:
 		return true
 	case *ast.PointerType:
-		return isRecordType(v.Inner)
+		return isRecordType(v.Type)
 	}
 	return false
 }
 
 func (p *parser) parseEnumType() *ast.EnumType {
-	p.next() // enum
-	t := &ast.EnumType{}
+	pk := p.exceptKeyword("enum")
+	t := &ast.EnumType{Enum: pk.Position()}
 	if p.cur.Type() == token.IDENT {
 		t.Name = &ast.Ident{Token: p.cur}
 		p.next()
@@ -831,7 +869,9 @@ func (p *parser) parseEnumType() *ast.EnumType {
 		return t
 	}
 	p.env.declareEnum(t, false)
-	p.next() // {
+
+	t.Lbrace = p.exceptPunctuator("{").Position()
+	t.Completed = true
 	for p.until("}") {
 		ident := p.expectIdent()
 		var expr ast.Expr
@@ -850,7 +890,8 @@ func (p *parser) parseEnumType() *ast.EnumType {
 		}
 		p.exceptPunctuator(",")
 	}
-	p.exceptPunctuator("}") // }
+
+	t.Rbrace = p.exceptPunctuator("}").Position()
 	p.env.declareEnum(t, true)
 	return t
 }
@@ -909,27 +950,32 @@ func (p *parser) parseStmt() ast.Stmt {
 	case "for":
 		return p.parseForStmt()
 	case "goto":
-		p.next() // goto
+		pk := p.exceptKeyword("goto")
 		id := p.expectIdent()
-		p.exceptPunctuator(";")
-		stmt := &ast.GotoStmt{Id: &ast.Ident{Token: id}}
+		se := p.exceptPunctuator(";")
+		stmt := &ast.GotoStmt{
+			Goto:      pk.Position(),
+			Id:        &ast.Ident{Token: id},
+			Semicolon: se.Position(),
+		}
 		p.env.tryResolveLabel(stmt.Id)
 		return stmt
 	case "break":
-		p.next() // break
-		p.exceptPunctuator(";")
-		return &ast.BreakStmt{}
+		pk := p.exceptKeyword("break")
+		se := p.exceptPunctuator(";")
+		return &ast.BreakStmt{Break: pk.Position(), Semicolon: se.Position()}
 	case "continue":
-		p.next() // continue
-		p.exceptPunctuator(";")
-		return &ast.ContinueStmt{}
+		pk := p.exceptKeyword("continue")
+		se := p.exceptPunctuator(";")
+		return &ast.ContinueStmt{Continue: pk.Position(), Semicolon: se.Position()}
 	case "return":
-		p.next() // return
-		stmt := &ast.ReturnStmt{}
+		pk := p.exceptKeyword("return")
+		stmt := &ast.ReturnStmt{Return: pk.Position()}
 		if p.cur.Literal() != ";" {
 			stmt.X = p.parseExpr()
 		}
-		p.exceptPunctuator(";")
+		se := p.exceptPunctuator(";")
+		stmt.Semicolon = se.Position()
 		return stmt
 	case "{":
 		stmt := p.parseCompoundStmt()
@@ -944,11 +990,12 @@ func (p *parser) parseStmt() ast.Stmt {
 func (p *parser) parseLabeledStmt() ast.Stmt {
 	// case const-expr:
 	if p.cur.Literal() == "case" {
-		p.next() // case
+		pk := p.exceptKeyword("case")
 		expr := p.parseConstantExpr()
 		p.exceptPunctuator(":")
 		stmt := p.parseStmt()
 		return &ast.CaseStmt{
+			Case: pk.Position(),
 			Expr: expr,
 			Stmt: stmt,
 		}
@@ -956,11 +1003,12 @@ func (p *parser) parseLabeledStmt() ast.Stmt {
 
 	// default:
 	if p.cur.Literal() == "default" {
-		p.next() // default
+		pk := p.exceptKeyword("default")
 		p.exceptPunctuator(":")
 		stmt := p.parseStmt()
 		return &ast.DefaultStmt{
-			Stmt: stmt,
+			Default: pk.Position(),
+			Stmt:    stmt,
 		}
 	}
 
@@ -980,19 +1028,20 @@ func (p *parser) parseLabeledStmt() ast.Stmt {
 }
 
 func (p *parser) parseSwitchStmt() ast.Stmt {
-	p.next() // switch
+	pk := p.exceptKeyword("switch")
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
 	p.exceptPunctuator(")")
 	stmt := p.parseStmt()
 	return &ast.SwitchStmt{
-		X:    expr,
-		Stmt: stmt,
+		Switch: pk.Position(),
+		X:      expr,
+		Stmt:   stmt,
 	}
 }
 
 func (p *parser) parseIfStmt() ast.Stmt {
-	p.next() // if
+	pk := p.exceptKeyword("if")
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
 	p.exceptPunctuator(")")
@@ -1002,6 +1051,7 @@ func (p *parser) parseIfStmt() ast.Stmt {
 		elseStmt = p.parseStmt()
 	}
 	return &ast.IfStmt{
+		If:   pk.Position(),
 		X:    expr,
 		Then: then,
 		Else: elseStmt,
@@ -1009,34 +1059,37 @@ func (p *parser) parseIfStmt() ast.Stmt {
 }
 
 func (p *parser) parseWhileStmt() ast.Stmt {
-	p.next() // switch
+	pk := p.exceptKeyword("while")
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
 	p.exceptPunctuator(")")
 	stmt := p.parseStmt()
 	return &ast.WhileStmt{
-		X:    expr,
-		Stmt: stmt,
+		While: pk.Position(),
+		X:     expr,
+		Stmt:  stmt,
 	}
 }
 
 func (p *parser) parseDoWhileStmt() ast.Stmt {
-	p.next() // do
+	pk := p.exceptKeyword("do")
 	stmt := p.parseStmt()
 	p.exceptKeyword("while")
 	p.exceptPunctuator("(")
 	expr := p.parseExpr()
 	p.exceptPunctuator(")")
-	p.exceptPunctuator(";")
+	se := p.exceptPunctuator(";")
 	return &ast.DoWhileStmt{
-		Stmt: stmt,
-		X:    expr,
+		Do:        pk.Position(),
+		Stmt:      stmt,
+		X:         expr,
+		Semicolon: se.Position(),
 	}
 }
 
 func (p *parser) parseForStmt() ast.Stmt {
-	p.next() // for
-	forStmt := &ast.ForStmt{}
+	pk := p.exceptKeyword("for")
+	forStmt := &ast.ForStmt{For: pk.Position()}
 	if p.isTypeNameTok(p.cur) {
 		forStmt.Decl = p.parseDeclStmt()
 	} else {
@@ -1059,14 +1112,16 @@ func (p *parser) parseForStmt() ast.Stmt {
 }
 
 func (p *parser) parseCompoundStmt() *ast.CompoundStmt {
-	stmts := ast.CompoundStmt{}
-	p.exceptPunctuator("{")
+	comp := ast.CompoundStmt{}
+	lb := p.exceptPunctuator("{")
 	for p.until("}") {
 		stmt := p.parseBlockItem()
-		stmts = append(stmts, stmt)
+		comp.Stmts = append(comp.Stmts, stmt)
 	}
-	p.exceptPunctuator("}")
-	return &stmts
+	rb := p.exceptPunctuator("}")
+	comp.Lbrace = lb.Position()
+	comp.Rbrace = rb.Position()
+	return &comp
 }
 
 func (p *parser) parseBlockItem() ast.Stmt {
@@ -1078,8 +1133,8 @@ func (p *parser) parseBlockItem() ast.Stmt {
 
 func (p *parser) parseExprStmt() ast.Stmt {
 	expr := p.parseExpr()
-	p.exceptPunctuator(";")
-	return &ast.ExprStmt{Expr: expr}
+	sm := p.exceptPunctuator(";")
+	return &ast.ExprStmt{Expr: expr, Semicolon: sm.Position()}
 }
 
 func (p *parser) parseExternalDecl() ast.Decl {
@@ -1093,15 +1148,16 @@ func (p *parser) parseExternalDecl() ast.Decl {
 
 func (p *parser) parseExternalDeclOrInit(inner ast.Typename, specifier *ast.StorageSpecifier, external bool) (ast.Decl, bool) {
 	isTypedef := false
-	if (*specifier)["typedef"] {
+	if _, ok := (*specifier)["typedef"]; ok {
 		isTypedef = true
 	}
 
 	typ, ident := p.parseDeclarator(inner)
 	if isTypedef {
 		decl := &ast.TypedefDecl{
-			Type: typ,
-			Name: ident,
+			Typedef: (*specifier)["typedef"],
+			Type:    typ,
+			Name:    ident,
 		}
 		p.env.declareType(decl)
 		return decl, external
@@ -1141,7 +1197,7 @@ func (p *parser) parseExternalDeclOrInit(inner ast.Typename, specifier *ast.Stor
 	decl := &ast.VarDecl{Type: typ, Name: ident}
 
 	if p.cur.Literal() == "=" {
-		p.next()
+		p.exceptPunctuator("=")
 		decl.Init = p.parseInitializer()
 	}
 

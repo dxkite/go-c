@@ -20,49 +20,56 @@ int main() {
 //    |+Name = testdata\enum-error.c
 //    |+Decl = 
 //    | |-TypedefDecl
-//    | | |+Name = color_t
-//    | | `+Type =  enum Color
+//    | | |+Typedef = testdata\enum-error.c:1:1
+//    | | |+Type =  enum Color
+//    | | `+Name = color_t
 //    | `-FuncDecl
 //    |  |+Name = main
 //    |  |+Type =  int ()
 //    |  |+Decl = 
 //    |  `+Body = CompoundStmt
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = color1
-//    |   |  |+Type =  enum Color
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = color1
-//    |   |  |+Type =  int
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = color2
-//    |   |  |+Type =  char
-//    |   |  `+Init = <nil>
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = Color
-//    |   |  |+Type =  UnknownType
-//    |   |  `+Init = <nil>
-//    |   |-ExprStmt
-//    |   | `+Expr = color2
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = Color
-//    |   |  |+Type =  int
-//    |   |  `+Init = <nil>
-//    |   |-ExprStmt
-//    |   | `+Expr = color2
-//    |   |-DeclStmt
-//    |   | `-VarDecl
-//    |   |  |+Name = Color
-//    |   |  |+Type = const int
-//    |   |  `+Init = <nil>
-//    |   `-ExprStmt
-//    |    `+Expr = color3
+//    |   |+Lbrace = testdata\enum-error.c:7:12
+//    |   |+Stmts = 
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  enum Color
+//    |   | |  |+Name = color1
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  int
+//    |   | |  |+Name = color1
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  char
+//    |   | |  |+Name = color2
+//    |   | |  `+Init = <nil>
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  UnknownType
+//    |   | |  |+Name = Color
+//    |   | |  `+Init = <nil>
+//    |   | |-ExprStmt
+//    |   | | |+Expr = color2
+//    |   | | `+Semicolon = testdata\enum-error.c:11:27
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type =  int
+//    |   | |  |+Name = Color
+//    |   | |  `+Init = <nil>
+//    |   | |-ExprStmt
+//    |   | | |+Expr = color2
+//    |   | | `+Semicolon = testdata\enum-error.c:12:27
+//    |   | |-DeclStmt
+//    |   | | `-VarDecl
+//    |   | |  |+Type = const int
+//    |   | |  |+Name = Color
+//    |   | |  `+Init = <nil>
+//    |   | `-ExprStmt
+//    |   |  |+Expr = color3
+//    |   |  `+Semicolon = testdata\enum-error.c:13:33
+//    |   `+Rbrace = testdata\enum-error.c:14:1
 //    `+Unresolved = 
 // ===========================
 //
