@@ -54,13 +54,21 @@ func dumpInterface(x interface{}) interface{} {
 	return x
 }
 
+// 最大打印深度
+const MaxPrintDepth = 256
+
 func String(x interface{}, prefix, ident string) string {
 	buf := &bytes.Buffer{}
-	printString(buf, x, prefix, "", ident)
+	printString(buf, x, prefix, "", ident, MaxPrintDepth, 0)
 	return buf.String()
 }
 
-func printString(w io.Writer, x interface{}, prefix, name, ident string) {
+func printString(w io.Writer, x interface{}, prefix, name, ident string, maxDep, dep int) {
+	if dep == maxDep {
+		_, _ = fmt.Fprint(w, prefix+name+"...\n")
+		return
+	}
+
 	t := reflect.TypeOf(x)
 	rv := reflect.ValueOf(x)
 
@@ -75,7 +83,7 @@ func printString(w io.Writer, x interface{}, prefix, name, ident string) {
 	}
 
 	if t.Kind() == reflect.Ptr {
-		printString(w, rv.Elem().Interface(), prefix, name, ident)
+		printString(w, rv.Elem().Interface(), prefix, name, ident, maxDep, dep+1)
 		return
 	}
 
@@ -85,9 +93,9 @@ func printString(w io.Writer, x interface{}, prefix, name, ident string) {
 		for i := 0; i < n; i++ {
 			f := t.Field(i)
 			if i+1 == n {
-				printString(w, rv.Field(i).Interface(), prefix+ident, "`+"+f.Name+" = ", ident)
+				printString(w, rv.Field(i).Interface(), prefix+ident, "`+"+f.Name+" = ", ident, maxDep, dep+1)
 			} else {
-				printString(w, rv.Field(i).Interface(), prefix+ident+"|", "+"+f.Name+" = ", ident)
+				printString(w, rv.Field(i).Interface(), prefix+ident+"|", "+"+f.Name+" = ", ident, maxDep, dep+1)
 			}
 		}
 		return
@@ -98,9 +106,9 @@ func printString(w io.Writer, x interface{}, prefix, name, ident string) {
 		_, _ = fmt.Fprint(w, prefix+name+t.Name()+"\n")
 		for i := 0; i < n; i++ {
 			if i+1 == n {
-				printString(w, rv.Index(i).Interface(), prefix+ident, "`-", ident)
+				printString(w, rv.Index(i).Interface(), prefix+ident, "`-", ident, maxDep, dep+1)
 			} else {
-				printString(w, rv.Index(i).Interface(), prefix+ident+"|", "-", ident)
+				printString(w, rv.Index(i).Interface(), prefix+ident+"|", "-", ident, maxDep, dep+1)
 			}
 		}
 		return
